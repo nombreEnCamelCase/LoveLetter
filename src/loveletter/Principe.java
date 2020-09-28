@@ -1,9 +1,10 @@
 package loveletter;
 
-public abstract class Principe extends Carta {
+public class Principe extends Carta {
 
-	public boolean efecto() {
-		return false;
+	@Override
+	public Carta efecto() {
+		return this;
 		
 	}
 }

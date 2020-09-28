@@ -2,10 +2,18 @@ package loveletter;
 
 public abstract class Carta {
 
-	private int fuerza;
-	private String efecto; //seguramente sea otro tipo
-	private String nombre;
+	int fuerza;
+	String efecto; //seguramente sea otro tipo
+	String nombre;
 	
-	public abstract boolean efecto();//seria llamado por cada carta y 
+	public abstract Carta efecto();//seria llamado por cada carta y 
 	///traer el efecto de esa carta llamadora
+	
+	public int getFuerza() {
+		return fuerza;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 }
