@@ -7,4 +7,4 @@ public class Mucama extends Carta {
 		return this;
 		
 	}
-}
+} 
