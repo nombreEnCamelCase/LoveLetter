@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 public class Mazo {
 	
+	// Ver si directamente podemos usar una pila.
 	private List<Carta> cartas = new LinkedList<Carta>();
 	
 	public Mazo() {

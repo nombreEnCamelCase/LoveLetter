@@ -18,7 +18,10 @@ public class Jugador {
 	
 	private List<Carta> mano = new LinkedList<Carta>();
 	
-	
+	public Jugador(String nombre) {
+		this.nombre = nombre;
+		this.puntaje=0;
+	}
 	
 	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles) {
 		Carta cartaJugada = jugarCartaRandom();
@@ -34,6 +37,7 @@ public class Jugador {
 	}
 	
 	private Jugador seleccionarVictima(ArrayList<Jugador> jugadoresDisponibles) {
+		// Accion de jugador al elegir una carta.
 		return seleccionarVictimaRandom(jugadoresDisponibles);
 	}
 	
@@ -57,7 +61,8 @@ public class Jugador {
 	}
 	
 	public void preparacionInicial(Carta carta) {
-		prepararseParaJugar();
+		//prepararseParaJugar(); // Xq ya esta en estado espera al crearse.
+		this.puntaje = 0;
 		recibirCarta(carta);
 	}
 	
