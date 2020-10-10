@@ -28,9 +28,9 @@ public class Jugador {
 		Carta cartaJugada = jugarCartaRandom();
 		
 		if(cartaJugada.requiereVictima()) // Si el efecto de la carta seleccionada por el jugador requiere victima
-			cartaJugada.efecto(seleccionarVictima(jugadoresDisponibles)); // Selecciono victima y se la mando al efecto de la carta.
+			cartaJugada.aplicarEfectoAJugador(seleccionarVictima(jugadoresDisponibles)); // Selecciono victima y se la mando al efecto de la carta.
 		else
-			cartaJugada.efecto(this); // Si no requiere victima, soy yo el objetivo.
+			cartaJugada.aplicarEfectoAJugador(this); // Si no requiere victima, soy yo el objetivo.
 		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
 		this.estadoActual.terminarTurno();
 		
@@ -76,17 +76,13 @@ public class Jugador {
 	}
 	
 	public Carta descartarCarta() {// Sin efecto.
-		 Carta cartaDescartada = this.mano.descartarCartaRandom();
+		 Carta cartaDescartada = this.mano.removerCarta();
 		return cartaDescartada;
 	}
 	
 	// El tema esta en que si efecto de carta debe decirle al jugador cuando agarrar del mazo, el efecto deberia conocer el mazo para
 	// que el pueda retirar y darle una carta.
 	
-	
-	
-	// El jugador no descarta voluntariamente sino que es el efecto de una carta.
-	// Lo que me hace ruido es que el jugador es propietario de la mano, y deberia realizar la accion de descartar una carta el mismo.
 	
 
 }

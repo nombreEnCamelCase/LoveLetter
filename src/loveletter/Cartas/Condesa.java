@@ -6,7 +6,7 @@ import loveletter.Jugador;
 public class Condesa extends Carta {
 
 	@Override
-	public Carta efecto(Jugador jugador) {
+	public Carta aplicarEfectoAJugador(Jugador jugador) {
 		return this;
 	}
 	

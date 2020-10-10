@@ -23,7 +23,7 @@ public class Ronda {
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
 		
 		// Mientras existan cartas en el mazo
-		while(mazo.consultarCantidad()>0 && !hayGanador()) {
+		while(mazo.consultarCantidad()>0 && buscarGanadorDeRonda()==null) {
 			// Recorro jugador por jugador
 			for (int i = 0; i < this.jugadores.size(); i ++) {
 				// Al turno de la ronda lo creo y lo agrego a la lista.
@@ -68,7 +68,7 @@ public class Ronda {
 	
 	private Jugador buscarGanadorDeRonda() {
 		// Rechequear todos los jugadores a ver si existe solo uno en espera.
-		return false;
+		return null;
 	}
 	
 	private int retornarCantidadJugadoresDisponibles() {

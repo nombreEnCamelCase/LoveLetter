@@ -5,8 +5,8 @@ public abstract class Carta {
 	protected int fuerza;
 	protected String nombre;
 	
-	public abstract Carta efecto(Jugador victima);
-	public abstract boolean requiereVictima();
+	protected abstract Carta aplicarEfectoAJugador(Jugador victima);
+	protected abstract boolean requiereVictima();
 	//seria llamado por cada carta y 
 	///traer el efecto de esa carta llamadora
 	

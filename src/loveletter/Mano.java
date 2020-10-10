@@ -11,8 +11,7 @@ public class Mano {
 		return jugarCartaRandom();
 	}
 
-	public Carta removerCarta(Carta carta) {
-		// TODO Auto-generated method stub
+	public Carta removerCarta() {
 		return descartarCartaRandom();
 	}
 	
@@ -35,9 +34,9 @@ public class Mano {
 
 	private Carta jugarCartaRandom(){
 		try {
-			Iterator<Carta> iter = this.mano.iterator();
+			Iterator<Carta> iter = this.cartasEnMano.iterator();
 			Carta cartaObtenida = iter.next();
-			this.mano.remove(cartaObtenida);
+			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		}catch(Exception e) {
 			System.out.println("Fallo al retirar carta");
