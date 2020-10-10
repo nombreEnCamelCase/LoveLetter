@@ -28,13 +28,21 @@ public class Ronda {
 			for (int i = 0; i < this.jugadores.size(); i ++) {
 				// Al turno de la ronda lo creo y lo agrego a la lista.
 				// Le agrego el jugador.
-				
-				Turno turnoActual = new Turno(jugadores.get(i));
+				Jugador jugadorActual = jugadores.get(i);
+				Turno turnoActual = new Turno(jugadorActual);
 				if(turnoActual.jugadorPuedeJugar()) {
 					// Al jugador se le da una carta.
-					jugadores.get(i).recibirCarta(mazo.retirarCarta());
+					///jugadores.get(i).recibirCarta(mazo.retirarCarta());
+					
+					
 					// El jugador juega una carta de su mano.
-					Carta cartaJugada = jugadores.get(i).realizarJugada(this.jugadores);
+					// Ver como pasar todos los jugadores que no sean yo.
+					Carta cartaJugada = null;
+					if((cartaJugada = jugadorActual.getMano().agregarCarta(mazo)).getNombre() == "Condesa")
+						cartaJugada.aplicarEfectoAJugador(jugadorActual, null);
+					else
+						cartaJugada = jugadores.get(i).realizarJugada(this.jugadores);
+					
 					//cartaJugada.efecto(Jugadores); // Suponte que le mando la lista de jugadores para que el efecto conosca
 					// todos los jugadores disponibles para aplicar el efecto... 
 					// La decision de elegir la victima deberia estar en el jugador, por ende creo que el efecto debe ser llamado dentro
@@ -62,7 +70,7 @@ public class Ronda {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for(Jugador jugador : this.jugadores) {
-			jugador.preparacionInicial(this.mazo.retirarCarta());
+			jugador.preparacionInicial(this.mazo);
 		}
 	}
 	

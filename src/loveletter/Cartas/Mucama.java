@@ -5,13 +5,24 @@ import loveletter.Jugador;
 
 public class Mucama extends Carta {
 
+	public Mucama() {
+		this.fuerza = 4;
+		this.nombre="Mucama";
+	}
+	
+	
 	@Override
-	public Carta aplicarEfectoAJugador(Jugador jugador) {
-		return this;
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+		accionador.getEstadoActual().obtenerInmunidad();
 	}
 	
 	@Override
 	public boolean requiereVictima() {
+		return false;
+	}
+	
+	@Override
+	public boolean requiereJugadorAccionador() {
 		return false;
 	}
 }
