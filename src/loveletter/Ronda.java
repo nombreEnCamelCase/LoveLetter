@@ -15,7 +15,6 @@ public class Ronda {
 	public Ronda(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
 		this.mazo = new Mazo();
-		
 	}
 	
 	// Hay que manejar mejor esto porqeu solo termina cuando no quedan cartas, hay que rechequear estados de los demas jugadores
@@ -67,7 +66,7 @@ public class Ronda {
 		}
 	}
 	
-	private boolean hayGanador() {
+	private Jugador buscarGanadorDeRonda() {
 		// Rechequear todos los jugadores a ver si existe solo uno en espera.
 		return false;
 	}

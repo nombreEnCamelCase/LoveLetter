@@ -16,11 +16,12 @@ public class Jugador {
 	
 	private Estado estadoActual = new EnEspera();
 	
-	private List<Carta> mano = new LinkedList<Carta>();
+	Mano mano;
 	
 	public Jugador(String nombre) {
 		this.nombre = nombre;
 		this.puntaje=0;
+		mano = new Mano();
 	}
 	
 	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles) {
@@ -61,47 +62,28 @@ public class Jugador {
 	}
 	
 	public void preparacionInicial(Carta carta) {
-		//prepararseParaJugar(); // Xq ya esta en estado espera al crearse.
 		this.puntaje = 0;
 		recibirCarta(carta);
 	}
 	
 	// Simula seleccion del usuario
 	private Carta jugarCartaRandom() {
-		try {
-			Iterator<Carta> iter = this.mano.iterator();
-			Carta cartaObtenida = iter.next();
-			this.mano.remove(cartaObtenida);
-			return cartaObtenida;
-		}catch(Exception e) {
-			System.out.println("Fallo al retirar carta");
-		}
-		return null;
+		return this.mano.jugarCarta();
 	}
 	
 	public void recibirCarta(Carta carta) {
-		this.mano.add(carta);
+		this.mano.agregarCarta(carta);
 	}
 	
 	public Carta descartarCarta() {// Sin efecto.
-		Carta cartaDescartada = descartarCartaRandom();
+		 Carta cartaDescartada = this.mano.descartarCartaRandom();
 		return cartaDescartada;
 	}
 	
 	// El tema esta en que si efecto de carta debe decirle al jugador cuando agarrar del mazo, el efecto deberia conocer el mazo para
 	// que el pueda retirar y darle una carta.
 	
-	private Carta descartarCartaRandom() {
-		try {
-			Iterator<Carta> iter = this.mano.iterator();
-			Carta cartaObtenida = iter.next();
-			this.mano.remove(cartaObtenida);
-			return cartaObtenida;
-		}catch(Exception e) {
-			System.out.println("Fallo al retirar carta");
-		}
-		return null;
-	}
+	
 	
 	// El jugador no descarta voluntariamente sino que es el efecto de una carta.
 	// Lo que me hace ruido es que el jugador es propietario de la mano, y deberia realizar la accion de descartar una carta el mismo.
