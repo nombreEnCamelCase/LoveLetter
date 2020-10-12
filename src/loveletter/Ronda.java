@@ -34,14 +34,13 @@ public class Ronda {
 					// Al jugador se le da una carta.
 					///jugadores.get(i).recibirCarta(mazo.retirarCarta());
 					
-					
 					// El jugador juega una carta de su mano.
 					// Ver como pasar todos los jugadores que no sean yo.
 					Carta cartaJugada = null;
-					if((cartaJugada = jugadorActual.getMano().agregarCarta(mazo)).getNombre() == "Condesa")
+					if((cartaJugada = jugadorActual.getMano().tomarCarta(this.mazo)).getNombre() == "Condesa")
 						cartaJugada.aplicarEfectoAJugador(jugadorActual, null);
 					else
-						cartaJugada = jugadores.get(i).realizarJugada(this.jugadores);
+						cartaJugada = jugadorActual.realizarJugada(this.jugadores);
 					
 					//cartaJugada.efecto(Jugadores); // Suponte que le mando la lista de jugadores para que el efecto conosca
 					// todos los jugadores disponibles para aplicar el efecto... 
@@ -70,7 +69,7 @@ public class Ronda {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for(Jugador jugador : this.jugadores) {
-			jugador.preparacionInicial(this.mazo);
+			jugador.getMano().tomarCarta(this.mazo);
 		}
 	}
 	

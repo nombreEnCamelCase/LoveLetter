@@ -8,6 +8,7 @@ public class Partida {
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
 	private Ronda rondaActual;
+	// Manejar los puntajes por aca.
 	public Partida() {
 		
 	}

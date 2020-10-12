@@ -12,7 +12,6 @@ public class Jugador {
 	
 	private String nombre;
 	
-	private int puntaje; //simbolo de afecto
 	
 	private Estado estadoActual = new EnEspera();
 	
@@ -20,10 +19,10 @@ public class Jugador {
 	
 	public Jugador(String nombre) {
 		this.nombre = nombre;
-		this.puntaje=0;
 		mano = new Mano();
 	}
 	
+	// Es un realizar turno.
 	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles) {
 		Carta cartaJugada = jugarCartaRandom();
 		if(cartaJugada.requiereVictima()) // Si el efecto de la carta seleccionada por el jugador requiere victima
@@ -75,13 +74,13 @@ public class Jugador {
 	}
 	
 	public void preparacionInicial(Mazo mazo) {
-		this.puntaje = 0;
-		this.mano.agregarCarta(mazo);
+		this.mano.tomarCarta(mazo);
 		//recibirCarta(carta);
 	}
 	
 	// Simula seleccion del usuario
 	private Carta jugarCartaRandom() {
+		
 		return this.mano.jugarCarta(null);
 	}
 	

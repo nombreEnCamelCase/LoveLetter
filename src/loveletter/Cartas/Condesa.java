@@ -11,7 +11,7 @@ public class Condesa extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
-		if(accionador.getMano().getCartaActual().getNombre() == "Rey" || accionador.getMano().getCartaActual().getNombre() == "Principe")
+		if(accionador.getMano().getCartaActual().getClass() == Rey.class || accionador.getMano().getCartaActual().getClass() == Principe.class)
 			accionador.getMano().jugarCarta(this);
 	}
 	

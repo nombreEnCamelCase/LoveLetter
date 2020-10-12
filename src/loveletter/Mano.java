@@ -17,7 +17,7 @@ public class Mano {
 		return descartarCartaRandom();
 	}
 
-	public Carta agregarCarta(Mazo mazo) {
+	public Carta tomarCarta(Mazo mazo) {
 		Carta cartaAgregada = mazo.retirarCarta();
 		this.cartasEnMano.add(cartaAgregada);
 		return cartaAgregada;
