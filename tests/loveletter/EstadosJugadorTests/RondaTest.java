@@ -1,4 +1,4 @@
-package loveletter;
+package loveletter.EstadosJugadorTests;
 
 
 import static org.junit.Assert.*;
