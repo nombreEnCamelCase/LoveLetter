@@ -3,12 +3,9 @@ package loveletter.CartasTests;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import loveletter.Carta;
 import loveletter.Jugador;
-import loveletter.Mazo;
 import loveletter.Cartas.Baron;
 import loveletter.Cartas.Condesa;
 import loveletter.Cartas.Guardia;
