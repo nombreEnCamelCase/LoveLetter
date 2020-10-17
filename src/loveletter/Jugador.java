@@ -29,7 +29,7 @@ public class Jugador {
 		if(cartaJugada.requiereVictima()) // Si el efecto de la carta seleccionada por el jugador requiere victima
 			cartaJugada.aplicarEfectoAJugador(this,seleccionarVictima(jugadoresDisponibles, cartaJugada.requiereJugadorAccionador())); // Selecciono victima y se la mando al efecto de la carta.
 		else
-			cartaJugada.aplicarEfectoAJugador(this,null); // Si no requiere victima, soy yo el objetivo.
+			cartaJugada.aplicarEfectoAJugador(this,this); // Si no requiere victima, soy yo el objetivo.
 		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
 		this.estadoActual.terminarTurno();
 		
@@ -68,7 +68,6 @@ public class Jugador {
 		this.estadoActual = estadoActual;
 	}
 	
-	
 	public Mano getMano() {
 		return this.mano;
 	}
@@ -80,7 +79,6 @@ public class Jugador {
 	public String getNombre() {
 		return this.nombre;
 	}
-	
 	
 	public void prepararseParaJugar() {
 		estadoActual = this.estadoActual.comenzarTurno();
@@ -97,9 +95,6 @@ public class Jugador {
 		return this.mano.jugarCarta(null);
 	}
 	
-//	public void recibirCarta(Carta carta) {
-//		this.mano.agregarCarta(carta);
-//	}
 
 	public Carta descartarCarta() {// Sin efecto.
 		 Carta cartaDescartada = this.mano.descartarCarta();

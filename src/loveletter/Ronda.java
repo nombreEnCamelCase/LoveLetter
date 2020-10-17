@@ -1,86 +1,115 @@
 package loveletter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import loveletter.Cartas.Condesa;
+import loveletter.EstadosJugador.EnEspera;
+import loveletter.EstadosJugador.Inmune;
 
 public class Ronda {
-	
+	// Esta clase se comportaria como un game manager.
 	private Mazo mazo;
-	// Esta lista de turnosRealizados la uso como historial y para chequear si es posible ejecutar algo en el turno.
+
+	// Esta lista de turnosRealizados la uso como historial y para chequear si es
+	// posible ejecutar algo en el turno.
 	// Cosa de poder mostrar en orden las cartas jugadas.
-	private List<Turno> turnosRealizados = new LinkedList<Turno>(); 
-	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-	
+
+	private Tablero tableroActual = new Tablero();
+	// Es otra lista propia de ronda.
+	private ArrayList<Jugador> jugadoresEnJuego = new ArrayList<Jugador>();
+	private Jugador ganadorDeRonda = null;
+
 	public Ronda(ArrayList<Jugador> jugadores) {
-		this.jugadores = jugadores;
+		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
 	}
-	
-	// Hay que manejar mejor esto porqeu solo termina cuando no quedan cartas, hay que rechequear estados de los demas jugadores
-	public void comenzar() {
-		mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
+
+	public Jugador comenzar() {
+		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
-		
+
 		// Mientras existan cartas en el mazo
-		while(mazo.consultarCantidad()>0 && buscarGanadorDeRonda()==null) {
+		while (!(existeGanadorDeRonda())) {
 			// Recorro jugador por jugador
-			for (int i = 0; i < this.jugadores.size(); i ++) {
+			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
 				// Al turno de la ronda lo creo y lo agrego a la lista.
 				// Le agrego el jugador.
-				Jugador jugadorActual = jugadores.get(i);
+				Jugador jugadorActual = jugadoresEnJuego.get(i);
 				Turno turnoActual = new Turno(jugadorActual);
-				if(turnoActual.jugadorPuedeJugar()) {
-					// Al jugador se le da una carta.
-					///jugadores.get(i).recibirCarta(mazo.retirarCarta());
+				
+				if (jugadorPuedeJugar(jugadorActual)) {
 					
+					jugadorActual.prepararseParaJugar();
 					
-					// El jugador juega una carta de su mano.
-					// Ver como pasar todos los jugadores que no sean yo.
-					Carta cartaJugada = null;
-					if((cartaJugada = jugadorActual.getMano().agregarCarta(mazo)).getNombre() == "Condesa")
-						cartaJugada.aplicarEfectoAJugador(jugadorActual, null);
+					Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
+					
+					if (jugadorPoseeCondesa(jugadorActual))
+						(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual);
 					else
-						cartaJugada = jugadores.get(i).realizarJugada(this.jugadores);
-					
-					//cartaJugada.efecto(Jugadores); // Suponte que le mando la lista de jugadores para que el efecto conosca
-					// todos los jugadores disponibles para aplicar el efecto... 
-					// La decision de elegir la victima deberia estar en el jugador, por ende creo que el efecto debe ser llamado dentro
-					// del jugador.
-					
-				}
-				this.turnosRealizados.add(turnoActual);
-				
-				
-				// Quiza, podriamos decir que la partida una vez arrancada, ya tiene designados los turnos correspondientes a cada jugador.
-				// El hecho de que pierda alguno, es indiferente ya que el turno chequeara el estado del jugador en un determinado momento que se ejecute.
-				// Y si el estado es viable, hara lo necesairo.
-				// El jugador tiene 2 estados para chequear mientras ejecuta el turno, y dos para recibir un ataque/efecto
-				//Turno fuera de juego y en juego, y ataque inmune y en juego.
-			}
-			
-			// Luego de una vuelta de turnos, debo rechequear los estados de los jugadores.
-			// Se hace arriba en el metodo privado hayGanador.
-			
-		}
+						cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego);
 
+					this.tableroActual.addTurnoPasado(turnoActual);
+				}
+				
+			}
+		}
+		return ganadorDeRonda;
 	}
-	
+
 	private void prepararJugadores() {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
-		for(Jugador jugador : this.jugadores) {
+		for (Jugador jugador : this.jugadoresEnJuego) {
 			jugador.preparacionInicial(this.mazo);
 		}
 	}
-	
-	private Jugador buscarGanadorDeRonda() {
-		// Rechequear todos los jugadores a ver si existe solo uno en espera.
-		return null;
+
+	private boolean existeGanadorDeRonda() {
+
+		if (this.mazo.consultarCantidad() == 0) {
+			// Logica para devolver el ganadorDeRonda con la carta mas fuerte.
+
+			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
+				if (i == 0 || jugadoresEnJuego.get(i).getMano().obtenerMayorFuerza() > ganadorDeRonda.getMano()
+						.obtenerMayorFuerza())
+					ganadorDeRonda = jugadoresEnJuego.get(i);
+			}
+
+		} else {
+			// Logica para recorrer los jugadores en juego y retirar los que perdieron.
+			// Con esto creo un array auxiliar que voy llenando solo con los jugadores que
+			// tienen un estado habilitado para jugar.
+
+			ArrayList<Jugador> soloEnJuego = new ArrayList<Jugador>();
+			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
+				if (jugadorPuedeJugar(jugadoresEnJuego.get(i)))
+					soloEnJuego.add(jugadoresEnJuego.get(i));
+			}
+
+			// Si solo agregue a uno, tenemos ganadorDeRonda.
+			if (soloEnJuego.size() == 1)
+				ganadorDeRonda = soloEnJuego.get(0);
+			else
+				this.jugadoresEnJuego = soloEnJuego;
+		}
+		return ganadorDeRonda != null;
 	}
-	
-	private int retornarCantidadJugadoresDisponibles() {
-		// Todo: hacer la logica para devolver solo los jugadores disponibles y no el total.
-		return this.jugadores.size();
+
+	private boolean jugadorPuedeJugar(Jugador actual) {
+		// Aca se verifica si el jugador NO ESTA FUERA DE PARTIDA, lo pasamos estado EN
+		// JUEGO y lo dejamos ejecutar su turno.
+		if (actual.getEstadoActual().equals(new EnEspera()) || actual.getEstadoActual().equals(new Inmune())) {
+			// Lo dejo ejecutar el turno.
+			return true;
+		}
+		return false;
+	}
+
+	private boolean jugadorPoseeCondesa(Jugador jugador) {
+		return jugador.getMano().tengoCiertaCarta(new Condesa());
 	}
 }

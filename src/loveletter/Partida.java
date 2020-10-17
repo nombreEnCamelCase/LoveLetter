@@ -1,32 +1,87 @@
 package loveletter;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Partida {
 
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+	private Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
 	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
+	private int puntajeganadorDePartida;
 	private Ronda rondaActual;
+	private Jugador ganadorDePartida=null;
+
 	public Partida() {
+
+		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
+		// harcodeamos aca.
+		Jugador jugador1 = new Jugador("Maty");
+		Jugador jugador2 = new Jugador("Maty");
+		Jugador jugador3 = new Jugador("Maty");
+		Jugador jugador4 = new Jugador("Maty");
 		
+		jugadores.add(jugador1);
+		jugadores.add(jugador2);
+		jugadores.add(jugador3);
+		jugadores.add(jugador4);
+
+		// Creamos una "Tabla de puntajes"
+		tablaPuntaje.put(jugador1, 0);
+		tablaPuntaje.put(jugador2, 0);
+		tablaPuntaje.put(jugador3, 0);
+		tablaPuntaje.put(jugador4, 0);
+		puntajeganadorDePartida = 5;
 	}
-	
+
 	public void comenzarJuego() {
 		// Chequea que exista la cantidad minima de jugadores.
-		if(this.jugadores.size()>1)
-			this.rondaActual = new Ronda(this.jugadores); // Agrega los jugadores de la partida a ronda actual.
-		else
-			System.out.println("No se puede iniciar");
+		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
+			
+			// TODO Fijarse si 
+			if (this.jugadores.size() > 1)
+				this.rondaActual = new Ronda(this.jugadores); // Agrega los jugadores de la partida a ronda actual.
+			else
+				System.out.println("No se puede iniciar");
+
+			sumarPuntaje(this.rondaActual.comenzar());
+		}
 		
-		this.rondaActual.comenzar();
+		mostrarPremio();
+	}
+
+	// De alguna manera, partida se deberia enterar cuando ronda termina, y asi
+	// agregarla a la lista de rondas pasadas.
+	// Sirve rondas pasadas? Podria chequiar si existe algun jugador con mas de 5
+	// simbolos y sino vuelvo a crear otra ronda.
+
+	private Jugador buscarganadorDePartidaDePartida() {
+
+		Map.Entry<Jugador, Integer> maxEntry = null;
+
+		 // Trae el VALOR MAXIMO DE PUNTAJE de un jugador de la tabla.
+		for (Map.Entry<Jugador, Integer> entry : tablaPuntaje.entrySet()) {
+			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+				maxEntry = entry;
+			}
+		}
+
+		if (this.puntajeganadorDePartida == maxEntry.getValue())
+			return maxEntry.getKey();
+		return null;
+	}
+
+	private void sumarPuntaje(Jugador ganadorDePartidaDeRonda) {
+		// Busco al ganadorDePartida de ronda en la tabla y le incremento 1;
+		tablaPuntaje.computeIfPresent(ganadorDePartidaDeRonda, (k, v) -> v + 1);
 	}
 	
-	// De alguna manera, partida se deberia enterar cuando ronda termina, y asi agregarla a la lista de rondas pasadas.
-	// Sirve rondas pasadas? Podria chequiar si existe algun jugador con mas de 5 simbolos y sino vuelvo a crear otra ronda.
-	
-	public Jugador buscarGanadorDePartida() {
-		// To do buscar entre todos los jugadores de la ronda y ver si alguno llego al limite de los puntos necesarios para ganar.
-		return jugadores.get(0);
+	private void mostrarPremio() {
+		// Hacer algo con el this.ganadorDePartida;
 	}
+
 }

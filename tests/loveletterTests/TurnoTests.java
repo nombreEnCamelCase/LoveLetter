@@ -18,15 +18,4 @@ public class TurnoTests {
 		turno = new  Turno(jugador);
 	}
 	
-	@Test
-	public void puedeJugarTest() {
-		assertTrue(turno.jugadorPuedeJugar());
-	}
-	
-	@Test
-	public void noPuedeJugarTest() {
-		jugador.setEstadoActual(jugador.getEstadoActual().perderRonda());
-		assertFalse(turno.jugadorPuedeJugar());
-	}
-	
 }

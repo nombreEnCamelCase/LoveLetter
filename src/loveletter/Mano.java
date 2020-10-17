@@ -38,6 +38,24 @@ public class Mano {
 	public Carta getCartaActual() {
 		return this.cartasEnMano.get(0);
 	}
+	
+	public boolean tengoCiertaCarta(Carta carta) {
+		for(Carta cart : this.cartasEnMano) {
+			if(cart.equals(carta))
+				return true;
+		}
+		return false;
+	}
+	
+	public int obtenerMayorFuerza() {
+		int max=0;
+		for(Carta cart : this.cartasEnMano) {
+			if(max<cart.getFuerza())
+				max=cart.getFuerza();
+				
+		}
+		return max;
+	}
 
 	///el programa deberia dejarnos elegir cual de las dos cartas en mano
 	///podemos tirar, de manera grafica. por ahora lo hicimos random
