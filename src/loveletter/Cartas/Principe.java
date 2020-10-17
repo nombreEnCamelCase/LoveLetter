@@ -20,7 +20,6 @@ public class Principe extends Carta {
 		// El mazo vive en ronda.
 	}
 	
-	
 	@Override
 	public boolean requiereVictima() {
 		return true;
