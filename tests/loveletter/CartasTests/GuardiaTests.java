@@ -2,6 +2,7 @@ package loveletter.CartasTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import loveletter.Jugador;
 import loveletter.Cartas.Guardia;
 
