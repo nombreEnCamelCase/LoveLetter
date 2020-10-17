@@ -22,10 +22,11 @@ public class Baron extends Carta {
 		accionador.verCartasDeMano(objetivo.getMano());
 		objetivo.verCartasDeMano(accionador.getMano());
 		
-		if(fuerzaAccionador > fuerzaObjetivo)
-			objetivo.getEstadoActual().perderRonda();
+		if(fuerzaAccionador > fuerzaObjetivo) {
+			objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
+		}
 		else if(fuerzaAccionador < fuerzaObjetivo)
-			accionador.getEstadoActual().perderRonda();
+			accionador.setEstadoActual(accionador.getEstadoActual().perderRonda());
 		
 		//Empate si igualan fuerzas.
 		// Falta mostrar las cartas a cada jugador.

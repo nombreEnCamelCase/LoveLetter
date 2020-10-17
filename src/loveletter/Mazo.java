@@ -34,6 +34,10 @@ public class Mazo {
 		this.cartas.add(new Princesa());
 	}
 	
+	public LinkedList<Carta> getMazo() {
+		return (LinkedList<Carta>) this.cartas;
+	}
+	
 	public void prepararParaJuego() {
 		// Preparar el mazo significa eliminar una carta random del mazo.
 		this.cartas.remove(new Random().nextInt(16));

@@ -16,6 +16,9 @@ public class Mano {
 		cartasEnMano.add(carta);
 	}
 
+	public void setManoConCartas(Carta carta) {
+		cartasEnMano.add(carta);
+	}
 	public Carta jugarCarta(Carta carta) {
 		if (carta == null)
 			return jugarCartaRandom();
@@ -36,6 +39,8 @@ public class Mano {
 		return this.cartasEnMano.get(0);
 	}
 
+	///el programa deberia dejarnos elegir cual de las dos cartas en mano
+	///podemos tirar, de manera grafica. por ahora lo hicimos random
 	private Carta descartarCartaRandom() {
 		try {
 			Iterator<Carta> iter = this.cartasEnMano.iterator();

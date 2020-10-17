@@ -73,6 +73,14 @@ public class Jugador {
 		return this.mano;
 	}
 	
+	public int getPuntaje() {
+		return this.puntaje;
+	}
+	
+	public String getNombre() {
+		return this.nombre;
+	}
+	
 	
 	public void prepararseParaJugar() {
 		estadoActual = this.estadoActual.comenzarTurno();
