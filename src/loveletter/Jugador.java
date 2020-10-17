@@ -64,6 +64,10 @@ public class Jugador {
 		return this.estadoActual;
 	}
 	
+	public void setEstadoActual(Estado estadoActual) {
+		this.estadoActual = estadoActual;
+	}
+	
 	
 	public Mano getMano() {
 		return this.mano;
@@ -71,7 +75,7 @@ public class Jugador {
 	
 	
 	public void prepararseParaJugar() {
-		this.estadoActual.comenzarTurno();
+		estadoActual = this.estadoActual.comenzarTurno();
 	}
 	
 	public void preparacionInicial(Mazo mazo) {
@@ -102,8 +106,18 @@ public class Jugador {
 		 this.mano = manoContrincante;
 	}
 	
+	
+	
 	// El tema esta en que si efecto de carta debe decirle al jugador cuando agarrar del mazo, el efecto deberia conocer el mazo para
 	// que el pueda retirar y darle una carta.
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

@@ -6,6 +6,15 @@ import java.util.List;
 
 public class Mano {
 	private List<Carta> cartasEnMano = new LinkedList<Carta>();
+	
+	
+	public Mano() {
+		
+	}
+	
+	public Mano(Carta carta) {
+		cartasEnMano.add(carta);
+	}
 
 	public Carta jugarCarta(Carta carta) {
 		if (carta == null)

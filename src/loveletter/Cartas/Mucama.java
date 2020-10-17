@@ -2,6 +2,7 @@ package loveletter.Cartas;
 
 import loveletter.Carta;
 import loveletter.Jugador;
+import loveletter.EstadosJugador.Inmune;
 
 public class Mucama extends Carta {
 
@@ -10,10 +11,10 @@ public class Mucama extends Carta {
 		this.nombre="Mucama";
 	}
 	
-	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
-		accionador.getEstadoActual().obtenerInmunidad();
+		//accionador.getEstadoActual().obtenerInmunidad();
+		accionador.setEstadoActual(accionador.getEstadoActual().obtenerInmunidad());
 	}
 	
 	@Override
