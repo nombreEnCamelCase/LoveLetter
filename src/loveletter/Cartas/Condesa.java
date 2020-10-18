@@ -14,7 +14,7 @@ public class Condesa extends Carta {
 //		if(accionador.getMano().getCartaActual().getNombre() == "Rey" || accionador.getMano().getCartaActual().getNombre() == "Principe")
 //			accionador.getMano().jugarCarta(this);
 		
-		if(accionador.getMano().tengoCiertaCarta(new Rey())| accionador.getMano().tengoCiertaCarta(new Principe()))
+		if(accionador.getMano().tengoCiertaCarta(new Rey())|| accionador.getMano().tengoCiertaCarta(new Principe()))
 			accionador.getMano().jugarCarta(this);
 	}
 	

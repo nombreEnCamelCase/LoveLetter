@@ -21,7 +21,7 @@ public class Jugador {
 	public Jugador(String nombre) {
 		this.nombre = nombre;
 		this.puntaje=0;
-		mano = new Mano();
+		mano = new Mano(); 
 	}
 	
 	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles) {
