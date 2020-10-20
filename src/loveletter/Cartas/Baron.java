@@ -4,6 +4,7 @@ import java.util.List;
 
 import loveletter.Carta;
 import loveletter.Jugador;
+import loveletter.Mazo;
 
 public class Baron extends Carta {
 	
@@ -12,9 +13,9 @@ public class Baron extends Carta {
 		this.fuerza = 3;
 		this.nombre="Baron";
 	}
-	
+
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		int fuerzaAccionador = accionador.getMano().getCartaActual().getFuerza(),
 			fuerzaObjetivo = objetivo.getMano().getCartaActual().getFuerza();
 		

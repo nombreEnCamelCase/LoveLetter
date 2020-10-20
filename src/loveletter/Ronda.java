@@ -48,9 +48,9 @@ public class Ronda {
 					Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
 					
 					if (jugadorPoseeCondesa(jugadorActual))
-						(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual);
+						(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, mazo);
 					else
-						cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego);
+						cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, mazo);
 
 					this.tableroActual.addTurnoPasado(turnoActual);
 				}
