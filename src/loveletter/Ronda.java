@@ -49,9 +49,9 @@ public class Ronda {
 					Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
 					if (!(existeGanador = !quedanCartasEnMazo())) {
 						if (jugadorPoseeCondesa(jugadorActual))
-							(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual);
+							(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual,mazo);
 						else
-							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego);
+							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego,mazo);
 
 						this.tableroActual.addTurnoPasado(turnoActual);
 						existeGanador = quedaUnSoloJugador();

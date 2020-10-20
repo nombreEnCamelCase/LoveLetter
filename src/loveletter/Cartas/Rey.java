@@ -3,6 +3,7 @@ package loveletter.Cartas;
 import loveletter.Carta;
 import loveletter.Jugador;
 import loveletter.Mano;
+import loveletter.Mazo;
 
 public class Rey extends Carta {
 
@@ -12,7 +13,7 @@ public class Rey extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		Mano aux = accionador.getMano();
 		
 		// Intercambio

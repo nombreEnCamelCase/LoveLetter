@@ -1,6 +1,7 @@
 package loveletter.Cartas;
 
 import loveletter.Carta;
+import loveletter.Mazo;
 import loveletter.Jugador;
 
 public class Guardia extends Carta {
@@ -11,7 +12,7 @@ public class Guardia extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		
 	}
 	

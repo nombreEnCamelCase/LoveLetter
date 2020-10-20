@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import loveletter.Jugador;
+import loveletter.Mazo;
 import loveletter.Cartas.Mucama;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.EnJuego;
@@ -15,6 +16,7 @@ public class MucamaTests {
 
 	private Mucama mucama;
 	private Jugador jugador;
+	private Mazo mazo;
 
 	@Before
 	public void setUp() {
@@ -45,7 +47,7 @@ public class MucamaTests {
 		jugador.prepararseParaJugar();
 		jugador.getEstadoActual();
 		assertEquals(new EnJuego(), jugador.getEstadoActual());
-		mucama.aplicarEfectoAJugador(jugador, null);
+		mucama.aplicarEfectoAJugador(jugador, null, mazo);
 		assertEquals(new Inmune(), jugador.getEstadoActual());
 	}
 }

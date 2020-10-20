@@ -23,13 +23,17 @@ public class Jugador {
 		this.puntaje=0;
 		mano = new Mano(); 
 	}
-	
-	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles) {
+	//public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles, Mazo mazo) {
+	//todos los efectos de la carta tienen que traer el mazo this.mazo
+	//a todas las cartas
+	//agregar el mazo aplicar efecto, tira error en todas las cartas, se modifica eso, solo en las que usa el mazo
+	//Se agraga argumento mazo, solo tiene sentido con carta principe y condesa
+	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles, Mazo mazo) {
 		Carta cartaJugada = jugarCartaRandom();
 		if(cartaJugada.requiereVictima()) // Si el efecto de la carta seleccionada por el jugador requiere victima
-			cartaJugada.aplicarEfectoAJugador(this,seleccionarVictima(jugadoresDisponibles, cartaJugada.requiereJugadorAccionador())); // Selecciono victima y se la mando al efecto de la carta.
+			cartaJugada.aplicarEfectoAJugador(this,seleccionarVictima(jugadoresDisponibles, cartaJugada.requiereJugadorAccionador()), mazo); // Selecciono victima y se la mando al efecto de la carta.
 		else
-			cartaJugada.aplicarEfectoAJugador(this,this); // Si no requiere victima, soy yo el objetivo.
+			cartaJugada.aplicarEfectoAJugador(this,this, mazo); // Si no requiere victima, soy yo el objetivo.
 		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
 		this.estadoActual.terminarTurno();
 		

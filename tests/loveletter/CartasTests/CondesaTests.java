@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import loveletter.Jugador;
 import loveletter.Cartas.*;
+import loveletter.Mazo;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ public class CondesaTests {
 	private Condesa condesa;
 	private Rey rey;
 	private Jugador jugador, contrincante;
+	private Mazo mazo;
 
 	@Before
 	public void setUp() {
@@ -41,7 +43,7 @@ public class CondesaTests {
 	@Test
 	public void aplicarEfectoAJugadorTests() {
 		jugador.getMano().setManoConCartas(rey);
-		condesa.aplicarEfectoAJugador(jugador,contrincante);
+		condesa.aplicarEfectoAJugador(jugador,contrincante, mazo);
 		assertEquals(jugador.getMano().getCartaActual(), rey);
 	}
 }

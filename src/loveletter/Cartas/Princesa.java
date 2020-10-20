@@ -2,6 +2,7 @@ package loveletter.Cartas;
 
 import loveletter.Carta;
 import loveletter.Jugador;
+import loveletter.Mazo;
 
 public class Princesa extends Carta {
 	
@@ -11,7 +12,7 @@ public class Princesa extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		accionador.setEstadoActual(accionador.getEstadoActual().perderRonda());
 		// Este metod es cuando jugas la carta.
 	}

@@ -2,6 +2,7 @@ package loveletter.Cartas;
 
 import loveletter.Carta;
 import loveletter.Jugador;
+import loveletter.Mazo;
 
 public class Condesa extends Carta {
 	public Condesa() {
@@ -10,12 +11,13 @@ public class Condesa extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 //		if(accionador.getMano().getCartaActual().getNombre() == "Rey" || accionador.getMano().getCartaActual().getNombre() == "Principe")
 //			accionador.getMano().jugarCarta(this);
 		
 		if(accionador.getMano().tengoCiertaCarta(new Rey())|| accionador.getMano().tengoCiertaCarta(new Principe()))
 			accionador.getMano().jugarCarta(this);
+		
 	}
 	
 	@Override
