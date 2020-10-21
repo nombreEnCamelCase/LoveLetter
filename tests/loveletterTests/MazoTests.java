@@ -63,7 +63,6 @@ public class MazoTests {
 	
 	@Test
 	public void prepararParaJuegoTests() {
-		assertEquals(16, mazo.getMazo().size());
 		mazo.prepararParaJuego();
 		assertEquals(15, mazo.getMazo().size());
 	}

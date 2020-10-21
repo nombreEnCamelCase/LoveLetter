@@ -60,7 +60,7 @@ public class Ronda {
 		return ganadorDeRonda;
 	}
 
-	private void prepararJugadores() {
+	public void prepararJugadores() {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for (Jugador jugador : this.jugadoresEnJuego) {
@@ -72,7 +72,7 @@ public class Ronda {
 
 		if (this.mazo.consultarCantidad() == 0) {
 			// Logica para devolver el ganadorDeRonda con la carta mas fuerte.
-
+			
 			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
 				if (i == 0 || jugadoresEnJuego.get(i).getMano().obtenerMayorFuerza() > ganadorDeRonda.getMano()
 						.obtenerMayorFuerza())
@@ -99,7 +99,7 @@ public class Ronda {
 		return ganadorDeRonda != null;
 	}
 
-	private boolean jugadorPuedeJugar(Jugador actual) {
+	public boolean jugadorPuedeJugar(Jugador actual) {
 		// Aca se verifica si el jugador NO ESTA FUERA DE PARTIDA, lo pasamos estado EN
 		// JUEGO y lo dejamos ejecutar su turno.
 		if (actual.getEstadoActual().equals(new EnEspera()) || actual.getEstadoActual().equals(new Inmune())) {
@@ -111,5 +111,9 @@ public class Ronda {
 
 	private boolean jugadorPoseeCondesa(Jugador jugador) {
 		return jugador.getMano().tengoCiertaCarta(new Condesa());
+	}
+	
+	public ArrayList<Jugador> getJugadoresEnJuego(){
+		return this.jugadoresEnJuego;
 	}
 }

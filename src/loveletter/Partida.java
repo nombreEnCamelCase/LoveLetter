@@ -21,9 +21,9 @@ public class Partida {
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
 		// harcodeamos aca.
 		Jugador jugador1 = new Jugador("Maty");
-		Jugador jugador2 = new Jugador("Maty");
-		Jugador jugador3 = new Jugador("Maty");
-		Jugador jugador4 = new Jugador("Maty");
+		Jugador jugador2 = new Jugador("Fede");
+		Jugador jugador3 = new Jugador("Javi");
+		Jugador jugador4 = new Jugador("Nahu");
 		
 		jugadores.add(jugador1);
 		jugadores.add(jugador2);
@@ -82,6 +82,10 @@ public class Partida {
 	
 	private void mostrarPremio() {
 		// Hacer algo con el this.ganadorDePartida;
+	}
+	
+	public ArrayList<Jugador> getJugadores(){
+		return this.jugadores;
 	}
 
 }

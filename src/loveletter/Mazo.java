@@ -30,7 +30,7 @@ public class Mazo {
 		this.cartas.add(new Principe());
 		this.cartas.add(new Principe());
 		this.cartas.add(new Rey());
-		this.cartas.add(new Condesa());
+		//this.cartas.add(new Condesa());
 		this.cartas.add(new Princesa());
 	}
 	
