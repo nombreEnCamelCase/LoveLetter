@@ -3,6 +3,7 @@ package loveletter.CartasTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import loveletter.Jugador;
+import loveletter.Mazo;
 import loveletter.Cartas.Princesa;
 import loveletter.Cartas.Principe;
 import loveletter.EstadosJugador.FueraDeRonda;
@@ -13,6 +14,7 @@ import org.junit.Test;
 public class PrincipeTests {
 	private Principe principe;
 	private Jugador jugador, contrincante;
+	private Mazo mazo;
 
 	@Before
 	public void setUp() {
@@ -42,7 +44,7 @@ public class PrincipeTests {
 	public void aplicarEfectoAJugadorTests() {
 		jugador.getMano().setManoConCartas(new Principe());
 		contrincante.getMano().setManoConCartas(new Princesa());
-		principe.aplicarEfectoAJugador(jugador,contrincante);
+		principe.aplicarEfectoAJugador(jugador, contrincante, mazo);
 		assertEquals(new FueraDeRonda(), contrincante.getEstadoActual());
 	}
 	

@@ -3,6 +3,7 @@ package loveletter.Cartas;
 import loveletter.Carta;
 import loveletter.Jugador;
 import loveletter.EstadosJugador.Inmune;
+import loveletter.Mazo;
 
 public class Mucama extends Carta {
 
@@ -12,7 +13,7 @@ public class Mucama extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		//accionador.getEstadoActual().obtenerInmunidad();
 		accionador.setEstadoActual(accionador.getEstadoActual().obtenerInmunidad());
 	}

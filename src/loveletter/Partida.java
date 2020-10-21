@@ -12,12 +12,12 @@ public class Partida {
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 	private Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
 	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
-	private int puntajeganadorDePartida;
+	private int puntajeGanadorDePartida;
 	private Ronda rondaActual;
 	private Jugador ganadorDePartida=null;
 
 	public Partida() {
-
+ 
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
 		// harcodeamos aca.
 		Jugador jugador1 = new Jugador("Maty");
@@ -35,7 +35,7 @@ public class Partida {
 		tablaPuntaje.put(jugador2, 0);
 		tablaPuntaje.put(jugador3, 0);
 		tablaPuntaje.put(jugador4, 0);
-		puntajeganadorDePartida = 5;
+		puntajeGanadorDePartida = 5;
 	}
 
 	public void comenzarJuego() {
@@ -70,14 +70,14 @@ public class Partida {
 			}
 		}
 
-		if (this.puntajeganadorDePartida == maxEntry.getValue())
+		if (this.puntajeGanadorDePartida == maxEntry.getValue())
 			return maxEntry.getKey();
 		return null;
 	}
 
-	private void sumarPuntaje(Jugador ganadorDePartidaDeRonda) {
-		// Busco al ganadorDePartida de ronda en la tabla y le incremento 1;
-		tablaPuntaje.computeIfPresent(ganadorDePartidaDeRonda, (k, v) -> v + 1);
+	private void sumarPuntaje(Jugador ganadorDeRonda) {
+		// Busco al ganador de ronda en la tabla y le incremento 1;
+		tablaPuntaje.computeIfPresent(ganadorDeRonda, (k, v) -> v + 1);
 	}
 	
 	private void mostrarPremio() {

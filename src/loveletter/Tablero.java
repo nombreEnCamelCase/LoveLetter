@@ -8,7 +8,7 @@ public class Tablero {
 	
 	public Tablero() {
 		
-	}
+	} 
 	
 	public void refrescarTablero() {
 		// TODO Logica para mostrar el tablero actual con respecto a los turnos pasados.

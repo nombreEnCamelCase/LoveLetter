@@ -19,13 +19,13 @@ import loveletter.Cartas.Sacerdote;
 public class MazoTests {
 
 	private Mazo mazo;
-	private Guardia guardia;
+	//private Guardia guardia;
 	
 	@Before
 	public void setUp() {
 		
 		mazo = new Mazo();
-		guardia = new Guardia();
+		//guardia = new Guardia();
 	}
 	
 	@Test

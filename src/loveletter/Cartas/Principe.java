@@ -2,6 +2,7 @@ package loveletter.Cartas;
 
 import loveletter.Carta;
 import loveletter.Jugador;
+import loveletter.Mazo;
 
 public class Principe extends Carta {
 	
@@ -11,13 +12,12 @@ public class Principe extends Carta {
 	}
 	
 	@Override
-	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo) {
+	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo) {
 		Carta cartaDescartada = objetivo.getMano().descartarCarta();
-		if(cartaDescartada.getNombre() == "Princesa") {
+		if(cartaDescartada.getNombre() == "Princesa") 
 			objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
-		}
-		// Falta ver como agarramos una nueva carta en una instancia que no es el comienzo del turno.
-		// El mazo vive en ronda.
+		else
+			objetivo.getMano().agregarCarta(mazo);
 	}
 	
 	@Override
