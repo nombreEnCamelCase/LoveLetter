@@ -17,6 +17,7 @@ public class Jugador {
 	
 	private Estado estadoActual = new EnEspera();
 	
+	
 	Mano mano;
 	
 	public Jugador(String nombre) {
@@ -37,9 +38,9 @@ public class Jugador {
 			cartaJugada.aplicarEfectoAJugador(this,this, mazo); // Si no requiere victima, soy yo el objetivo.
 		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
 		this.estadoActual = this.estadoActual.terminarTurno();
-		if(this.estadoActual == new FueraDeRonda()) {
+		/*if(this.estadoActual == new FueraDeRonda()) {
 			jugadoresDisponibles.remove(this);
-		}
+		}*/
 		
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
@@ -56,23 +57,22 @@ public class Jugador {
 		if(!incluyeActual) { ///agrege este if para que lo remueva si no lo incluye por el boolean
 			aux.remove(this);
 		}
-		/*
-			aux.add(this); 
-		*/ 
 		
 		// Mostrar el listado de aux para que el usuario seleccione.
 		return seleccionarVictimaRandom(aux);
 	}
 	
 	private Jugador seleccionarVictimaRandom(ArrayList<Jugador> jugadoresDisponibles) {
-		try {
+		
+		return jugadoresDisponibles.get(0);
+		/*try {
 			Iterator<Jugador> iter = jugadoresDisponibles.iterator();
 			Jugador victimaSeleccionada = iter.next();
 			return victimaSeleccionada;
 		}catch(Exception e) {
 			System.out.println("Fallo al seleccionar jugador random");
 		}
-		return null;
+		return null;*/
 	}
 	
 	public Estado getEstadoActual() {

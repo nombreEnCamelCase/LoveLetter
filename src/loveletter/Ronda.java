@@ -33,6 +33,7 @@ public class Ronda {
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
 		boolean existeGanador = false;
 		
+		
 
 		while (!existeGanador) {
 			
@@ -56,6 +57,7 @@ public class Ronda {
 						this.tableroActual.addTurnoPasado(turnoActual);
 						existeGanador = quedaUnSoloJugador();
 					}
+					else break;
 
 				}
 
@@ -123,5 +125,9 @@ public class Ronda {
 	
 	public ArrayList<Jugador> getJugadoresEnJuego(){
 		return this.jugadoresEnJuego;
+	}
+	
+	public Jugador getGanadorDeRonda() {
+		return this.ganadorDeRonda;
 	}
 }

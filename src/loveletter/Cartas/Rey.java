@@ -26,6 +26,7 @@ public class Rey extends Carta {
 		return true;
 	}
 	
+	
 	@Override
 	public boolean requiereJugadorAccionador() {
 		return false;

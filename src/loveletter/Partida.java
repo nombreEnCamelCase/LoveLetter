@@ -37,6 +37,7 @@ public class Partida {
 		tablaPuntaje.put(jugador4, 0);
 		puntajeGanadorDePartida = 5;
 	}
+	
 
 	public void comenzarJuego() {
 		// Chequea que exista la cantidad minima de jugadores.
@@ -86,6 +87,14 @@ public class Partida {
 	
 	public ArrayList<Jugador> getJugadores(){
 		return this.jugadores;
+	}
+	
+	public Ronda getRondaActual() {
+		return this.rondaActual;
+	}
+	
+	public Jugador getGanadorDePartida() {
+		return this.ganadorDePartida;
 	}
 
 }

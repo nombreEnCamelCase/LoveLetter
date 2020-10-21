@@ -30,7 +30,7 @@ public class Mazo {
 		this.cartas.add(new Principe());
 		this.cartas.add(new Principe());
 		this.cartas.add(new Rey());
-		//this.cartas.add(new Condesa());
+		this.cartas.add(new Condesa());
 		this.cartas.add(new Princesa());
 	}
 	
@@ -45,6 +45,7 @@ public class Mazo {
 		Collections.shuffle(this.cartas);
 	}
 	
+	
 	public Carta retirarCarta() {
 		// Retirar una carta aleatoria del mazo y devolverla.
 		try {
@@ -53,7 +54,7 @@ public class Mazo {
 			this.cartas.remove(cartaObtenida);
 			return cartaObtenida;
 		}catch(Exception e) {
-			System.out.println("Fallo al retirar carta");
+			System.out.println("Fallo al retirar carta" + e);
 		}
 		return null;
 

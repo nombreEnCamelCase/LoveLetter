@@ -24,7 +24,11 @@ public class RondaTests {
 	
 	@Test
 	public void retornaUnJugadorGanadorTests() {
-		assertEquals(new Jugador("Fede").getClass(), ronda.comenzar());
+		Jugador j = ronda.comenzar();
+		System.out.println(j.getNombre());
+		assertEquals(new Jugador("Fede").getClass(), j.getClass());
+		
+		
 	}
 	
 	@Test
