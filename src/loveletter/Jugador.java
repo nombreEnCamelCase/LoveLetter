@@ -45,7 +45,7 @@ public class Jugador {
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
 	
-	private Jugador seleccionarVictima(ArrayList<Jugador> jugadoresDisponibles, boolean incluyeActual) {
+	public Jugador seleccionarVictima(ArrayList<Jugador> jugadoresDisponibles, boolean incluyeActual) {
 		// Accion de jugador al elegir una carta.
 		// Recibo los jugadores disponibles EXCEPTO el actual.
 		// Creo un aux para agregarme como parametro.
@@ -106,7 +106,7 @@ public class Jugador {
 	}
 	
 	// Simula seleccion del usuario
-	private Carta jugarCartaRandom() {
+	public Carta jugarCartaRandom() {
 		return this.mano.jugarCarta(null);
 	}
 	

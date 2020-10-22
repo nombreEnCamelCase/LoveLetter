@@ -25,5 +25,33 @@ public class ManoTests {
 		Carta carta = mano.getCartaActual();
 		assertEquals(carta.getNombre(),guardia.getNombre());
 	}
+	
+	@Test
+	public void jugarCartaTests() {
+		mano.setManoConCartas(new Baron());
+		mano.setManoConCartas(new Principe());
+		assertEquals(new Baron(), mano.jugarCarta(null));
+	}
+	
+	@Test
+	public void tengoCiertaCartaTests() {
+		mano.setManoConCartas(new Baron());
+		mano.setManoConCartas(new Guardia());
+		assertTrue(mano.tengoCiertaCarta(guardia));
+	}
+	
+	@Test
+	public void noTengoCiertaCartaTests() {
+		mano.setManoConCartas(new Baron());
+		mano.setManoConCartas(new Guardia());
+		assertFalse(mano.tengoCiertaCarta(new Principe()));
+	}
+	
+	@Test
+	public void obtenerMayorFuerzaTests() {
+		mano.setManoConCartas(new Principe());
+		mano.setManoConCartas(new Condesa());
+		assertEquals(7, mano.obtenerMayorFuerza());
+	}
 
 }

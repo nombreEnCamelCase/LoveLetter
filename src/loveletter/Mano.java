@@ -1,5 +1,6 @@
 package loveletter;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,11 @@ public class Mano {
 	}
 
 	public Carta getCartaActual() {
-		return this.cartasEnMano.get(0);
+		//return this.cartasEnMano.get(0);
+		if(this.cartasEnMano.get(0) != null)
+			return this.cartasEnMano.get(0);
+		else
+			return this.cartasEnMano.get(1);
 	}
 	
 	public boolean tengoCiertaCarta(Carta carta) {
