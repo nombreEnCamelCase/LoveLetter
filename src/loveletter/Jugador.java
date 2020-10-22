@@ -7,6 +7,7 @@ import java.util.List;
 
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Estado;
+import loveletter.EstadosJugador.FueraDeRonda;
 
 public class Jugador {
 	
@@ -15,6 +16,7 @@ public class Jugador {
 	private int puntaje; //simbolo de afecto
 	
 	private Estado estadoActual = new EnEspera();
+	
 	
 	Mano mano;
 	
@@ -34,26 +36,30 @@ public class Jugador {
 			cartaJugada.aplicarEfectoAJugador(this,seleccionarVictima(jugadoresDisponibles, cartaJugada.requiereJugadorAccionador()), mazo); // Selecciono victima y se la mando al efecto de la carta.
 		else
 			cartaJugada.aplicarEfectoAJugador(this,this, mazo); // Si no requiere victima, soy yo el objetivo.
-		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
-		this.estadoActual.terminarTurno();
 		
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
 	
-	private Jugador seleccionarVictima(ArrayList<Jugador> jugadoresDisponibles, boolean incluyeActual) {
+	public Jugador seleccionarVictima(ArrayList<Jugador> jugadoresDisponibles, boolean incluyeActual) {
 		// Accion de jugador al elegir una carta.
 		// Recibo los jugadores disponibles EXCEPTO el actual.
 		// Creo un aux para agregarme como parametro.
-		ArrayList<Jugador> aux = jugadoresDisponibles;
+		ArrayList<Jugador> aux = new ArrayList<>(); 
+		for (Jugador e : jugadoresDisponibles) {
+			aux.add(e);
+		}
 
-		if(incluyeActual)
-			aux.add(this);
+		if(!incluyeActual) { ///agrege este if para que lo remueva si no lo incluye por el boolean
+			aux.remove(this);
+		}
 		
 		// Mostrar el listado de aux para que el usuario seleccione.
 		return seleccionarVictimaRandom(aux);
 	}
 	
 	private Jugador seleccionarVictimaRandom(ArrayList<Jugador> jugadoresDisponibles) {
+		
+		//return jugadoresDisponibles.get(0);
 		try {
 			Iterator<Jugador> iter = jugadoresDisponibles.iterator();
 			Jugador victimaSeleccionada = iter.next();
@@ -85,7 +91,11 @@ public class Jugador {
 	}
 	
 	public void prepararseParaJugar() {
-		estadoActual = this.estadoActual.comenzarTurno();
+		this.estadoActual = this.estadoActual.comenzarTurno();
+	}
+	
+	public void terminarTurno() {
+		this.estadoActual = this.estadoActual.terminarTurno();
 	}
 	
 	public void preparacionInicial(Mazo mazo) {
@@ -95,7 +105,7 @@ public class Jugador {
 	}
 	
 	// Simula seleccion del usuario
-	private Carta jugarCartaRandom() {
+	public Carta jugarCartaRandom() {
 		return this.mano.jugarCarta(null);
 	}
 	

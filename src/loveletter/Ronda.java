@@ -32,31 +32,41 @@ public class Ronda {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
 		boolean existeGanador = false;
-		
 
 		while (!existeGanador) {
-			
+
 			// Recorro jugador por jugador
 			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
-				
+
 				Jugador jugadorActual = jugadoresEnJuego.get(i);
-				Turno turnoActual = new Turno(jugadorActual);
 
-				if (jugadorPuedeJugar(jugadorActual)) {
+				if (quedanCartasEnMazo() && !quedaUnSoloJugador()) {
+					if (jugadorPuedeJugar(jugadorActual)) {
 
-					jugadorActual.prepararseParaJugar();
+						Turno turnoActual = new Turno(jugadorActual);
+						jugadorActual.prepararseParaJugar();
 
-					Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
-					if (!(existeGanador = !quedanCartasEnMazo())) {
+						if(jugadorActual.getMano().cantCartas()>1)
+							System.out.println("SIEMPRE DEBERIA ARRANCAR EL TURNO CON UNA CARTA SOLA.");
+						
+						Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
+
 						if (jugadorPoseeCondesa(jugadorActual))
-							(new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual,mazo);
-						else
-							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego,mazo);
-
+							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, mazo);
+						
+						if(jugadorActual.getMano().cantCartas()>1)
+							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, mazo);
+						
+						jugadorActual.terminarTurno();
+						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-						existeGanador = quedaUnSoloJugador();
+						if(jugadorActual.getMano().cantCartas()>1)
+						System.out.println("SIEMPRE DEBERIA TERMINAR EL TURNO CON UNA CARTA SOLA.");
 					}
 
+				} else {
+					existeGanador = true;
+					break;
 				}
 
 			}
@@ -64,7 +74,7 @@ public class Ronda {
 		return ganadorDeRonda;
 	}
 
-	private void prepararJugadores() {
+	public void prepararJugadores() {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for (Jugador jugador : this.jugadoresEnJuego) {
@@ -72,7 +82,7 @@ public class Ronda {
 		}
 	}
 
-	private boolean quedanCartasEnMazo() {
+	public boolean quedanCartasEnMazo() {
 		if (this.mazo.consultarCantidad() == 0) {
 			// Logica para devolver el ganadorDeRonda con la carta mas fuerte.
 
@@ -86,13 +96,18 @@ public class Ronda {
 		return true;
 	}
 
-	private boolean quedaUnSoloJugador() {
+	public boolean quedaUnSoloJugador() {
 
 		// Logica para recorrer los jugadores en juego y retirar los que perdieron.
 		// Con esto creo un array auxiliar que voy llenando solo con los jugadores que
 		// tienen un estado habilitado para jugar.
+		if (this.jugadoresEnJuego.size() == 1) {
+			ganadorDeRonda = jugadoresEnJuego.get(0);
+			return true;
+		}
 
 		ArrayList<Jugador> soloEnJuego = new ArrayList<Jugador>();
+
 		for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
 			if (jugadorPuedeJugar(jugadoresEnJuego.get(i)))
 				soloEnJuego.add(jugadoresEnJuego.get(i));
@@ -107,7 +122,7 @@ public class Ronda {
 		return ganadorDeRonda != null;
 	}
 
-	private boolean jugadorPuedeJugar(Jugador actual) {
+	public boolean jugadorPuedeJugar(Jugador actual) {
 		// Aca se verifica si el jugador NO ESTA FUERA DE PARTIDA, lo pasamos estado EN
 		// JUEGO y lo dejamos ejecutar su turno.
 		if (actual.getEstadoActual().equals(new EnEspera()) || actual.getEstadoActual().equals(new Inmune())) {
@@ -117,7 +132,15 @@ public class Ronda {
 		return false;
 	}
 
-	private boolean jugadorPoseeCondesa(Jugador jugador) {
+	public boolean jugadorPoseeCondesa(Jugador jugador) {
 		return jugador.getMano().tengoCiertaCarta(new Condesa());
+	}
+
+	public ArrayList<Jugador> getJugadoresEnJuego() {
+		return this.jugadoresEnJuego;
+	}
+
+	public Jugador getGanadorDeRonda() {
+		return this.ganadorDeRonda;
 	}
 }
