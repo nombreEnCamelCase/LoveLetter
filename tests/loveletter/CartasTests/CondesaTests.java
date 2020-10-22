@@ -22,28 +22,29 @@ public class CondesaTests {
 		jugador = new Jugador("condesa");
 		contrincante = new Jugador("contrincante");
 	}
-	
+
 	@Test
 	public void constructorTests() {
-		
+
 		assertEquals(7, condesa.getFuerza());
 		assertEquals("Condesa", condesa.getNombre());
 	}
-	
+
 	@Test
 	public void requerirVictimaTests() {
 		assertFalse(condesa.requiereVictima());
 	}
-	
+
 	@Test
 	public void requiereJugadorAccionadorTests() {
 		assertFalse(condesa.requiereJugadorAccionador());
 	}
-	
+
 	@Test
 	public void aplicarEfectoAJugadorTests() {
 		jugador.getMano().setManoConCartas(rey);
-		condesa.aplicarEfectoAJugador(jugador,contrincante, mazo);
+		jugador.getMano().setManoConCartas(condesa);
+		condesa.aplicarEfectoAJugador(jugador, contrincante, mazo);
 		assertEquals(jugador.getMano().getCartaActual(), rey);
 	}
 }

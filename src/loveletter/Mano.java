@@ -7,12 +7,11 @@ import java.util.List;
 
 public class Mano {
 	private List<Carta> cartasEnMano = new LinkedList<Carta>();
-	
-	
+
 	public Mano() {
-		
+
 	}
-	
+
 	public Mano(Carta carta) {
 		cartasEnMano.add(carta);
 	}
@@ -20,9 +19,11 @@ public class Mano {
 	public void setManoConCartas(Carta carta) {
 		cartasEnMano.add(carta);
 	}
+
 	public Carta jugarCarta(Carta carta) {
 		if (carta == null)
 			return jugarCartaRandom();
+		this.cartasEnMano.remove(carta);
 		return carta;
 	}
 
@@ -37,65 +38,56 @@ public class Mano {
 	}
 
 	public Carta getCartaActual() {
-		//return this.cartasEnMano.get(0);
-		if(this.cartasEnMano.get(0) != null)
-			return this.cartasEnMano.get(0);
-		else
-			return this.cartasEnMano.get(1);
+		return this.cartasEnMano.get(0);
+
 	}
-	
+
 	public boolean tengoCiertaCarta(Carta carta) {
-		for(Carta cart : this.cartasEnMano) {
-			if(cart.equals(carta))
+		for (Carta cart : this.cartasEnMano) {
+			if (cart.equals(carta))
 				return true;
 		}
 		return false;
 	}
-	
+
 	public int obtenerMayorFuerza() {
-		int max=0;
-		for(Carta cart : this.cartasEnMano) {
-			if(max<cart.getFuerza())
-				max=cart.getFuerza();
-				
+		int max = 0;
+		for (Carta cart : this.cartasEnMano) {
+			if (max < cart.getFuerza())
+				max = cart.getFuerza();
+
 		}
-		
+
 		return max;
 	}
 
-	///el programa deberia dejarnos elegir cual de las dos cartas en mano
-	///podemos tirar, de manera grafica. por ahora lo hicimos random
+	/// el programa deberia dejarnos elegir cual de las dos cartas en mano
+	/// podemos tirar, de manera grafica. por ahora lo hicimos random
 	private Carta descartarCartaRandom() {
 		Carta cartaObtenida = this.cartasEnMano.get(0);
 		this.cartasEnMano.remove(cartaObtenida);
 		return cartaObtenida;
-		
-		/*try {
-			Iterator<Carta> iter = this.cartasEnMano.iterator();
-			Carta cartaObtenida = iter.next();
-			this.cartasEnMano.remove(cartaObtenida);
-			return cartaObtenida;
-		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta");
-		}
-		return null;*/
+
+		/*
+		 * try { Iterator<Carta> iter = this.cartasEnMano.iterator(); Carta
+		 * cartaObtenida = iter.next(); this.cartasEnMano.remove(cartaObtenida); return
+		 * cartaObtenida; } catch (Exception e) {
+		 * System.out.println("Fallo al retirar carta"); } return null;
+		 */
 	}
 
 	private Carta jugarCartaRandom() {
-		
+
 		Carta cartaObtenida = this.getCartaActual();
 		this.cartasEnMano.remove(cartaObtenida);
 		return cartaObtenida;
-		
-		/*try {
-			Iterator<Carta> iter = this.cartasEnMano.iterator();
-			Carta cartaObtenida = iter.next();
-			this.cartasEnMano.remove(cartaObtenida);
-			return cartaObtenida;
-		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta");
-		}
-		return null;*/
+
+		/*
+		 * try { Iterator<Carta> iter = this.cartasEnMano.iterator(); Carta
+		 * cartaObtenida = iter.next(); this.cartasEnMano.remove(cartaObtenida); return
+		 * cartaObtenida; } catch (Exception e) {
+		 * System.out.println("Fallo al retirar carta"); } return null;
+		 */
 	}
 
 }

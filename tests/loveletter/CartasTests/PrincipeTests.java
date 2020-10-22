@@ -22,24 +22,24 @@ public class PrincipeTests {
 		jugador = new Jugador("condesa");
 		contrincante = new Jugador("contrincante");
 	}
-	
+
 	@Test
 	public void constructorTests() {
-		
+
 		assertEquals(5, principe.getFuerza());
 		assertEquals("Principe", principe.getNombre());
 	}
-	
+
 	@Test
 	public void requerirVictimaTests() {
 		assertTrue(principe.requiereVictima());
 	}
-	
+
 	@Test
 	public void requiereJugadorAccionadorTests() {
 		assertTrue(principe.requiereJugadorAccionador());
 	}
-	
+
 	@Test
 	public void aplicarEfectoAJugadorTests() {
 		jugador.getMano().setManoConCartas(new Principe());
@@ -47,5 +47,5 @@ public class PrincipeTests {
 		principe.aplicarEfectoAJugador(jugador, contrincante, mazo);
 		assertEquals(new FueraDeRonda(), contrincante.getEstadoActual());
 	}
-	
+
 }

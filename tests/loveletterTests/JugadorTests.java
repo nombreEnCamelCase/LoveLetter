@@ -24,7 +24,7 @@ public class JugadorTests {
 	private Jugador jugadorObj;
 	private Mazo mazo;
 	ArrayList<Jugador> JugadoresDisponibles;
-	
+
 	@Before
 	public void setUp() {
 		jugadorAcc = new Jugador("JugadorAcc");
@@ -34,56 +34,66 @@ public class JugadorTests {
 		JugadoresDisponibles.add(jugadorObj);
 		mazo = new Mazo();
 	}
-	
+
 	@Test
 	public void realizarJugadaTests() {
-		
+
 		jugadorAcc.getMano().setManoConCartas(new Baron());
 		jugadorAcc.getMano().setManoConCartas(new Rey());
 		jugadorObj.getMano().setManoConCartas(new Guardia());
-		
-		assertEquals(new Baron(),jugadorAcc.realizarJugada(JugadoresDisponibles, mazo));
+
+		assertEquals(new Baron(), jugadorAcc.realizarJugada(JugadoresDisponibles, mazo));
 	}
-	
+
 	@Test
 	public void seleccionarVictimaTests() {
-		assertEquals(new Jugador("fede").getClass(), jugadorAcc.seleccionarVictima(JugadoresDisponibles, true).getClass());
+		assertEquals(new Jugador("fede").getClass(),
+				jugadorAcc.seleccionarVictima(JugadoresDisponibles, true).getClass());
 	}
-	
+
 	@Test
 	public void puntajeConstruidoOKTests() {
 		assertEquals(0, jugadorAcc.getPuntaje());
 	}
-	
+
 	@Test
 	public void nombreConstruidoOKTests() {
-		assertEquals("JugadorAcc",jugadorAcc.getNombre());
+		assertEquals("JugadorAcc", jugadorAcc.getNombre());
 	}
-	
+
 	@Test
 	public void manoConstruidaOKTests() {
 		assertEquals(new Mano().getClass(), jugadorAcc.getMano().getClass());
 	}
-	
+
 	@Test
 	public void prepararseParaJugarTests() {
 		assertEquals(new EnEspera(), jugadorAcc.getEstadoActual());
 		jugadorAcc.prepararseParaJugar();
 		assertEquals(new EnJuego(), jugadorAcc.getEstadoActual());
 	}
-	
+
 	@Test
 	public void preparacionInicialTests() {
-		///probamos que agregue una carta a la mano sin importar cual porq es random
+		/// probamos que agregue una carta a la mano sin importar cual porq es random
 		jugadorAcc.getMano().agregarCarta(mazo);
-		assertEquals(new Guardia().getClass().getSuperclass(),jugadorAcc.getMano().getCartaActual().getClass().getSuperclass());
+		assertEquals(new Guardia().getClass().getSuperclass(),
+				jugadorAcc.getMano().getCartaActual().getClass().getSuperclass());
 	}
-	
+
 	@Test
 	public void jugarCartaActualTests() {
 		jugadorAcc.getMano().setManoConCartas(new Principe());
 		jugadorAcc.getMano().setManoConCartas(new Rey());
 		assertEquals(new Principe(), jugadorAcc.jugarCartaRandom());
+	}
+
+	@Test
+	public void intercambiarManoTests() {
+		jugadorAcc.getMano().setManoConCartas(new Principe());
+		jugadorObj.getMano().setManoConCartas(new Rey());
+		jugadorAcc.intercambiarMano(jugadorObj.getMano());
+		assertEquals(new Rey(), jugadorAcc.getMano().getCartaActual());
 	}
 
 }
