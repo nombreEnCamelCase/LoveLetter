@@ -72,7 +72,7 @@ public class Ronda {
 		}
 	}
 
-	private boolean quedanCartasEnMazo() {
+	public boolean quedanCartasEnMazo() {
 		if (this.mazo.consultarCantidad() == 0) {
 			// Logica para devolver el ganadorDeRonda con la carta mas fuerte.
 			
@@ -86,7 +86,7 @@ public class Ronda {
 		return true;
 	}
 
-	private boolean quedaUnSoloJugador() {
+	public boolean quedaUnSoloJugador() {
 
 		// Logica para recorrer los jugadores en juego y retirar los que perdieron.
 		// Con esto creo un array auxiliar que voy llenando solo con los jugadores que
@@ -117,7 +117,7 @@ public class Ronda {
 		return false;
 	}
 
-	private boolean jugadorPoseeCondesa(Jugador jugador) {
+	public boolean jugadorPoseeCondesa(Jugador jugador) {
 		return jugador.getMano().tengoCiertaCarta(new Condesa());
 	}
 	

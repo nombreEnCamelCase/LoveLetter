@@ -1,17 +1,17 @@
 package loveletter;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Mano {
 	private List<Carta> cartasEnMano = new LinkedList<Carta>();
-	
-	
+
 	public Mano() {
-		
+
 	}
-	
+
 	public Mano(Carta carta) {
 		cartasEnMano.add(carta);
 	}
@@ -19,9 +19,11 @@ public class Mano {
 	public void setManoConCartas(Carta carta) {
 		cartasEnMano.add(carta);
 	}
+
 	public Carta jugarCarta(Carta carta) {
 		if (carta == null)
 			return jugarCartaRandom();
+		this.cartasEnMano.remove(carta);
 		return carta;
 	}
 
@@ -38,28 +40,28 @@ public class Mano {
 	public Carta getCartaActual() {
 		return this.cartasEnMano.listIterator().next();
 	}
-	
+
 	public boolean tengoCiertaCarta(Carta carta) {
-		for(Carta cart : this.cartasEnMano) {
-			if(cart.equals(carta))
+		for (Carta cart : this.cartasEnMano) {
+			if (cart.equals(carta))
 				return true;
 		}
 		return false;
 	}
-	
+
 	public int obtenerMayorFuerza() {
-		int max=0;
-		for(Carta cart : this.cartasEnMano) {
-			if(max<cart.getFuerza())
-				max=cart.getFuerza();
-				
+		int max = 0;
+		for (Carta cart : this.cartasEnMano) {
+			if (max < cart.getFuerza())
+				max = cart.getFuerza();
+
 		}
-		
+
 		return max;
 	}
 
-	///el programa deberia dejarnos elegir cual de las dos cartas en mano
-	///podemos tirar, de manera grafica. por ahora lo hicimos random
+	/// el programa deberia dejarnos elegir cual de las dos cartas en mano
+	/// podemos tirar, de manera grafica. por ahora lo hicimos random
 	private Carta descartarCartaRandom() {
 //		Carta cartaObtenida = this.cartasEnMano.get(0);
 //		this.cartasEnMano.remove(cartaObtenida);
