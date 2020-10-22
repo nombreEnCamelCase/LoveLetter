@@ -36,11 +36,6 @@ public class Jugador {
 			cartaJugada.aplicarEfectoAJugador(this,seleccionarVictima(jugadoresDisponibles, cartaJugada.requiereJugadorAccionador()), mazo); // Selecciono victima y se la mando al efecto de la carta.
 		else
 			cartaJugada.aplicarEfectoAJugador(this,this, mazo); // Si no requiere victima, soy yo el objetivo.
-		// A veces la carta tiene un efecto con la victima implicita como el dueño de la misma.
-		this.estadoActual = this.estadoActual.terminarTurno();
-		/*if(this.estadoActual == new FueraDeRonda()) {
-			jugadoresDisponibles.remove(this);
-		}*/
 		
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
@@ -64,15 +59,15 @@ public class Jugador {
 	
 	private Jugador seleccionarVictimaRandom(ArrayList<Jugador> jugadoresDisponibles) {
 		
-		return jugadoresDisponibles.get(0);
-		/*try {
+		//return jugadoresDisponibles.get(0);
+		try {
 			Iterator<Jugador> iter = jugadoresDisponibles.iterator();
 			Jugador victimaSeleccionada = iter.next();
 			return victimaSeleccionada;
 		}catch(Exception e) {
 			System.out.println("Fallo al seleccionar jugador random");
 		}
-		return null;*/
+		return null;
 	}
 	
 	public Estado getEstadoActual() {
@@ -96,7 +91,11 @@ public class Jugador {
 	}
 	
 	public void prepararseParaJugar() {
-		estadoActual = this.estadoActual.comenzarTurno();
+		this.estadoActual = this.estadoActual.comenzarTurno();
+	}
+	
+	public void terminarTurno() {
+		this.estadoActual = this.estadoActual.terminarTurno();
 	}
 	
 	public void preparacionInicial(Mazo mazo) {

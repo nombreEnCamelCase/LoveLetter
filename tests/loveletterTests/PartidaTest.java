@@ -25,7 +25,7 @@ public class PartidaTest {
 		// Assert
 		assertEquals(dummyJugador.getClass(), ganadorResponse.getClass());
 	}
-	
+	 
 	@Test
 	public void tablaPuntajeConGanador_encuentraGanadorPorPuntaje() {
 		// Arrange
@@ -34,9 +34,10 @@ public class PartidaTest {
 		Jugador jugador2 = new Jugador("Fede");
 		Jugador ganadorPartida;
 		Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
-		tablaPuntaje.put(jugador1, 2);
-		tablaPuntaje.put(jugador2, 5);
+		tablaPuntaje.put(jugador1, 0);
+		tablaPuntaje.put(jugador2, 1);
 		partida.setTablaPuntaje(tablaPuntaje);
+		partida.setPuntajeGanador(1);
 		
 		// Act
 		ganadorPartida = partida.buscarganadorDePartidaDePartida();

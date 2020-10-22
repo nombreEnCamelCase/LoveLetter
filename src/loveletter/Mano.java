@@ -73,7 +73,7 @@ public class Mano {
 			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta");
+			System.out.println("Fallo al retirar carta 0: "+ e);
 		}
 		return null;
 	}
@@ -90,9 +90,13 @@ public class Mano {
 			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta");
+			System.out.println("Fallo al retirar carta 1" + e);
 		}
 		return null;
+	}
+	
+	public int cantCartas() {
+		return this.cartasEnMano.size();
 	}
 
 }

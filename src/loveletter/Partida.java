@@ -36,21 +36,24 @@ public class Partida {
 		tablaPuntaje.put(jugador2, 0);
 		tablaPuntaje.put(jugador3, 0);
 		tablaPuntaje.put(jugador4, 0);
-		puntajeGanadorDePartida = 5;
+		puntajeGanadorDePartida = 40;
 	}
-	
+	 
 
 	public Jugador comenzarJuego() {
 		// Chequea que exista la cantidad minima de jugadores.
+		Jugador ganadorRonda;
+		
+		// TODO: Falta contemplar en el while que los jugadores sean los necesarios para jugar y no esten desconectados.
 		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
 			
-			// TODO Fijarse si 
-			if (this.jugadores.size() > 1)
+			if (this.jugadores.size() > 1) {
 				this.rondaActual = new Ronda(this.jugadores); // Agrega los jugadores de la partida a ronda actual.
+				ganadorRonda = this.rondaActual.comenzar();
+				sumarPuntaje(ganadorRonda);
+			}
 			else
 				System.out.println("No se puede iniciar");
-
-			sumarPuntaje(this.rondaActual.comenzar());
 		}
 		
 		mostrarPremio();
@@ -86,6 +89,13 @@ public class Partida {
 	
 	private void mostrarPremio() {
 		System.out.println("El ganador es: "+ this.ganadorDePartida.getNombre());
+		
+		System.out.println("Tabla de puntajes\n----------------\n");
+		for (Jugador jugador : this.jugadores) {
+			System.out.println("Jugador: "+jugador.getNombre()+" Puntaje: "+this.tablaPuntaje.get(jugador));
+		}
+		
+		
 	}
 	
 	public ArrayList<Jugador> getJugadores(){
@@ -106,5 +116,13 @@ public class Partida {
 
 	public int  obtenerPuntajeDeJugador(Jugador jugador) {
 		return this.tablaPuntaje.get(jugador);
+	}
+	
+	public void setPuntajeGanador(int valor) {
+		this.puntajeGanadorDePartida = valor;
+	}
+	
+	public int getPuntajeGanador() {
+		return this.puntajeGanadorDePartida;
 	}
 }
