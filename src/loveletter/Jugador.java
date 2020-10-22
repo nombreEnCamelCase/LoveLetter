@@ -57,7 +57,7 @@ public class Jugador {
 		try {
 			Iterator<Jugador> iter = jugadoresDisponibles.iterator();
 			Jugador victimaSeleccionada = iter.next();
-			return victimaSeleccionada;
+			return victimaSeleccionada;///CON ESTO SELECCIONA EN RANDOM O EN ORDEN?
 		}catch(Exception e) {
 			System.out.println("Fallo al seleccionar jugador random");
 		}

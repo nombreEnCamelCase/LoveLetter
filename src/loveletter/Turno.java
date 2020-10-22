@@ -15,5 +15,14 @@ public class Turno {
 	public void setCartaJugada(Carta carta) {
 		this.cartaJugada = carta;
 	}
+
+   ///AGREGO SETERS Y GETERS
+	public Jugador getResponsable() {
+		return responsable;
+	}
+	
+	public Carta getCartaJugada() {
+		return cartaJugada;
+	}
 	
 }

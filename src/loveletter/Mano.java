@@ -19,6 +19,7 @@ public class Mano {
 	public void setManoConCartas(Carta carta) {
 		cartasEnMano.add(carta);
 	}
+	
 	public Carta jugarCarta(Carta carta) {
 		if (carta == null)
 			return jugarCartaRandom();
@@ -78,7 +79,7 @@ public class Mano {
 			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta");
+			System.out.println("Fallo al retirar carta");//por que podria fallar?
 		}
 		return null;
 	}
