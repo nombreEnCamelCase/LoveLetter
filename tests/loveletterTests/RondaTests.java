@@ -18,17 +18,20 @@ public class RondaTests {
 	public void setUp() {
 		partida = new Partida();
 		ronda = new Ronda(partida.getJugadores());
-		
 	}
 	
 	
 	@Test
-	public void retornaUnJugadorGanadorTests() {
-		Jugador j = ronda.comenzar();
-		System.out.println(j.getNombre());
-		assertEquals(new Jugador("Fede").getClass(), j.getClass());
+	public void finalizaRonda_retornaUnJugadorGanadorTests() {
+		// Arrange
+		Jugador ganadorResponse;
+		Jugador dummyJugador = new Jugador("Fede");
 		
-		
+		// Act
+		ganadorResponse = ronda.comenzar();
+		System.out.println("El ganador de ronda es: "+ ganadorResponse.getNombre());
+		// Assert
+		assertEquals(dummyJugador.getClass(), ganadorResponse.getClass());
 	}
 	
 	@Test

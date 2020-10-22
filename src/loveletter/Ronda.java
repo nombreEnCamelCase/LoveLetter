@@ -32,8 +32,6 @@ public class Ronda {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
 		boolean existeGanador = false;
-		
-		
 
 		while (!existeGanador) {
 			

@@ -11,6 +11,7 @@ public class Partida {
 
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 	private Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
+	// Es necesario rondas pasadas? Verificar.
 	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
 	private int puntajeGanadorDePartida;
 	private Ronda rondaActual;
@@ -39,7 +40,7 @@ public class Partida {
 	}
 	
 
-	public void comenzarJuego() {
+	public Jugador comenzarJuego() {
 		// Chequea que exista la cantidad minima de jugadores.
 		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
 			
@@ -53,6 +54,8 @@ public class Partida {
 		}
 		
 		mostrarPremio();
+		
+		return ganadorDePartida;
 	}
 
 	// De alguna manera, partida se deberia enterar cuando ronda termina, y asi
@@ -60,7 +63,7 @@ public class Partida {
 	// Sirve rondas pasadas? Podria chequiar si existe algun jugador con mas de 5
 	// simbolos y sino vuelvo a crear otra ronda.
 
-	private Jugador buscarganadorDePartidaDePartida() {
+	public Jugador buscarganadorDePartidaDePartida() {
 
 		Map.Entry<Jugador, Integer> maxEntry = null;
 
@@ -76,13 +79,13 @@ public class Partida {
 		return null;
 	}
 
-	private void sumarPuntaje(Jugador ganadorDeRonda) {
+	public void sumarPuntaje(Jugador ganadorDeRonda) {
 		// Busco al ganador de ronda en la tabla y le incremento 1;
 		tablaPuntaje.computeIfPresent(ganadorDeRonda, (k, v) -> v + 1);
 	}
 	
 	private void mostrarPremio() {
-		// Hacer algo con el this.ganadorDePartida;
+		System.out.println("El ganador es: "+ this.ganadorDePartida.getNombre());
 	}
 	
 	public ArrayList<Jugador> getJugadores(){
@@ -96,5 +99,12 @@ public class Partida {
 	public Jugador getGanadorDePartida() {
 		return this.ganadorDePartida;
 	}
+	
+	public void setTablaPuntaje(Map<Jugador, Integer> tablaPuntaje) {
+		this.tablaPuntaje = tablaPuntaje;
+	}
 
+	public int  obtenerPuntajeDeJugador(Jugador jugador) {
+		return this.tablaPuntaje.get(jugador);
+	}
 }

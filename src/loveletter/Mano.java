@@ -36,7 +36,7 @@ public class Mano {
 	}
 
 	public Carta getCartaActual() {
-		return this.cartasEnMano.get(0);
+		return this.cartasEnMano.listIterator().next();
 	}
 	
 	public boolean tengoCiertaCarta(Carta carta) {
@@ -61,11 +61,11 @@ public class Mano {
 	///el programa deberia dejarnos elegir cual de las dos cartas en mano
 	///podemos tirar, de manera grafica. por ahora lo hicimos random
 	private Carta descartarCartaRandom() {
-		Carta cartaObtenida = this.cartasEnMano.get(0);
-		this.cartasEnMano.remove(cartaObtenida);
-		return cartaObtenida;
+//		Carta cartaObtenida = this.cartasEnMano.get(0);
+//		this.cartasEnMano.remove(cartaObtenida);
+//		return cartaObtenida;
 		
-		/*try {
+		try {
 			Iterator<Carta> iter = this.cartasEnMano.iterator();
 			Carta cartaObtenida = iter.next();
 			this.cartasEnMano.remove(cartaObtenida);
@@ -73,16 +73,16 @@ public class Mano {
 		} catch (Exception e) {
 			System.out.println("Fallo al retirar carta");
 		}
-		return null;*/
+		return null;
 	}
 
 	private Carta jugarCartaRandom() {
 		
-		Carta cartaObtenida = this.getCartaActual();
-		this.cartasEnMano.remove(cartaObtenida);
-		return cartaObtenida;
+//		Carta cartaObtenida = this.getCartaActual();
+//		this.cartasEnMano.remove(cartaObtenida);
+//		return cartaObtenida;
 		
-		/*try {
+		try {
 			Iterator<Carta> iter = this.cartasEnMano.iterator();
 			Carta cartaObtenida = iter.next();
 			this.cartasEnMano.remove(cartaObtenida);
@@ -90,7 +90,7 @@ public class Mano {
 		} catch (Exception e) {
 			System.out.println("Fallo al retirar carta");
 		}
-		return null;*/
+		return null;
 	}
 
 }
