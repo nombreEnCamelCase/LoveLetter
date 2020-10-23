@@ -78,9 +78,4 @@ public class RondaTests {
 		assertTrue(ronda.jugadorPoseeCondesa(j1));
 		
 	}
-	
-	
-
-	
-
 }
