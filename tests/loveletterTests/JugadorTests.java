@@ -11,6 +11,7 @@ import loveletter.Carta;
 import loveletter.Jugador;
 import loveletter.Mano;
 import loveletter.Mazo;
+import loveletter.Tablero;
 import loveletter.Cartas.Baron;
 import loveletter.Cartas.Guardia;
 import loveletter.Cartas.Principe;
@@ -24,11 +25,12 @@ public class JugadorTests {
 	private Jugador jugadorObj;
 	private Mazo mazo;
 	ArrayList<Jugador> JugadoresDisponibles;
+	Tablero tablero=null;
 
 	@Before
 	public void setUp() {
-		jugadorAcc = new Jugador("JugadorAcc");
-		jugadorObj = new Jugador("JugadorObj");
+		jugadorAcc = new Jugador("JugadorAcc",1);
+		jugadorObj = new Jugador("JugadorObj",2);
 		JugadoresDisponibles = new ArrayList<Jugador>();
 		JugadoresDisponibles.add(jugadorAcc);
 		JugadoresDisponibles.add(jugadorObj);
@@ -42,13 +44,13 @@ public class JugadorTests {
 		jugadorAcc.getMano().setManoConCartas(new Rey());
 		jugadorObj.getMano().setManoConCartas(new Guardia());
 
-		assertEquals(new Baron(), jugadorAcc.realizarJugada(JugadoresDisponibles, mazo));
+		assertEquals(new Baron(), jugadorAcc.realizarJugada(JugadoresDisponibles, mazo, tablero));
 	}
 
 	@Test
 	public void seleccionarVictimaTests() {
-		assertEquals(new Jugador("fede").getClass(),
-				jugadorAcc.seleccionarVictima(JugadoresDisponibles, true).getClass());
+		assertEquals(new Jugador("fede",1).getClass(),
+				jugadorAcc.seleccionarVictima(JugadoresDisponibles, true, tablero).getClass());
 	}
 
 	@Test

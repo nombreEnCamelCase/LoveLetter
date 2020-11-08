@@ -28,8 +28,9 @@ public class Ronda {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
 		this.tableroActual = new Tablero();
-		tableroActual.init();
-		tableroActual.run();
+		this.tableroActual.preparacionInicial();
+//		tableroActual.init();
+//		tableroActual.run();
 	} 
 
 	public Jugador comenzar() {
@@ -49,23 +50,29 @@ public class Ronda {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
+						this.tableroActual.setTurnoEnCurso(turnoActual);
 
-						if(jugadorActual.getMano().cantCartas()>1)
-							System.out.println("SIEMPRE DEBERIA ARRANCAR EL TURNO CON UNA CARTA SOLA.");
+						Carta cartaJugada = jugadorActual.getMano().agregarCarta(this.mazo);
+						this.tableroActual.mostrarEfectoRecibirCarta(cartaJugada);
 						
-						Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
-
-						if (jugadorPoseeCondesa(jugadorActual))
-							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, mazo);
+						if (jugadorPoseeCondesa(jugadorActual)) {
+							// Jugar condesa.
+							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
+							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+						}
+							
 						
-						if(jugadorActual.getMano().cantCartas()>1)
-							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, mazo);
+						if(jugadorActual.getMano().cantCartas()>1) {
+							// Esperar por carta seleccionada y accion de jugada
+							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo, this.tableroActual);
+							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+						}
+							
 						
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-						if(jugadorActual.getMano().cantCartas()>1)
-						System.out.println("SIEMPRE DEBERIA TERMINAR EL TURNO CON UNA CARTA SOLA.");
+
 					}
 
 				} else {
@@ -82,7 +89,7 @@ public class Ronda {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for (Jugador jugador : this.jugadoresEnJuego) {
-			jugador.preparacionInicial(this.mazo);
+			jugador.preparacionInicial(this.mazo,this.tableroActual);
 		}
 	}
 

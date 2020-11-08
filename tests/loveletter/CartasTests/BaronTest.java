@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import loveletter.Jugador;
 import loveletter.Mazo;
+import loveletter.Tablero;
 import loveletter.Cartas.Baron;
 import loveletter.Cartas.Condesa;
 import loveletter.Cartas.Guardia;
@@ -19,19 +20,20 @@ public class BaronTest {
 	private Baron baron;
 	private Jugador jugadorBaron, JugadorObjetivo;
 	private Mazo mazo;
+	private Tablero tablero = null;
 
 	@Before
 	public void setUp() {
 		baron = new Baron();
-		jugadorBaron = new Jugador("JugadorBaron");
-		JugadorObjetivo = new Jugador("JugadorObjetivo");
+		jugadorBaron = new Jugador("JugadorBaron",1);
+		JugadorObjetivo = new Jugador("JugadorObjetivo",2);
 	}
 
 	@Test
 	public void aplicarEfectoAJugadorTests() {
 		jugadorBaron.getMano().setManoConCartas(baron);
 		JugadorObjetivo.getMano().setManoConCartas(new Guardia());
-		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo);
+		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo, tablero);
 		assertEquals(new FueraDeRonda(), JugadorObjetivo.getEstadoActual());
 	}
 
@@ -39,7 +41,7 @@ public class BaronTest {
 	public void aplicarEfectoAJugador1Tests() {
 		jugadorBaron.getMano().setManoConCartas(new Condesa());
 		JugadorObjetivo.getMano().setManoConCartas(new Rey());
-		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo);
+		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo, tablero);
 		assertEquals(new FueraDeRonda(), JugadorObjetivo.getEstadoActual());
 	}
 
@@ -47,7 +49,7 @@ public class BaronTest {
 	public void aplicarEfectoAJugador2Tests() {
 		jugadorBaron.getMano().setManoConCartas(new Rey());
 		JugadorObjetivo.getMano().setManoConCartas(new Condesa());
-		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo);
+		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo, tablero);
 		assertEquals(new FueraDeRonda(), jugadorBaron.getEstadoActual());
 	}
 
@@ -55,7 +57,7 @@ public class BaronTest {
 	public void aplicarEfectoAJugador3Tests() {
 		jugadorBaron.getMano().setManoConCartas(new Guardia());
 		JugadorObjetivo.getMano().setManoConCartas(new Principe());
-		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo);
+		baron.aplicarEfectoAJugador(jugadorBaron, JugadorObjetivo, mazo, tablero);
 		assertEquals(new FueraDeRonda(), jugadorBaron.getEstadoActual());
 	}
 

@@ -21,10 +21,10 @@ public class Partida {
  
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
 		// harcodeamos aca.
-		Jugador jugador1 = new Jugador("Maty");
-		Jugador jugador2 = new Jugador("Fede");
-		Jugador jugador3 = new Jugador("Javi");
-		Jugador jugador4 = new Jugador("Nahu");
+		Jugador jugador1 = new Jugador("Maty",1);
+		Jugador jugador2 = new Jugador("Fede",2);
+		Jugador jugador3 = new Jugador("Javi",3);
+		Jugador jugador4 = new Jugador("Nahu",4);
 		
 		jugadores.add(jugador1);
 		jugadores.add(jugador2);

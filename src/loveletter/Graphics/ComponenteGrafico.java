@@ -1,0 +1,332 @@
+package loveletter.Graphics;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import loveletter.Carta;
+
+//public class Tablero extends JFrame implements Runnable  {
+public class ComponenteGrafico extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	// OJO: Los valores de SKIP son un resultado de una divisi√≥n entera!
+	private final int SECOND = 1000;
+	private final int FRAMES_PER_SECOND = 60;
+	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
+	private final int TICKS_PER_SECOND = 1000;
+	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
+
+	private final int RESOL_HEIGHT = 1080;
+	private final int RESOL_WIDTH = 1920;
+
+	private boolean is_running = true;
+
+	private DrawPanel drawPanel;
+	private BufferedImage background;
+
+	// Estas serian las cartas CLIQUEABLES, es decir las de la mano.
+	private ArrayList<ClickeableCarta> cartasEnMano = new ArrayList<ClickeableCarta>();
+
+	// Estas son las cartas que estan en el tablero, solamente se van agregando al
+	// final en secuencia.
+	private List<LayoutCarta> cartasEnTableroJugador1 = new LinkedList<LayoutCarta>();
+	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
+	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
+	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
+
+	private int loops = 0;
+	private int fps = 0;
+
+	private int screenWidth;
+	private int screenHeight;
+
+	private int contadorTemporal = 0;
+	
+	private boolean clickValido = false;
+	private Carta cartaCliqueada =null;
+
+	public ComponenteGrafico() {
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		this.screenWidth = pantalla.width;
+		this.screenHeight = pantalla.height;
+
+		// cartasEnMano.add(new ClickeableCarta()));
+	}
+
+	private class DrawPanel extends JPanel {
+		private static final long serialVersionUID = 91574813372177663L;
+
+		public DrawPanel() {
+			addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent me) {
+					super.mouseClicked(me);
+					Point point = me.getPoint();
+					Dimension currentDimension = getContentPane().getSize();
+					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
+					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
+					for(ClickeableCarta carta : cartasEnMano) {
+						if(carta.fuiCliqueada(point.x, point.y)) {
+							cartaCliqueada = carta.getCartaContenida();
+							clickValido = true;
+							break;
+						}
+					}
+				}
+			});
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D) g;
+
+			Dimension currentDimension = getContentPane().getSize();
+			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
+			g2.drawImage(background, null, 0, 0);
+
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Dialog", Font.BOLD, 24));
+			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
+			g2.drawString("FPS: " + fps + "", 240, 25);
+
+			try {
+				// Jugador 1 - IZQ - TABLERO
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 60, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 60 + 50, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 3, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 4, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 5, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 6, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 7, 220, null);
+			} catch (Exception ex) {
+
+			}
+
+			try {
+				// Jugador 2 - CENTRO - TABLERO
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 650, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 650 + 50, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 3, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 4, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 5, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 6, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 7, 220, null);
+			} catch (Exception ex) {
+
+			}
+
+			try {
+				// Jugador 3 - DER - TABLERO
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 1240, 190, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 1240 + 50, 200, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 2, 210, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 3, 180, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 4, 190, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 5, 200, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 6, 190, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 7, 200, null);
+			} catch (Exception ex) {
+
+			}
+
+			try {
+				// Jugador JUGANDO - TABLERO
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 250, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 250 + 50, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 2, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 3, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 4, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 5, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 6, 600, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 7, 600, null);
+			} catch (Exception ex) {
+
+			}
+
+			try {
+				// El 335 y el 460 es fijo, es la escala necesaria para agrandar un poco las
+				// carta de la mano.
+				// El 1000, y el 500 por ejemplo es fijo con respecto al tablero, es la
+				// ubicacion de la carta en el tablero.
+//				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),1000,550,335,460,null);
+//				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),1350,550,335,460,null);
+
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 1000, 550, 335, 460, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 1350, 550, 335, 460, null);
+			} catch (Exception ex) {
+
+			}
+		}
+
+		// Me dice el tamaÒo que debo tener al redimensionar.
+		@Override
+		public Dimension getPreferredSize() {
+			return new Dimension(WIDTH, HEIGHT);
+		}
+	}
+
+	public void init() {
+
+		try {
+			background = ImageIO.read(new File("assets/other/background-simp.jpg"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		// Se crea un drawPanel y se dibuja inicialmente.
+		drawPanel = new DrawPanel();
+		add(drawPanel);
+		// Ajustar el JFrame al JPanel que incluye, xq el JFrame no tiene tamaÒo.
+		pack();
+		setSize(this.screenWidth, this.screenHeight);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+
+		requestFocusInWindow();
+	}
+
+//	@Override
+	// La idea de este metodo es realizar una transicion o algo.
+	// Va updateando datos y aumentando fps y refrescando pantalla.
+	// Esto lo hace hasta que el flag de haciendoAccion termine.
+	public boolean realizarTransicion() {
+		// Quiza lo mejor seria mandarle por parametor algun codigo o TIPO de
+		// transicion, para que el metodo sepa que elemento tiene que mover. Esto
+		// podriamos mandarselo al metodo updateData
+		long next_game_tick = System.currentTimeMillis();
+		long next_game_frame = System.currentTimeMillis();
+		long next_frame_calc = System.currentTimeMillis();
+		int frames = 0;
+		boolean haciendoAccion = false;
+
+		System.out.println("Quiere hacer algo");
+		do {
+			System.out.println("Haciendo algo!");
+			// Hacer transicion de elementos en pantalla.
+			if (System.currentTimeMillis() > next_game_tick) {
+				loops++;
+				next_game_tick += SKIP_TICKS;
+
+				// Este metodo update va incrementando valores, y devolvera falso cuando ya no
+				// haya nada mas que actualizar
+				// Por ende, termino la transicion y el flag deberia sacarlo del bucle.
+				haciendoAccion = updateComponentData();
+			}
+			if (System.currentTimeMillis() > next_game_frame) {
+				frames++;
+				next_game_frame += SKIP_FRAMES;
+				// Repaint para refrescar y mostrar en pantalla.
+				refreshScreen();
+			}
+			if (System.currentTimeMillis() > next_frame_calc) {
+				fps = frames;
+				next_frame_calc += SECOND;
+				frames = 0;
+			}
+		} while (haciendoAccion);
+
+		return !haciendoAccion;
+	}
+
+	public void run() {
+		// System.nanoTime no es seguro entre distintos Threads
+		// En caso de querer utilizarse igual para aumentar la precision en
+		// valores altos de fps o de ticks se debe aumentar tambi√©n el valor
+		// de las constantes, para que esten en ns y no en ms
+
+		long next_game_tick = System.currentTimeMillis();
+		long next_game_frame = System.currentTimeMillis();
+		long next_frame_calc = System.currentTimeMillis();
+		int frames = 0;
+		boolean realizoAccion = false;
+
+		// Quiza deberia tener un diccionario de acciones o un patron chain of
+		// responsability o un strategy para ver que transicion hago dependiendo de que
+		// me pida.
+		boolean haciendoAccion = false;
+
+		while (is_running) {
+			System.out.println("Esperando accion...");
+			if (realizoAccion) {
+				System.out.println("Quiere hacer algo");
+				do {
+					System.out.println("Haciendo algo!");
+					// Hacer transicion de elementos en pantalla.
+					if (System.currentTimeMillis() > next_game_tick) {
+						loops++;
+						next_game_tick += SKIP_TICKS;
+						// Calculo antes de mover ALGO.
+						haciendoAccion = updateComponentData();
+					}
+					if (System.currentTimeMillis() > next_game_frame) {
+						frames++;
+						next_game_frame += SKIP_FRAMES;
+						// Repaint para refrescar y mostrar en pantalla.
+						refreshScreen();
+					}
+					if (System.currentTimeMillis() > next_frame_calc) {
+						fps = frames;
+						next_frame_calc += SECOND;
+						frames = 0;
+					}
+				} while (haciendoAccion);
+			}
+		}
+	}
+
+	public boolean updateComponentData() {
+		// Este update deberia VARIAR dependiendo de QUE quiero mover o actualizar.
+		// Una sola cosa que es esperar a llegar a 20000;
+		System.out.println("Want to updateComponentData");
+		this.contadorTemporal++;
+
+		try {
+			Thread.sleep(1000);
+		} catch (Exception ex) {
+			System.out.println("Se interrumpio la espera");
+		}
+
+		return contadorTemporal == 100;
+
+//		player.move(1.0 / TICKS_PER_SECOND);
+//		ball.move(1.0 / TICKS_PER_SECOND);
+	}
+
+	public void refreshScreen() {
+//		System.out.println("Muestra");
+		drawPanel.repaint();
+	}
+	
+	public Carta retornarCartaSeleccionada() {
+		while(!this.clickValido) {
+			System.out.println("Estoy esperando el click del usuario.");
+		}
+		
+		return this.cartaCliqueada;
+	}
+
+}

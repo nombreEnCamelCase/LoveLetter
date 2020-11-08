@@ -16,7 +16,7 @@ public class PartidaTest {
 	public void finalizaPartida_retornaUnJugadorGanadorTests() {
 		// Arrange
 		Jugador ganadorResponse;
-		Jugador dummyJugador = new Jugador("Fede");
+		Jugador dummyJugador = new Jugador("Fede",1);
 		partida = new Partida();
 		
 		// Act
@@ -30,8 +30,8 @@ public class PartidaTest {
 	public void tablaPuntajeConGanador_encuentraGanadorPorPuntaje() {
 		// Arrange
 		partida = new Partida();
-		Jugador jugador1 = new Jugador("Maty");
-		Jugador jugador2 = new Jugador("Fede");
+		Jugador jugador1 = new Jugador("Maty",1);
+		Jugador jugador2 = new Jugador("Fede",2);
 		Jugador ganadorPartida;
 		Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
 		tablaPuntaje.put(jugador1, 0);
@@ -50,8 +50,8 @@ public class PartidaTest {
 	public void tablaPuntajeConJugadores_sumaPuntajeAUno() {
 		// Arrange
 		partida = new Partida();
-		Jugador jugador1 = new Jugador("Maty");
-		Jugador jugador2 = new Jugador("Fede");
+		Jugador jugador1 = new Jugador("Maty",1);
+		Jugador jugador2 = new Jugador("Fede",2);
 		Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
 		tablaPuntaje.put(jugador1, 2);
 		tablaPuntaje.put(jugador2, 4);
