@@ -1,0 +1,12 @@
+{
+  "name": "eljuego",
+  "version": "2.2.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nombreEnCamelCase/LoveLetter.git"
+  },
+  "author": "",
+  "homepage": "https://github.com/nombreEnCamelCase/LoveLetter"
+
+}

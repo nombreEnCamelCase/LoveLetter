@@ -100,8 +100,8 @@ public class Jugador {
 	
 	public void preparacionInicial(Mazo mazo) {
 		this.puntaje = 0;
+		this.mano = new Mano();
 		this.mano.agregarCarta(mazo);
-		//recibirCarta(carta);
 	}
 	
 	// Simula seleccion del usuario

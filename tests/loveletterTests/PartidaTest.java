@@ -8,7 +8,7 @@ import loveletter.Jugador;
 import loveletter.Partida;
 
 
-public class PartidaTest {
+public class PartidaTest { 
 	
 	private Partida partida;
 	

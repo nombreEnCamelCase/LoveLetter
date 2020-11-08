@@ -26,7 +26,7 @@ public class Ronda {
 	public Ronda(ArrayList<Jugador> jugadores) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
-	}
+	} 
 
 	public Jugador comenzar() {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
