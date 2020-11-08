@@ -20,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -62,19 +63,136 @@ public class RunnableGame  extends JFrame implements Runnable  {
 		this.screenHeight = pantalla.height;
 	}
 	
-	public void init() {
-		try {
-			background = ImageIO.read(new File("assets/other/background.jpg"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+	
+	private class DrawPanel extends JPanel {
+		private static final long serialVersionUID = 91574813372177663L;
 
+		public DrawPanel() {
+			addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent me) {
+					super.mouseClicked(me);
+					Point point = me.getPoint();
+					Dimension currentDimension = getContentPane().getSize();
+					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
+					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
+				}
+			});
 		}
 
+		// 
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D) g;
+
+			Dimension currentDimension = getContentPane().getSize();
+			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
+			g2.drawImage(background, null,0, 0);
+
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Dialog", Font.BOLD, 24));
+			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
+			g2.drawString("FPS: " + fps + "", 240, 25);
+
+			 try {
+				 // Jugador 1 - IZQ - TABLERO
+				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),60,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),60+50,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*2,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*3,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*4,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*5,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*6,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),60+50*7,220,null);
+			 }catch(Exception ex) {
+				 
+			 }
+			 
+			 try {
+				 // Jugador 2 - CENTRO - TABLERO
+				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),650,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),650+50,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*2,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*3,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*4,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*5,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*6,220,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),650+50*7,220,null);
+			 }catch(Exception ex) {
+				 
+			 }
+			 
+			 try {
+				 // Jugador 3 - DER - TABLERO
+				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),1240,190,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),1240+50,200,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*2,210,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*3,180,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*4,190,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*5,200,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*6,190,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),1240+50*7,200,null);
+			 }catch(Exception ex) {
+				 
+			 }
+			 
+			 try {
+				 // Jugador JUGANDO - TABLERO
+				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),250,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),250+50,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*2,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*3,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*4,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*5,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*6,600,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")),250+50*7,600,null);
+			 }catch(Exception ex) {
+				 
+			 }
+			 
+			 try {
+				 // Jugador JUGANDO - MANO
+				 
+				 // La wea rotada.
+//				 BufferedImage hand1 = ImageIO.read(new File("assets/cards/baron.png"));
+//				 AffineTransform t = new AffineTransform();
+//				 t.translate(1030,700);
+//				 t.rotate(Math.toRadians(-15));
+//				 g2.drawImage(hand1,t,null);
+				 
+				 //Anteriores sin escala
+//				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),1100,700,405,480,null);
+//				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),1400,700,405,480,null);
+				 
+				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),1000,550,335,460,null);
+				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),1350,550,335,460,null);
+			 }catch(Exception ex) {
+				 
+			 }
+		}
+
+		// Me dice el tamaño que debo tener al redimensionar.
+		@Override
+		public Dimension getPreferredSize() {
+			return new Dimension(WIDTH, HEIGHT);
+		}
+	}
+	
+	public void init() {
 		drawPanel = new DrawPanel();
 		add(drawPanel);
-
+		// Ajustar el JFrame al JPanel que incluye, xq el JFrame no tiene tamaño.
 		pack();
 		setSize(this.screenWidth,this.screenHeight);
+		
+		try {
+			background = ImageIO.read(new File("assets/other/background-simp.jpg"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -126,45 +244,7 @@ public class RunnableGame  extends JFrame implements Runnable  {
 		drawPanel.repaint();
 	}
 	
-	
-	private class DrawPanel extends JPanel {
-		private static final long serialVersionUID = 91574813372177663L;
 
-		public DrawPanel() {
-			addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent me) {
-					super.mouseClicked(me);
-					Point point = me.getPoint();
-					Dimension currentDimension = getContentPane().getSize();
-					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
-					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
-
-				}
-			});
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D) g;
-
-			Dimension currentDimension = getContentPane().getSize();
-			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
-			g2.drawImage(background, null,0, 0);
-
-			g2.setColor(Color.WHITE);
-			g2.setFont(new Font("Dialog", Font.BOLD, 24));
-			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
-			g2.drawString("FPS: " + fps + "", 240, 25);
-
-		}
-
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(WIDTH, HEIGHT);
-		}
-	}
 	
 	
 	public static void main(String[] args) throws Exception {
