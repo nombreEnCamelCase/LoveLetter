@@ -8,6 +8,7 @@ public class LayoutCarta {
 	protected Jugador duenio=null;
 	protected int coordX;
 	protected int coordY;
+	
 	public LayoutCarta(int coordX, int coordY) {
 		this.coordX = coordX;
 		this.coordY = coordY;

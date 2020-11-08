@@ -24,7 +24,7 @@ import loveletter.Graphics.ComponenteGrafico;
 
 
 //public class Tablero extends JFrame implements Runnable  {
-public class Tablero extends JFrame {
+public class Tablero{
 	private List<Turno> historialTurnosPasados = new LinkedList<Turno>();
 	private Turno turnoEnCurso;
 	private ComponenteGrafico pantalla;
@@ -61,7 +61,7 @@ public class Tablero extends JFrame {
 	 * */
 	
 	public void mostrarEfectoRecibirCarta(Carta carta) {
-		
+		//this.pantalla.realizarTransicion(carta,1);
 	}
 	
 	public void mostrarEfecto(Carta carta) {

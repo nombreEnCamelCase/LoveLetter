@@ -31,6 +31,12 @@ public abstract class Carta {
 	}
 	
 	
+	public BufferedImage getBufferedImage() {
+		return bufferedImage;
+	}
+	
+	
+	
 	///testeo de mazo, para el contains involucra el equals
 	@Override
 	public boolean equals(Object obj) {

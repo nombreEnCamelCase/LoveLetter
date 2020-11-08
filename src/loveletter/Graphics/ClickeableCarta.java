@@ -27,6 +27,7 @@ public class ClickeableCarta extends LayoutCarta{
 
 	
 	public boolean fuiCliqueada(double x_click, double y_click) {
+		
 		return (x_click>=this.coordXDesde && x_click<=this.coordXHasta && y_click>=this.coordYDesde && y_click<=this.coordYHasta);
 	}
 	

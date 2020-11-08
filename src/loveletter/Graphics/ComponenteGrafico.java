@@ -48,10 +48,10 @@ public class ComponenteGrafico extends JFrame {
 
 	// Estas son las cartas que estan en el tablero, solamente se van agregando al
 	// final en secuencia.
-	private List<LayoutCarta> cartasEnTableroJugador1 = new LinkedList<LayoutCarta>();
-	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
-	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
-	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
+	private List<LayoutCarta> cartasEnTablero = new LinkedList<LayoutCarta>();
+//	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
+//	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
+//	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
 
 	private int loops = 0;
 	private int fps = 0;
@@ -69,7 +69,9 @@ public class ComponenteGrafico extends JFrame {
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
 
-		// cartasEnMano.add(new ClickeableCarta()));
+		cartasEnMano.add(new ClickeableCarta(1000,550,0.53,0.69,1.02,1.84));
+		cartasEnMano.add(new ClickeableCarta(1350,550,0.70,0.87,1.02, 1.84));
+		
 	}
 
 	private class DrawPanel extends JPanel {
@@ -85,7 +87,7 @@ public class ComponenteGrafico extends JFrame {
 					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
 					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
 					for(ClickeableCarta carta : cartasEnMano) {
-						if(carta.fuiCliqueada(point.x, point.y)) {
+						if(carta.fuiCliqueada(point.x * WIDTH / currentDimension.getWidth(), point.y * HEIGHT / currentDimension.getHeight())) {
 							cartaCliqueada = carta.getCartaContenida();
 							clickValido = true;
 							break;
@@ -110,60 +112,25 @@ public class ComponenteGrafico extends JFrame {
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
 			try {
-				// Jugador 1 - IZQ - TABLERO
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 60, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 60 + 50, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 3, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 4, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 5, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 6, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 60 + 50 * 7, 220, null);
-			} catch (Exception ex) {
-
-			}
-
-			try {
 				// Jugador 2 - CENTRO - TABLERO
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 650, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 650 + 50, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 3, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 4, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 5, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 6, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 650 + 50 * 7, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*3*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*2*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 500 + 50*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 2*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 3*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 4*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 5*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 6*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 7*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 8*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 9*2, 220, null);
+				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 10*2, 220, null);
 			} catch (Exception ex) {
 
 			}
 
-			try {
-				// Jugador 3 - DER - TABLERO
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 1240, 190, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 1240 + 50, 200, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 2, 210, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 3, 180, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 4, 190, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 5, 200, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 6, 190, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 1240 + 50 * 7, 200, null);
-			} catch (Exception ex) {
-
-			}
-
-			try {
-				// Jugador JUGANDO - TABLERO
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 250, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 250 + 50, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 2, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 3, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 4, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 5, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 6, 600, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 250 + 50 * 7, 600, null);
-			} catch (Exception ex) {
-
-			}
 
 			try {
 				// El 335 y el 460 es fijo, es la escala necesaria para agrandar un poco las
@@ -252,51 +219,51 @@ public class ComponenteGrafico extends JFrame {
 		return !haciendoAccion;
 	}
 
-	public void run() {
-		// System.nanoTime no es seguro entre distintos Threads
-		// En caso de querer utilizarse igual para aumentar la precision en
-		// valores altos de fps o de ticks se debe aumentar también el valor
-		// de las constantes, para que esten en ns y no en ms
-
-		long next_game_tick = System.currentTimeMillis();
-		long next_game_frame = System.currentTimeMillis();
-		long next_frame_calc = System.currentTimeMillis();
-		int frames = 0;
-		boolean realizoAccion = false;
-
-		// Quiza deberia tener un diccionario de acciones o un patron chain of
-		// responsability o un strategy para ver que transicion hago dependiendo de que
-		// me pida.
-		boolean haciendoAccion = false;
-
-		while (is_running) {
-			System.out.println("Esperando accion...");
-			if (realizoAccion) {
-				System.out.println("Quiere hacer algo");
-				do {
-					System.out.println("Haciendo algo!");
-					// Hacer transicion de elementos en pantalla.
-					if (System.currentTimeMillis() > next_game_tick) {
-						loops++;
-						next_game_tick += SKIP_TICKS;
-						// Calculo antes de mover ALGO.
-						haciendoAccion = updateComponentData();
-					}
-					if (System.currentTimeMillis() > next_game_frame) {
-						frames++;
-						next_game_frame += SKIP_FRAMES;
-						// Repaint para refrescar y mostrar en pantalla.
-						refreshScreen();
-					}
-					if (System.currentTimeMillis() > next_frame_calc) {
-						fps = frames;
-						next_frame_calc += SECOND;
-						frames = 0;
-					}
-				} while (haciendoAccion);
-			}
-		}
-	}
+//	public void run() {
+//		// System.nanoTime no es seguro entre distintos Threads
+//		// En caso de querer utilizarse igual para aumentar la precision en
+//		// valores altos de fps o de ticks se debe aumentar también el valor
+//		// de las constantes, para que esten en ns y no en ms
+//
+//		long next_game_tick = System.currentTimeMillis();
+//		long next_game_frame = System.currentTimeMillis();
+//		long next_frame_calc = System.currentTimeMillis();
+//		int frames = 0;
+//		boolean realizoAccion = false;
+//
+//		// Quiza deberia tener un diccionario de acciones o un patron chain of
+//		// responsability o un strategy para ver que transicion hago dependiendo de que
+//		// me pida.
+//		boolean haciendoAccion = false;
+//
+//		while (is_running) {
+//			System.out.println("Esperando accion...");
+//			if (realizoAccion) {
+//				System.out.println("Quiere hacer algo");
+//				do {
+//					System.out.println("Haciendo algo!");
+//					// Hacer transicion de elementos en pantalla.
+//					if (System.currentTimeMillis() > next_game_tick) {
+//						loops++;
+//						next_game_tick += SKIP_TICKS;
+//						// Calculo antes de mover ALGO.
+//						haciendoAccion = updateComponentData();
+//					}
+//					if (System.currentTimeMillis() > next_game_frame) {
+//						frames++;
+//						next_game_frame += SKIP_FRAMES;
+//						// Repaint para refrescar y mostrar en pantalla.
+//						refreshScreen();
+//					}
+//					if (System.currentTimeMillis() > next_frame_calc) {
+//						fps = frames;
+//						next_frame_calc += SECOND;
+//						frames = 0;
+//					}
+//				} while (haciendoAccion);
+//			}
+//		}
+//	}
 
 	public boolean updateComponentData() {
 		// Este update deberia VARIAR dependiendo de QUE quiero mover o actualizar.
@@ -324,7 +291,14 @@ public class ComponenteGrafico extends JFrame {
 	public Carta retornarCartaSeleccionada() {
 		while(!this.clickValido) {
 			System.out.println("Estoy esperando el click del usuario.");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		System.out.println("Cliqueo carta!");
 		
 		return this.cartaCliqueada;
 	}
