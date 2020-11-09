@@ -60,18 +60,18 @@ public class ComponenteGrafico extends JFrame {
 	private int screenHeight;
 
 	private int contadorTemporal = 0;
-	
+
 	private boolean clickValido = false;
-	private Carta cartaCliqueada =null;
+	private Carta cartaCliqueada = null;
 
 	public ComponenteGrafico() {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
 
-		cartasEnMano.add(new ClickeableCarta(1000,550,0.53,0.69,1.02,1.84));
-		cartasEnMano.add(new ClickeableCarta(1350,550,0.70,0.87,1.02, 1.84));
-		
+		cartasEnMano.add(new ClickeableCarta(1000, 550, 0.53, 0.69, 1.02, 1.84));
+		cartasEnMano.add(new ClickeableCarta(1350, 550, 0.70, 0.87, 1.02, 1.84));
+
 	}
 
 	private class DrawPanel extends JPanel {
@@ -86,8 +86,9 @@ public class ComponenteGrafico extends JFrame {
 					Dimension currentDimension = getContentPane().getSize();
 					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
 					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
-					for(ClickeableCarta carta : cartasEnMano) {
-						if(carta.fuiCliqueada(point.x * WIDTH / currentDimension.getWidth(), point.y * HEIGHT / currentDimension.getHeight())) {
+					for (ClickeableCarta carta : cartasEnMano) {
+						if (carta.fuiCliqueada(point.x * WIDTH / currentDimension.getWidth(),
+							point.y * HEIGHT / currentDimension.getHeight())) {
 							cartaCliqueada = carta.getCartaContenida();
 							clickValido = true;
 							break;
@@ -111,43 +112,20 @@ public class ComponenteGrafico extends JFrame {
 			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
-			try {
-				// Jugador 2 - CENTRO - TABLERO
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*3*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*2*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500-50*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 500, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 500 + 50*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 2*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 3*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 4*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 5*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 6*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 7*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 8*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 9*2, 220, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/condesa.png")), 500 + 50 * 10*2, 220, null);
-			} catch (Exception ex) {
+			// g2.drawImage();
 
+			for (int i = 0; i < cartasEnMano.size(); i++) {
+				ClickeableCarta carta = cartasEnMano.get(i);
+				if (carta.getCartaContenida() != null) {
+					g2.drawImage(carta.getCartaContenida().getBufferedImage(), i==0?1000:1350, 550, 335, 460, null);
+					//g2.drawImage(carta.getCartaContenida().getBufferedImage(), 1350, 550, 335, 460, null);
+				}
 			}
 
-
-			try {
-				// El 335 y el 460 es fijo, es la escala necesaria para agrandar un poco las
-				// carta de la mano.
-				// El 1000, y el 500 por ejemplo es fijo con respecto al tablero, es la
-				// ubicacion de la carta en el tablero.
-//				 g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")),1000,550,335,460,null);
-//				 g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")),1350,550,335,460,null);
-
-				g2.drawImage(ImageIO.read(new File("assets/cards/baron.png")), 1000, 550, 335, 460, null);
-				g2.drawImage(ImageIO.read(new File("assets/cards/rey.png")), 1350, 550, 335, 460, null);
-			} catch (Exception ex) {
-
-			}
+			
 		}
 
-		// Me dice el tamaño que debo tener al redimensionar.
+		// Me dice el tamaï¿½o que debo tener al redimensionar.
 		@Override
 		public Dimension getPreferredSize() {
 			return new Dimension(WIDTH, HEIGHT);
@@ -165,7 +143,7 @@ public class ComponenteGrafico extends JFrame {
 		// Se crea un drawPanel y se dibuja inicialmente.
 		drawPanel = new DrawPanel();
 		add(drawPanel);
-		// Ajustar el JFrame al JPanel que incluye, xq el JFrame no tiene tamaño.
+		// Ajustar el JFrame al JPanel que incluye, xq el JFrame no tiene tamaï¿½o.
 		pack();
 		setSize(this.screenWidth, this.screenHeight);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -287,9 +265,9 @@ public class ComponenteGrafico extends JFrame {
 //		System.out.println("Muestra");
 		drawPanel.repaint();
 	}
-	
+
 	public Carta retornarCartaSeleccionada() {
-		while(!this.clickValido) {
+		while (!this.clickValido) {
 			System.out.println("Estoy esperando el click del usuario.");
 			try {
 				Thread.sleep(1000);
@@ -299,8 +277,17 @@ public class ComponenteGrafico extends JFrame {
 			}
 		}
 		System.out.println("Cliqueo carta!");
-		
+
 		return this.cartaCliqueada;
+	}
+
+	public void setCartasEnMano(Carta carta) {
+		if (this.cartasEnMano.get(0).getCartaContenida() == null) {
+			this.cartasEnMano.get(0).setCartaContenida(carta);
+		} else {
+			this.cartasEnMano.get(1).setCartaContenida(carta);
+		}
+		this.drawPanel.repaint();
 	}
 
 }

@@ -62,6 +62,9 @@ public class Tablero{
 	
 	public void mostrarEfectoRecibirCarta(Carta carta) {
 		//this.pantalla.realizarTransicion(carta,1);
+		///setear la carta en la zona
+		//this.pantalla
+		
 	}
 	
 	public void mostrarEfecto(Carta carta) {
@@ -80,5 +83,10 @@ public class Tablero{
 	
 	public Jugador esperarSeleccionVictima() {
 		return new Jugador("DummyJugador",1);
+	}
+	
+	
+	public void agregarCartaAPantalla(Carta carta) {
+		this.pantalla.setCartasEnMano(carta);
 	}
 }
