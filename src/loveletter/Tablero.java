@@ -70,12 +70,9 @@ public class Tablero{
 	
 	
 	public Carta esperarSeleccionCarta() {
-		
-		
 		Carta carta = this.pantalla.retornarCartaSeleccionada();
 		this.pantalla.refrescarSeleccionDeCarta();
 		return carta;
-		
 	}
 	
 	public void mostrarCartaApoyadaEnTablero(Carta carta) {
@@ -86,7 +83,7 @@ public class Tablero{
 	}
 	
 	public Jugador esperarSeleccionVictima() {
-		return new Jugador("DummyJugador",1);
+		return new Jugador("Fede",1);
 	}
 	
 	

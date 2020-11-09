@@ -111,20 +111,23 @@ public class ComponenteGrafico extends JFrame {
 			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
-			for(int i=0;i<cartasEnTablero.size();i++) {
+			for (int i = 0; i < cartasEnTablero.size(); i++) {
 				LayoutCarta carta = cartasEnTablero.get(i);
 				g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(), null);
-			// g2.drawImage();
+				// g2.drawImage();
 			}
-			
+
 			for (int i = 0; i < cartasEnMano.size(); i++) {
 				ClickeableCarta carta = cartasEnMano.get(i);
 				if (carta.getCartaContenida() != null) {
-					g2.drawImage(carta.getCartaContenida().getBufferedImage(), i==0?1000:1350, 550, 335, 460, null);
-					//g2.drawImage(carta.getCartaContenida().getBufferedImage(), 1350, 550, 335, 460, null);
+					g2.drawImage(carta.getCartaContenida().getBufferedImage(),
+							i == 0 ? carta.getCoordX_head_izq() : carta.getCoordX_head_der(), carta.getCoordY_head(),
+							carta.getScaleWidth(), carta.getScaleHeight(), null);
+					// g2.drawImage(carta.getCartaContenida().getBufferedImage(), 1350, 550, 335,
+					// 460, null);
 				}
 			}
-			
+
 		}
 
 		// Me dice el tama�o que debo tener al redimensionar.
@@ -267,26 +270,26 @@ public class ComponenteGrafico extends JFrame {
 	public Carta retornarCartaSeleccionada() {
 		while (!this.clickValido) {
 			System.out.println("Estoy esperando el click del usuario.");
-			
+
 		}
 		System.out.println("Cliqueo carta!");
 		return this.cartaCliqueada;
 	}
-	
+
 	public void refrescarSeleccionDeCarta() {
 		this.clickValido = false;
 		this.cartaCliqueada = null;
 	}
-	
+
 	public void setCartaEnTablero(Carta carta) {
 		LayoutCarta cartaNueva;
 		int indexUltimaCarta;
-		if(this.cartasEnTablero.size()==0) {
+		if (this.cartasEnTablero.size() == 0) {
 			cartaNueva = new LayoutCarta();
-		}else {
-			indexUltimaCarta = this.cartasEnTablero.size()-1;
+		} else {
+			indexUltimaCarta = this.cartasEnTablero.size() - 1;
 			LayoutCarta ultima = this.cartasEnTablero.get(indexUltimaCarta);
-			cartaNueva = new LayoutCarta(ultima.getCoordX()+(100*indexUltimaCarta));
+			cartaNueva = new LayoutCarta(ultima.getCoordX() + 100);
 		}
 		cartaNueva.setCartaContenida(carta);
 		this.cartasEnTablero.add(cartaNueva);
@@ -303,17 +306,17 @@ public class ComponenteGrafico extends JFrame {
 	}
 
 	public void quitarCartaDeMano(Carta carta) {
-		
-		if(this.cartasEnMano.get(0).getCartaContenida().equals(carta)) {
+
+		if (this.cartasEnMano.get(0).getCartaContenida().equals(carta)) {
 			this.cartasEnMano.get(0).setCartaContenida(null);
-		}else {
+		} else {
 			this.cartasEnMano.get(1).setCartaContenida(null);
 		}
 	}
 
 	public void limpiarMano() {
 		this.cartasEnMano.get(0).setCartaContenida(null);
-		this.cartasEnMano.get(1).setCartaContenida(null);	
+		this.cartasEnMano.get(1).setCartaContenida(null);
 	}
 
 	public void remplazarManoEnPantalla(Carta carta) {

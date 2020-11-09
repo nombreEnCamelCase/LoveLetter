@@ -10,6 +10,12 @@ public class ClickeableCarta extends LayoutCarta {
 	private double coordXHasta;
 	private double coordYDesde;
 	private double coordYHasta;
+	
+	// Ubicacion en eje X de las cartas de mano izq y der.
+	// Ubicion en eje Y de ambas cartas.
+	private int coordX_head_izq = 1000;
+	private int coordX_head_der = 1350;
+	private int coordY_head = 550;
 	private final int scaleWidth = 335;
 	private final int scaleHeight = 460;
 
@@ -39,6 +45,18 @@ public class ClickeableCarta extends LayoutCarta {
 
 	public int getScaleHeight() {
 		return this.scaleHeight;
+	}
+	
+	public int getCoordX_head_der() {
+		return this.coordX_head_der;
+	}
+	
+	public int getCoordX_head_izq() {
+		return this.coordX_head_izq;
+	}
+	
+	public int getCoordY_head() {
+		return this.coordY_head;
 	}
 
 }
