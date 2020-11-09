@@ -83,4 +83,9 @@ public class Tablero{
 	public Jugador esperarSeleccionVictima() {
 		return new Jugador("DummyJugador",1);
 	}
+	
+	
+	public void agregarCartaAPantalla(Carta carta) {
+		this.pantalla.setCartasEnMano(carta);
+	}
 }

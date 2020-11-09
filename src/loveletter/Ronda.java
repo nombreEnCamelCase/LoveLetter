@@ -51,11 +51,12 @@ public class Ronda {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
+						this.tableroActual.agregarCartaAPantalla(jugadorActual.getMano().getCartaActual());
 						
 						this.tableroActual.setTurnoEnCurso(turnoActual);
 
 						Carta cartaJugada = jugadorActual.getMano().agregarCarta(this.mazo);
-						this.tableroActual.mostrarEfectoRecibirCarta(cartaJugada);
+						this.tableroActual.agregarCartaAPantalla(cartaJugada);
 						
 						if (jugadorPoseeCondesa(jugadorActual)) {
 							// Jugar condesa.

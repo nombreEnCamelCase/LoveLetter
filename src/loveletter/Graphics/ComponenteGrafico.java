@@ -71,6 +71,7 @@ public class ComponenteGrafico extends JFrame {
 
 		cartasEnMano.add(new ClickeableCarta(1000, 550, 0.53, 0.69, 1.02, 1.84));
 		cartasEnMano.add(new ClickeableCarta(1350, 550, 0.70, 0.87, 1.02, 1.84));
+
 	}
 
 	private class DrawPanel extends JPanel {
@@ -116,10 +117,17 @@ public class ComponenteGrafico extends JFrame {
 			for(int i=0;i<cartasEnTablero.size();i++) {
 				LayoutCarta carta = cartasEnTablero.get(i);
 				g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(), null);
+			// g2.drawImage();
 			}
 			
+			for (int i = 0; i < cartasEnMano.size(); i++) {
+				ClickeableCarta carta = cartasEnMano.get(i);
+				if (carta.getCartaContenida() != null) {
+					g2.drawImage(carta.getCartaContenida().getBufferedImage(), i==0?1000:1350, 550, 335, 460, null);
+					//g2.drawImage(carta.getCartaContenida().getBufferedImage(), 1350, 550, 335, 460, null);
+				}
+			}
 			
-
 		}
 
 		// Me dice el tama�o que debo tener al redimensionar.
@@ -292,4 +300,14 @@ public class ComponenteGrafico extends JFrame {
 		this.cartasEnTablero.add(cartaNueva);
 		this.drawPanel.repaint();
 	}
+
+	public void setCartasEnMano(Carta carta) {
+		if (this.cartasEnMano.get(0).getCartaContenida() == null) {
+			this.cartasEnMano.get(0).setCartaContenida(carta);
+		} else {
+			this.cartasEnMano.get(1).setCartaContenida(carta);
+		}
+		this.drawPanel.repaint();
+	}
+
 }
