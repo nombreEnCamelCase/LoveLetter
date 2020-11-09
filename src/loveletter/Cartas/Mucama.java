@@ -28,6 +28,7 @@ public class Mucama extends Carta {
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
 		//accionador.getEstadoActual().obtenerInmunidad();
+		accionador.getMano().jugarCarta(this);
 		accionador.setEstadoActual(accionador.getEstadoActual().obtenerInmunidad());
 	}
 	

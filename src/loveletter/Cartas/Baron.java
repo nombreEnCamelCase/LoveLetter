@@ -28,6 +28,7 @@ public class Baron extends Carta {
 
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
+		accionador.getMano().jugarCarta(this);
 		int fuerzaAccionador = accionador.getMano().getCartaActual().getFuerza(),
 			fuerzaObjetivo = objetivo.getMano().getCartaActual().getFuerza();
 		
@@ -41,11 +42,11 @@ public class Baron extends Carta {
 			accionador.setEstadoActual(accionador.getEstadoActual().perderRonda());
 		
 		//Empate si igualan fuerzas.
-		if(tablero!=null) {
+		/*if(tablero!=null) {
 			// El tablero deberia encargarse de recibir esto y saber mostrarselo a quien sea necesario.
 			// En este caso como es un solo jugador, deberia ver en pantalla la mano del otro.
 			tablero.mostrarEfecto(this);
-		}
+		}*/
 		// Falta mostrar las cartas a cada jugador.
 		// Suponemos que a futuro existira una clase llamada Screen que mostrara lo que esta viendo en vivo el jugador
 

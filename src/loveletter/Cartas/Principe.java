@@ -26,6 +26,7 @@ public class Principe extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
+		accionador.getMano().jugarCarta(this);
 		Carta cartaDescartada = objetivo.getMano().descartarCarta();
 		if(cartaDescartada.getNombre() == "Princesa") 
 			objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());

@@ -27,11 +27,14 @@ public class Rey extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
+		accionador.getMano().jugarCarta(this);
 		Mano aux = accionador.getMano();
 		
 		// Intercambio
 		accionador.intercambiarMano(objetivo.getMano());
 		objetivo.intercambiarMano(aux);
+		
+		tablero.remplazarCartaEnMano(accionador.getMano().getCartaActual());
 	}
 	
 	@Override
