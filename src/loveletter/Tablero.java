@@ -71,12 +71,17 @@ public class Tablero{
 	
 	public Carta esperarSeleccionCarta() {
 		
-		return this.pantalla.retornarCartaSeleccionada();
-		//return new Baron();
+		
+		Carta carta = this.pantalla.retornarCartaSeleccionada();
+		this.pantalla.refrescarSeleccionDeCarta();
+		return carta;
+		
 	}
 	
 	public void mostrarCartaApoyadaEnTablero(Carta carta) {
 		// Mostrar transicion.
+		this.pantalla.quitarCartaDeMano(carta);
+		// Mostrar transicion
 		this.pantalla.setCartaEnTablero(carta);
 	}
 	
@@ -87,5 +92,14 @@ public class Tablero{
 	
 	public void agregarCartaAPantalla(Carta carta) {
 		this.pantalla.setCartasEnMano(carta);
+	}
+	
+	public void refrescaPantallaPorTurno() {
+		this.pantalla.limpiarMano();
+	}
+
+	public void remplazarCartaEnMano(Carta carta) {
+		this.pantalla.remplazarManoEnPantalla(carta);
+		
 	}
 }

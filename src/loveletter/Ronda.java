@@ -61,28 +61,32 @@ public class Ronda {
 						if (jugadorPoseeCondesa(jugadorActual)) {
 							// Jugar condesa.
 							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
-							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+							
 						}		 
 						
 						if(jugadorActual.getMano().cantCartas()>1) {
 							// Esperar por carta seleccionada y accion de jugada
 							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo, this.tableroActual);
 							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+							///pisa la primera...
 						}
 						
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-
+						
+						
 					}
 
 				} else {
 					existeGanador = true;
 					break;
 				}
-
+				this.tableroActual.refrescaPantallaPorTurno();
 			}
+			
 		}
+		
 		return ganadorDeRonda;
 	}
 

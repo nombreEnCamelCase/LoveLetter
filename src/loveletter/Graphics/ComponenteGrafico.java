@@ -274,16 +274,15 @@ public class ComponenteGrafico extends JFrame {
 	public Carta retornarCartaSeleccionada() {
 		while (!this.clickValido) {
 			System.out.println("Estoy esperando el click del usuario.");
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 		System.out.println("Cliqueo carta!");
-
 		return this.cartaCliqueada;
+	}
+	
+	public void refrescarSeleccionDeCarta() {
+		this.clickValido = false;
+		this.cartaCliqueada = null;
 	}
 	
 	public void setCartaEnTablero(Carta carta) {
@@ -308,6 +307,24 @@ public class ComponenteGrafico extends JFrame {
 			this.cartasEnMano.get(1).setCartaContenida(carta);
 		}
 		this.drawPanel.repaint();
+	}
+
+	public void quitarCartaDeMano(Carta carta) {
+		
+		if(this.cartasEnMano.get(0).getCartaContenida().equals(carta)) {
+			this.cartasEnMano.get(0).setCartaContenida(null);
+		}else {
+			this.cartasEnMano.get(1).setCartaContenida(null);
+		}
+	}
+
+	public void limpiarMano() {
+		this.cartasEnMano.get(0).setCartaContenida(null);
+		this.cartasEnMano.get(1).setCartaContenida(null);	
+	}
+
+	public void remplazarManoEnPantalla(Carta carta) {
+		this.cartasEnMano.get(0).setCartaContenida(carta);
 	}
 
 }
