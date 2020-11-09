@@ -13,9 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -155,7 +152,6 @@ public class ComponenteGrafico extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setFocusable(true);
-
 		requestFocusInWindow();
 	}
 
@@ -262,12 +258,9 @@ public class ComponenteGrafico extends JFrame {
 
 		return contadorTemporal == 100;
 
-//		player.move(1.0 / TICKS_PER_SECOND);
-//		ball.move(1.0 / TICKS_PER_SECOND);
 	}
 
 	public void refreshScreen() {
-//		System.out.println("Muestra");
 		drawPanel.repaint();
 	}
 
