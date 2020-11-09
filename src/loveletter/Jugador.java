@@ -8,6 +8,7 @@ import java.util.List;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Estado;
 import loveletter.EstadosJugador.FueraDeRonda;
+import loveletter.EstadosJugador.Inmune;
 
 public class Jugador {
 	
@@ -46,8 +47,13 @@ public class Jugador {
 		// Creo un aux para agregarme como parametro.
 		ArrayList<Jugador> aux = new ArrayList<>(); 
 		for (Jugador e : jugadoresDisponibles) {
-			aux.add(e);
+			
+			//AGREGO ESTA CONDICION PARA EVITAR QUE SE ME AGREGE A LA LISTA UN JUGADOR INMUNE
+			if(!e.getEstadoActual().equals(new Inmune())) {
+				aux.add(e);
+			}
 		}
+		
 
 		if(!incluyeActual) { ///agrege este if para que lo remueva si no lo incluye por el boolean
 			aux.remove(this);
