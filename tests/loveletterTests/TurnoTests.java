@@ -14,7 +14,7 @@ public class TurnoTests {
 	
 	@Before
 	public void setUp() {
-		jugador = new Jugador("nombre de jugador");
+		jugador = new Jugador("nombre de jugador",1);
 		turno = new  Turno(jugador);
 	}
 	

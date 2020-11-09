@@ -62,7 +62,7 @@ public class RondaTests {
 	public void finalizaRonda_retornaUnJugadorGanadorTests() {
 		// Arrange
 		Jugador ganadorResponse;
-		Jugador dummyJugador = new Jugador("Fede");
+		Jugador dummyJugador = new Jugador("Fede",1);
 		
 		// Act
 		ganadorResponse = ronda.comenzar();
@@ -73,7 +73,7 @@ public class RondaTests {
 	
 	@Test
 	public void jugadorTieneCondesaEnLaManoTests() {
-		Jugador j1 = new Jugador("fede");
+		Jugador j1 = new Jugador("fede",1);
 		j1.getMano().setManoConCartas(new Condesa());
 		assertTrue(ronda.jugadorPoseeCondesa(j1));
 		

@@ -18,7 +18,8 @@ public class Ronda {
 	// posible ejecutar algo en el turno.
 	// Cosa de poder mostrar en orden las cartas jugadas.
 
-	private Tablero tableroActual = new Tablero();
+	private Tablero tableroActual;
+	
 	// Es otra lista propia de ronda.
 	private ArrayList<Jugador> jugadoresEnJuego = new ArrayList<Jugador>();
 	private Jugador ganadorDeRonda = null;
@@ -26,11 +27,16 @@ public class Ronda {
 	public Ronda(ArrayList<Jugador> jugadores) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
+		this.tableroActual = new Tablero();
+		this.tableroActual.preparacionInicial();
+//		tableroActual.init();
+//		tableroActual.run();
 	} 
 
 	public Jugador comenzar() {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
+		// Podriamos hacer una transicion para una carta yendo a cada jugador.
 		boolean existeGanador = false;
 
 		while (!existeGanador) {
@@ -45,32 +51,42 @@ public class Ronda {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
-
-						if(jugadorActual.getMano().cantCartas()>1)
-							System.out.println("SIEMPRE DEBERIA ARRANCAR EL TURNO CON UNA CARTA SOLA.");
+						this.tableroActual.agregarCartaAPantalla(jugadorActual.getMano().getCartaActual());
 						
-						Carta cartaJugada = jugadorActual.getMano().agregarCarta(mazo);
+						this.tableroActual.setTurnoEnCurso(turnoActual);
 
-						if (jugadorPoseeCondesa(jugadorActual))
-							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, mazo);
+						Carta cartaJugada = jugadorActual.getMano().agregarCarta(this.mazo);
+						this.tableroActual.agregarCartaAPantalla(cartaJugada);
 						
-						if(jugadorActual.getMano().cantCartas()>1)
-							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, mazo);
+						if (jugadorPoseeCondesa(jugadorActual)) {
+							// Jugar condesa.
+							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
+							
+						}		 
+						
+						if(jugadorActual.getMano().cantCartas()>1) {
+							// Esperar por carta seleccionada y accion de jugada
+							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo, this.tableroActual);
+							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+							///pisa la primera...
+						}
 						
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-						if(jugadorActual.getMano().cantCartas()>1)
-						System.out.println("SIEMPRE DEBERIA TERMINAR EL TURNO CON UNA CARTA SOLA.");
+						
+						
 					}
 
 				} else {
 					existeGanador = true;
 					break;
 				}
-
+				this.tableroActual.refrescaPantallaPorTurno();
 			}
+			
 		}
+		
 		return ganadorDeRonda;
 	}
 
@@ -78,7 +94,7 @@ public class Ronda {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for (Jugador jugador : this.jugadoresEnJuego) {
-			jugador.preparacionInicial(this.mazo);
+			jugador.preparacionInicial(this.mazo,this.tableroActual);
 		}
 	}
 

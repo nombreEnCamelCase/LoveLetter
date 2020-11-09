@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import loveletter.Jugador;
 import loveletter.Mazo;
+import loveletter.Tablero;
 import loveletter.Cartas.Baron;
 import loveletter.Cartas.Rey;
 import loveletter.Cartas.Sacerdote;
@@ -16,12 +17,13 @@ public class ReyTests {
 	private Jugador jugador;
 	private Jugador contrincante;
 	private Mazo mazo;
+	private Tablero tablero=null;
 
 	@Before
 	public void setUp() {
 		rey = new Rey();
-		jugador = new Jugador("jugador");
-		contrincante = new Jugador("contrincante");
+		jugador = new Jugador("jugador",1);
+		contrincante = new Jugador("contrincante",2);
 		mazo = new Mazo();
 	}
 	
@@ -29,10 +31,9 @@ public class ReyTests {
 	public void aplicarEfectoTests() {
 		jugador.getMano().setManoConCartas(new Baron());
 		contrincante.getMano().setManoConCartas(new Sacerdote());
-		rey.aplicarEfectoAJugador(jugador, contrincante, mazo);
+		rey.aplicarEfectoAJugador(jugador, contrincante, mazo, tablero);
 		assertEquals(new Baron(), contrincante.getMano().getCartaActual());
 		assertEquals(new Sacerdote(), jugador.getMano().getCartaActual());
-		
 	}
 	
 	@Test
