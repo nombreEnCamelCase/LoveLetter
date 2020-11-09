@@ -36,6 +36,7 @@ public class Ronda {
 	public Jugador comenzar() {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
 		prepararJugadores();// Otorgo una carta a cada jugador de forma inicial
+		// Podriamos hacer una transicion para una carta yendo a cada jugador.
 		boolean existeGanador = false;
 
 		while (!existeGanador) {
@@ -50,6 +51,7 @@ public class Ronda {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
+						
 						this.tableroActual.setTurnoEnCurso(turnoActual);
 
 						Carta cartaJugada = jugadorActual.getMano().agregarCarta(this.mazo);
@@ -59,15 +61,13 @@ public class Ronda {
 							// Jugar condesa.
 							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
 							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
-						}
-							
+						}		 
 						
 						if(jugadorActual.getMano().cantCartas()>1) {
 							// Esperar por carta seleccionada y accion de jugada
 							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo, this.tableroActual);
 							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
 						}
-							
 						
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);

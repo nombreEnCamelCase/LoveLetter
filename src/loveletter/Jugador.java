@@ -104,6 +104,7 @@ public class Jugador {
 
 	public void prepararseParaJugar() {
 		this.estadoActual = this.estadoActual.comenzarTurno();
+		// Se podria recibir tablero y mostrar aca la carta que ya tenia.d
 	}
 
 	public void terminarTurno() {

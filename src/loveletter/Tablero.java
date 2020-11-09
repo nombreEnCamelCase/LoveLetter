@@ -22,13 +22,11 @@ import javax.swing.JPanel;
 import loveletter.Cartas.Baron;
 import loveletter.Graphics.ComponenteGrafico;
 
-
 //public class Tablero extends JFrame implements Runnable  {
 public class Tablero{
 	private List<Turno> historialTurnosPasados = new LinkedList<Turno>();
 	private Turno turnoEnCurso;
-	private ComponenteGrafico pantalla;
-	
+	private ComponenteGrafico pantalla;	
 	public Tablero() {
 		this.pantalla = new ComponenteGrafico();
 	}
@@ -61,12 +59,15 @@ public class Tablero{
 	 * */
 	
 	public void mostrarEfectoRecibirCarta(Carta carta) {
-		//this.pantalla.realizarTransicion(carta,1);
+		// this.pantalla.realizarTransicion(carta,1);
+		// Setear la carta en una de las dos posiciones clickeables de la pantalla.
 	}
 	
 	public void mostrarEfecto(Carta carta) {
 		
 	}
+
+	
 	
 	public Carta esperarSeleccionCarta() {
 		
@@ -75,7 +76,8 @@ public class Tablero{
 	}
 	
 	public void mostrarCartaApoyadaEnTablero(Carta carta) {
-		
+		// Mostrar transicion.
+		this.pantalla.setCartaEnTablero(carta);
 	}
 	
 	public Jugador esperarSeleccionVictima() {
