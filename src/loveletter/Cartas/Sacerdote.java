@@ -26,7 +26,6 @@ public class Sacerdote extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
-		accionador.getMano().jugarCarta(this);
 		accionador.verCartasDeMano(objetivo.getMano());
 		//tablero.mostrarManoContraria (alerta)
 		//objetivo.verCartasDeMano(accionador.getMano());

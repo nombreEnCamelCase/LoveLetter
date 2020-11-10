@@ -8,6 +8,7 @@ import java.util.List;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Estado;
 import loveletter.EstadosJugador.FueraDeRonda;
+import loveletter.EstadosJugador.Inmune;
 
 public class Jugador {
 
@@ -39,7 +40,6 @@ public class Jugador {
 		// Carta cartaJugada = jugarCartaRandom();
 
 		if (cartaJugada.requiereVictima()) {
-
 			// Si el efecto de la carta seleccionada por el jugador requiere victima
 			// Selecciono victima y se la mando al efecto de la carta.
 			cartaJugada.aplicarEfectoAJugador(this,
@@ -47,7 +47,8 @@ public class Jugador {
 					tablero);
 		} else // Si no requiere victima, soy yo el objetivo.
 			cartaJugada.aplicarEfectoAJugador(this, this, mazo, tablero);
-
+		
+		this.mano.jugarCarta(cartaJugada);
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que
 							// momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
@@ -58,7 +59,8 @@ public class Jugador {
 		// Creo un aux para agregarme como parametro.
 		ArrayList<Jugador> aux = new ArrayList<>();
 		for (Jugador e : jugadoresDisponibles) {
-			aux.add(e);
+			if(!e.getEstadoActual().equals(new Inmune()))
+				aux.add(e);
 		}
 
 		if (!incluyeActual) { /// agrege este if para que lo remueva si no lo incluye por el boolean

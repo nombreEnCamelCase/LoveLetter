@@ -63,7 +63,7 @@ public class Ronda {
 							// Jugar condesa.
 							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
 							
-						}		 
+						}
 						
 						if(jugadorActual.getMano().cantCartas()>1) {
 							// Esperar por carta seleccionada y accion de jugada
@@ -75,7 +75,7 @@ public class Ronda {
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-						
+						this.tableroActual.refrescaPantallaPorTurno();
 						
 					}
 
@@ -83,7 +83,7 @@ public class Ronda {
 					existeGanador = true;
 					break;
 				}
-				this.tableroActual.refrescaPantallaPorTurno();
+				
 			}
 			
 		}
