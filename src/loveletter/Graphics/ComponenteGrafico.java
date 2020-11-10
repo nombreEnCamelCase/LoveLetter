@@ -45,7 +45,6 @@ public class ComponenteGrafico extends JFrame {
 	// final en secuencia.
 	private ArrayList<LayoutCarta> cartasEnTablero = new ArrayList<LayoutCarta>();
 
-
 	private int loops = 0;
 	private int fps = 0;
 
@@ -61,9 +60,10 @@ public class ComponenteGrafico extends JFrame {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
-		cartasEnMano.add(new ClickeableCarta(1000, 550, 0.53, 0.69, 1.02, 1.84));
-		cartasEnMano.add(new ClickeableCarta(1350, 550, 0.70, 0.87, 1.02, 1.84));
-
+		
+		// Carta izquierda 1, carta derecha 2
+		cartasEnMano.add(new ClickeableCarta(1, 0.53, 0.69, 1.02, 1.84));
+		cartasEnMano.add(new ClickeableCarta(2, 0.70, 0.87, 1.02, 1.84));
 	}
 
 	private class DrawPanel extends JPanel {
@@ -248,7 +248,6 @@ public class ComponenteGrafico extends JFrame {
 		System.out.println("Want to updateComponentData");
 		this.contadorTemporal++;
 
-
 		return contadorTemporal == 100;
 
 	}
@@ -259,7 +258,7 @@ public class ComponenteGrafico extends JFrame {
 
 	public Carta retornarCartaSeleccionada() {
 		while (!this.clickValido) {
-			//System.out.println("Estoy esperando el click del usuario.");
+			// System.out.println("Estoy esperando el click del usuario.");
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -267,7 +266,7 @@ public class ComponenteGrafico extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		//System.out.println("Cliqueo carta!");
+		// System.out.println("Cliqueo carta!");
 		return this.cartaCliqueada;
 	}
 
@@ -322,8 +321,7 @@ public class ComponenteGrafico extends JFrame {
 		limpiarMano();
 		this.cartasEnTablero = new ArrayList<LayoutCarta>();
 	}
-	
-	
+
 	public void cerrarPantalla() {
 		System.out.println("Termino todo...");
 //		try {
