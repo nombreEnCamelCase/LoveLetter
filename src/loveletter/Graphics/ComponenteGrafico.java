@@ -13,11 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import loveletter.Carta;
 
 //public class Tablero extends JFrame implements Runnable  {
@@ -46,9 +44,7 @@ public class ComponenteGrafico extends JFrame {
 	// Estas son las cartas que estan en el tablero, solamente se van agregando al
 	// final en secuencia.
 	private ArrayList<LayoutCarta> cartasEnTablero = new ArrayList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
+
 
 	private int loops = 0;
 	private int fps = 0;
@@ -65,7 +61,6 @@ public class ComponenteGrafico extends JFrame {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
-
 		cartasEnMano.add(new ClickeableCarta(1000, 550, 0.53, 0.69, 1.02, 1.84));
 		cartasEnMano.add(new ClickeableCarta(1350, 550, 0.70, 0.87, 1.02, 1.84));
 
@@ -253,11 +248,6 @@ public class ComponenteGrafico extends JFrame {
 		System.out.println("Want to updateComponentData");
 		this.contadorTemporal++;
 
-		try {
-			Thread.sleep(1000);
-		} catch (Exception ex) {
-			System.out.println("Se interrumpio la espera");
-		}
 
 		return contadorTemporal == 100;
 
@@ -323,4 +313,19 @@ public class ComponenteGrafico extends JFrame {
 		this.cartasEnMano.get(0).setCartaContenida(carta);
 	}
 
+	public void limpiarContenido() {
+		limpiarMano();
+		this.cartasEnTablero = new ArrayList<LayoutCarta>();
+	}
+	
+	
+	public void cerrarPantalla() {
+		System.out.println("Termino todo...");
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

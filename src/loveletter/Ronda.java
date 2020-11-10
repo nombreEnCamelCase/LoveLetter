@@ -18,16 +18,17 @@ public class Ronda {
 	// posible ejecutar algo en el turno.
 	// Cosa de poder mostrar en orden las cartas jugadas.
 
+
 	private Tablero tableroActual;
-	
 	// Es otra lista propia de ronda.
 	private ArrayList<Jugador> jugadoresEnJuego = new ArrayList<Jugador>();
 	private Jugador ganadorDeRonda = null;
 
-	public Ronda(ArrayList<Jugador> jugadores) {
+	public Ronda(ArrayList<Jugador> jugadores,Tablero tablero) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
-		this.tableroActual = new Tablero();
+		this.tableroActual = tablero;
+		this.tableroActual.limpiarPantalla();
 		this.tableroActual.preparacionInicial();
 //		tableroActual.init();
 //		tableroActual.run();
