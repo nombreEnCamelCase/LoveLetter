@@ -100,9 +100,9 @@ public class Partida {
 		}
 		
 		this.tablero.cerrarPantalla();
-		while(true) {
+
 			System.out.println("Termino partida!");
-		}
+
 		
 	}
 	
