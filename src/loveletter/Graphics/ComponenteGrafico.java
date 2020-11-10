@@ -61,9 +61,9 @@ public class ComponenteGrafico extends JFrame {
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
 		
-		// Carta izquierda 1, carta derecha 2
-		cartasEnMano.add(new ClickeableCarta(1, 0.53, 0.69, 1.02, 1.84));
-		cartasEnMano.add(new ClickeableCarta(2, 0.70, 0.87, 1.02, 1.84));
+		//	Carta izquierda 1, carta derecha 2
+		cartasEnMano.add(new ClickeableCarta(1));
+		cartasEnMano.add(new ClickeableCarta(2));
 	}
 
 	private class DrawPanel extends JPanel {
