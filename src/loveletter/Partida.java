@@ -101,8 +101,7 @@ public class Partida {
 		
 		this.tablero.cerrarPantalla();
 
-			System.out.println("Termino partida!");
-
+		System.out.println("Termino partida!");
 		
 	}
 	

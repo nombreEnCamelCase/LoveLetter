@@ -135,7 +135,7 @@ public class ComponenteGrafico extends JFrame {
 	public void init() {
 
 		try {
-			background = ImageIO.read(new File("assets/other/background_v2.jpg"));
+			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
