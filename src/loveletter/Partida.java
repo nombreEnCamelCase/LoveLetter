@@ -54,6 +54,7 @@ public class Partida {
 				this.rondaActual = new Ronda(this.jugadores,this.tablero); // Agrega los jugadores de la partida a ronda actual.
 				ganadorRonda = this.rondaActual.comenzar();
 				sumarPuntaje(ganadorRonda);
+				System.out.println("Gano la ronda: "+ganadorRonda.getNombre());
 			}
 			else
 				System.out.println("No se puede iniciar");

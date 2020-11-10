@@ -18,15 +18,16 @@ public class Jugador {
 
 	private int puntaje; // simbolo de afecto
 
-	private Estado estadoActual = new EnEspera();
+	private Estado estadoActual;
 
 	Mano mano;
 
 	public Jugador(String nombre,int nro) {
 		this.nombre = nombre;
-		this.puntaje = 0;
+		//this.puntaje = 0;
 		this.numeroJugador = nro;
-		mano = new Mano();
+		//this.mano = new Mano();
+		//this.estadoActual = new EnEspera();
 	}
 
 	// todos los efectos de la carta tienen que traer el mazo this.mazo
@@ -37,6 +38,7 @@ public class Jugador {
 	public Carta realizarJugada(ArrayList<Jugador> jugadoresDisponibles, Mazo mazo, Tablero tablero) {
 
 		Carta cartaJugada = tablero.esperarSeleccionCarta();
+		this.mano.jugarCarta(cartaJugada);
 		// Carta cartaJugada = jugarCartaRandom();
 
 		if (cartaJugada.requiereVictima()) {
@@ -48,7 +50,7 @@ public class Jugador {
 		} else // Si no requiere victima, soy yo el objetivo.
 			cartaJugada.aplicarEfectoAJugador(this, this, mazo, tablero);
 		
-		this.mano.jugarCarta(cartaJugada);
+		
 		return cartaJugada; // Devuelvo la carta jugada unicamente para guardarla en turno y saber en que
 							// momento se uso, quien la uso y tenerla como historial en el tablero.
 	}
@@ -59,7 +61,7 @@ public class Jugador {
 		// Creo un aux para agregarme como parametro.
 		ArrayList<Jugador> aux = new ArrayList<>();
 		for (Jugador e : jugadoresDisponibles) {
-			if(!e.getEstadoActual().equals(new Inmune()))
+			if(!(e.getEstadoActual().equals(new Inmune())&&!(e.getEstadoActual().equals(new FueraDeRonda()))))
 				aux.add(e);
 		}
 
@@ -117,6 +119,7 @@ public class Jugador {
 	public void preparacionInicial(Mazo mazo, Tablero tablero) {
 		this.puntaje = 0;
 		this.mano = new Mano();
+		this.estadoActual = new EnEspera(); // Esto en realidad es dejarlo en espera.
 		tablero.mostrarEfectoRecibirCarta(this.mano.agregarCarta(mazo));
 	}
 
