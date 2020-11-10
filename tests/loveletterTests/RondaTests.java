@@ -9,6 +9,7 @@ import loveletter.Jugador;
 import loveletter.Mazo;
 import loveletter.Partida;
 import loveletter.Ronda;
+import loveletter.Tablero;
 import loveletter.Cartas.Condesa;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.FueraDeRonda;
@@ -21,7 +22,7 @@ public class RondaTests {
 	@Before
 	public void setUp() {
 		partida = new Partida();
-		ronda = new Ronda(partida.getJugadores());
+		ronda = new Ronda(partida.getJugadores(),new Tablero());
 	}
 	
 	@Test

@@ -99,4 +99,12 @@ public class Tablero{
 		this.pantalla.remplazarManoEnPantalla(carta);
 		
 	}
+	
+	public void limpiarPantalla() {
+		this.pantalla.limpiarContenido();
+	}
+	
+	public void cerrarPantalla() {
+		this.pantalla.cerrarPantalla();
+	}
 }
