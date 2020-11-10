@@ -24,10 +24,7 @@ public class Jugador {
 
 	public Jugador(String nombre,int nro) {
 		this.nombre = nombre;
-		//this.puntaje = 0;
 		this.numeroJugador = nro;
-		//this.mano = new Mano();
-		//this.estadoActual = new EnEspera();
 	}
 
 	// todos los efectos de la carta tienen que traer el mazo this.mazo
