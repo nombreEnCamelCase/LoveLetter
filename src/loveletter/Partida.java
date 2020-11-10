@@ -37,7 +37,7 @@ public class Partida {
 		this.tablaPuntaje.put(jugador2, 0);
 		this.tablaPuntaje.put(jugador3, 0);
 		this.tablaPuntaje.put(jugador4, 0);
-		this.puntajeGanadorDePartida = 40;
+		this.puntajeGanadorDePartida = 3;
 		this.tablero = new Tablero();
 
 	}
@@ -54,6 +54,7 @@ public class Partida {
 				this.rondaActual = new Ronda(this.jugadores,this.tablero); // Agrega los jugadores de la partida a ronda actual.
 				ganadorRonda = this.rondaActual.comenzar();
 				sumarPuntaje(ganadorRonda);
+				System.out.println("Gano la ronda: "+ganadorRonda.getNombre());
 			}
 			else
 				System.out.println("No se puede iniciar");
@@ -99,9 +100,9 @@ public class Partida {
 		}
 		
 		this.tablero.cerrarPantalla();
-		while(true) {
+
 			System.out.println("Termino partida!");
-		}
+
 		
 	}
 	

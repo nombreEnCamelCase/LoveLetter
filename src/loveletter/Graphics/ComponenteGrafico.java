@@ -259,10 +259,15 @@ public class ComponenteGrafico extends JFrame {
 
 	public Carta retornarCartaSeleccionada() {
 		while (!this.clickValido) {
-			System.out.println("Estoy esperando el click del usuario.");
-
+			//System.out.println("Estoy esperando el click del usuario.");
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		System.out.println("Cliqueo carta!");
+		//System.out.println("Cliqueo carta!");
 		return this.cartaCliqueada;
 	}
 
@@ -321,11 +326,11 @@ public class ComponenteGrafico extends JFrame {
 	
 	public void cerrarPantalla() {
 		System.out.println("Termino todo...");
-		try {
-			Thread.sleep(100000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(100000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }
