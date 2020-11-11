@@ -54,7 +54,7 @@ public class Mazo {
 			this.cartas.remove(cartaObtenida);
 			return cartaObtenida;
 		}catch(Exception e) {
-			System.out.println("Fallo al retirar carta 3: " + e);
+			System.out.println("Fallo al retirar carta de mazo: " + e);
 		}
 		return null;
 

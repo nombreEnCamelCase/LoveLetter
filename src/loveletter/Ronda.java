@@ -19,19 +19,19 @@ public class Ronda {
 	// Cosa de poder mostrar en orden las cartas jugadas.
 
 	private Tablero tableroActual;
-	
 	// Es otra lista propia de ronda.
 	private ArrayList<Jugador> jugadoresEnJuego = new ArrayList<Jugador>();
 	private Jugador ganadorDeRonda = null;
 
-	public Ronda(ArrayList<Jugador> jugadores) {
+	public Ronda(ArrayList<Jugador> jugadores, Tablero tablero) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
-		this.tableroActual = new Tablero();
+		this.tableroActual = tablero;
+		this.tableroActual.limpiarPantalla();
 		this.tableroActual.preparacionInicial();
 //		tableroActual.init();
 //		tableroActual.run();
-	} 
+	}
 
 	public Jugador comenzar() {
 		this.mazo.prepararParaJuego(); // Retiro una carta random del mazo total y mezclo
@@ -55,30 +55,32 @@ public class Ronda {
 						this.tableroActual.agregarJugadoresAPantalla(jugadoresEnJuego);
 						
 						this.tableroActual.agregarCartaAPantalla(jugadorActual.getMano().getCartaActual());
-						
+
 						this.tableroActual.setTurnoEnCurso(turnoActual);
 
 						Carta cartaJugada = jugadorActual.getMano().agregarCarta(this.mazo);
 						this.tableroActual.agregarCartaAPantalla(cartaJugada);
-						
+
 						if (jugadorPoseeCondesa(jugadorActual)) {
 							// Jugar condesa.
-							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo, this.tableroActual);
-							
-						}		 
-						
-						if(jugadorActual.getMano().cantCartas()>1) {
-							// Esperar por carta seleccionada y accion de jugada
-							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo, this.tableroActual);
-							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
-							///pisa la primera...
+							(cartaJugada = new Condesa()).aplicarEfectoAJugador(jugadorActual, jugadorActual, this.mazo,
+									this.tableroActual);
+
 						}
-						
+
+						if (jugadorActual.getMano().cantCartas() > 1) {
+							// Esperar por carta seleccionada y accion de jugada
+							cartaJugada = jugadorActual.realizarJugada(this.jugadoresEnJuego, this.mazo,
+									this.tableroActual);
+							this.tableroActual.mostrarCartaApoyadaEnTablero(cartaJugada);
+							/// pisa la primera...
+						}
+
 						jugadorActual.terminarTurno();
 						turnoActual.setCartaJugada(cartaJugada);
 						this.tableroActual.addTurnoPasado(turnoActual);
-						
-						
+
+
 					}
 
 				} else {
@@ -87,17 +89,17 @@ public class Ronda {
 				}
 				this.tableroActual.refrescaPantallaPorTurno();
 			}
-			
+
 		}
-		
 		return ganadorDeRonda;
+		
 	}
 
 	public void prepararJugadores() {
 		// A cada uno de los jugadores le doy una carta.
 		// Todos los jugadores se crearon en espera y con puntaje cero.
 		for (Jugador jugador : this.jugadoresEnJuego) {
-			jugador.preparacionInicial(this.mazo,this.tableroActual);
+			jugador.preparacionInicial(this.mazo, this.tableroActual);
 		}
 	}
 
@@ -106,9 +108,11 @@ public class Ronda {
 			// Logica para devolver el ganadorDeRonda con la carta mas fuerte.
 
 			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
-				if (i == 0 || jugadoresEnJuego.get(i).getMano().obtenerMayorFuerza() > ganadorDeRonda.getMano()
-						.obtenerMayorFuerza())
-					ganadorDeRonda = jugadoresEnJuego.get(i);
+				if (jugadorPuedeJugar(jugadoresEnJuego.get(i))) {
+					if (i == 0 || jugadoresEnJuego.get(i).getMano().obtenerMayorFuerza() > ganadorDeRonda.getMano()
+							.obtenerMayorFuerza())
+						ganadorDeRonda = jugadoresEnJuego.get(i);
+				}
 			}
 			return false;
 		}

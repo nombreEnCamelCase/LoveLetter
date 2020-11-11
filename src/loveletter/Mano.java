@@ -54,7 +54,6 @@ public class Mano {
 		for (Carta cart : this.cartasEnMano) {
 			if (max < cart.getFuerza())
 				max = cart.getFuerza();
-
 		}
 
 		return max;
@@ -63,9 +62,6 @@ public class Mano {
 	/// el programa deberia dejarnos elegir cual de las dos cartas en mano
 	/// podemos tirar, de manera grafica. por ahora lo hicimos random
 	private Carta descartarCartaRandom() {
-//		Carta cartaObtenida = this.cartasEnMano.get(0);
-//		this.cartasEnMano.remove(cartaObtenida);
-//		return cartaObtenida;
 		
 		try {
 			Iterator<Carta> iter = this.cartasEnMano.iterator();
@@ -73,24 +69,20 @@ public class Mano {
 			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta 0: "+ e);
+			System.out.println("Fallo al descartar carta de mano: "+ e);
 		}
 		return null;
 	}
 
 	private Carta jugarCartaRandom() {
 		
-//		Carta cartaObtenida = this.getCartaActual();
-//		this.cartasEnMano.remove(cartaObtenida);
-//		return cartaObtenida;
-		
 		try {
 			Iterator<Carta> iter = this.cartasEnMano.iterator();
 			Carta cartaObtenida = iter.next();
 			this.cartasEnMano.remove(cartaObtenida);
 			return cartaObtenida;
 		} catch (Exception e) {
-			System.out.println("Fallo al retirar carta 1" + e);
+			System.out.println("Fallo al retirar carta de mano para jugar random" + e);
 		}
 		return null;
 	}

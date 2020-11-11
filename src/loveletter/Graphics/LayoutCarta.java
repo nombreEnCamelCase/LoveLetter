@@ -8,7 +8,7 @@ public class LayoutCarta {
 	protected Jugador duenio = null;
 	protected int coordX;
 	protected int coordY;
-	private final int coordY_head = 100;
+	private final int coordY_head = 230;
 	private final int coordX_head = 220;
 	
 	public LayoutCarta() {
