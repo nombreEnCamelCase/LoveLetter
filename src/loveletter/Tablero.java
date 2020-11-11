@@ -124,6 +124,7 @@ public class Tablero{
 	public void agregarJugadoresAPantalla(ArrayList<Jugador> jugadores) {
 		this.pantalla.ponerJugadoresEnPantalla(jugadores);
 		
+	}
 	
 	public void limpiarPantalla() {
 		this.pantalla.limpiarContenido();

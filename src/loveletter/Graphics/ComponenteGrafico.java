@@ -338,7 +338,7 @@ public class ComponenteGrafico extends JFrame {
 			//estoy agregando los jugadores actuales a mi atributo de jugadoresEn Tablero
 		
 		
-		
+	}
 		
 		
 		
