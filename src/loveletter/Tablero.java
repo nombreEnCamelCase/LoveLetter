@@ -93,6 +93,7 @@ public class Tablero{
 	
 	public void refrescaPantallaPorTurno() {
 		this.pantalla.limpiarMano();
+		this.pantalla.mostraPantallaCambioTurno();
 	}
 
 	public void remplazarCartaEnMano(Carta carta) {

@@ -88,8 +88,8 @@ public class Ronda {
 			}
 
 		}
-
 		return ganadorDeRonda;
+		
 	}
 
 	public void prepararJugadores() {
