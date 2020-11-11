@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -100,6 +101,11 @@ public class Tablero{
 
 	public void remplazarCartaEnMano(Carta carta) {
 		this.pantalla.remplazarManoEnPantalla(carta);
+		
+	}
+
+	public void agregarJugadoresAPantalla(ArrayList<Jugador> jugadores) {
+		this.pantalla.ponerJugadoresEnPantalla(jugadores);
 		
 	}
 }

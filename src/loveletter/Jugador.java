@@ -98,7 +98,10 @@ public class Jugador {
 	public int getPuntaje() {
 		return this.puntaje;
 	}
-
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getNombre() {
 		return this.nombre;
 	}

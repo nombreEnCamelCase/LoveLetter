@@ -45,12 +45,15 @@ public class Ronda {
 			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
 
 				Jugador jugadorActual = jugadoresEnJuego.get(i);
-
+				
 				if (quedanCartasEnMazo() && !quedaUnSoloJugador()) {
 					if (jugadorPuedeJugar(jugadorActual)) {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
+						//aca esta en estado en juego
+						this.tableroActual.agregarJugadoresAPantalla(jugadoresEnJuego);
+						
 						this.tableroActual.agregarCartaAPantalla(jugadorActual.getMano().getCartaActual());
 						
 						this.tableroActual.setTurnoEnCurso(turnoActual);

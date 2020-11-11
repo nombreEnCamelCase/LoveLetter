@@ -22,6 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import loveletter.Carta;
+import loveletter.Jugador;
+import loveletter.EstadosJugador.EnEspera;
+import loveletter.EstadosJugador.EnJuego;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class ComponenteGrafico extends JFrame {
@@ -52,6 +55,8 @@ public class ComponenteGrafico extends JFrame {
 //	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
 //	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
 //	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
+	
+	private ArrayList<JugadorGraphics> jugadoresEnTablero = new ArrayList<JugadorGraphics>();
 
 	private int loops = 0;
 	private int fps = 0;
@@ -104,7 +109,8 @@ public class ComponenteGrafico extends JFrame {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
-
+			
+			
 			Dimension currentDimension = getContentPane().getSize();
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
 			g2.drawImage(background, null, 0, 0);
@@ -114,6 +120,22 @@ public class ComponenteGrafico extends JFrame {
 			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
+			for(int i=0;i<jugadoresEnTablero.size();i++) {
+				String nombreJugador = jugadoresEnTablero.get(i).getNombre();
+				if(jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { ///faltara un equals?
+					g2.setColor(Color.BLACK);
+					g2.setFont(new Font("Dialog", Font.BOLD,30));
+					/*g2.drawString(nombreJugador,1 * WIDTH / currentDimension.getWidth(),
+							1 * HEIGHT / currentDimension.getHeight());*/
+					//g2.drawString(nombreJugador, 100,600); //seteo abajo de todo porq es el actual;
+				}else {
+				g2.setColor(Color.BLACK);
+				g2.setFont(new Font("Dialog", Font.BOLD,30));
+				g2.drawString(nombreJugador, 100 * (i*3),80 ); //deberia setear en el mismo lugar donde estan 
+				//los cuadrados
+				}
+			}
+			
 			for(int i=0;i<cartasEnTablero.size();i++) {
 				LayoutCarta carta = cartasEnTablero.get(i);
 				g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(), null);
@@ -274,7 +296,12 @@ public class ComponenteGrafico extends JFrame {
 	public Carta retornarCartaSeleccionada() {
 		while (!this.clickValido) {
 			System.out.println("Estoy esperando el click del usuario.");
-			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Cliqueo carta!");
 		return this.cartaCliqueada;
@@ -327,4 +354,24 @@ public class ComponenteGrafico extends JFrame {
 		this.cartasEnMano.get(0).setCartaContenida(carta);
 	}
 
+	public void ponerJugadoresEnPantalla(ArrayList<Jugador> jugadores) {
+		JugadorGraphics jugador1;
+		
+		for(int i=0;i<jugadores.size();i++) {
+			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(),jugadores.get(i).getEstadoActual());
+			this.jugadoresEnTablero.add(jugador1);
+		}
+		
+		/// no me gusta crear tantos objetos, capaz se puede mejorar
+			//estoy agregando los jugadores actuales a mi atributo de jugadoresEn Tablero
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 }
