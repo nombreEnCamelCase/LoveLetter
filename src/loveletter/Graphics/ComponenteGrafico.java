@@ -58,12 +58,12 @@ public class ComponenteGrafico extends JFrame {
 	private boolean mostrarPantallaNegra = false;
 	private boolean pantallaFinDeRonda = false;
 	private Carta cartaCliqueada = null;
-
+	
 	public ComponenteGrafico() {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
-
+		
 		// Carta izquierda 1, carta derecha 2
 		cartasEnMano.add(new ClickeableCarta(1));
 		cartasEnMano.add(new ClickeableCarta(2));
@@ -103,25 +103,14 @@ public class ComponenteGrafico extends JFrame {
 
 			Dimension currentDimension = getContentPane().getSize();
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
-			g2.drawImage(background, null, 0, 0);
+			g2.drawImage(mostrarPantallaNegra?backgroundTurno:background, null, 0, 0);
 
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Dialog", Font.BOLD, 24));
 			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
-			if (mostrarPantallaNegra) {
-				// Entre turno y turno.
-				try {
-					backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
-					g2.scale(getContentPane().getSize().getWidth() / RESOL_WIDTH * 1.5,
-							getContentPane().getSize().getHeight() / RESOL_HEIGHT * 1.5);
-					g2.drawImage(backgroundTurno, null, 0, 0);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				
-			} else {
+			if (!mostrarPantallaNegra){
 				for (int i = 0; i < cartasEnTablero.size(); i++) {
 					LayoutCarta carta = cartasEnTablero.get(i);
 					g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(),
@@ -151,9 +140,11 @@ public class ComponenteGrafico extends JFrame {
 
 		try {
 			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
+			backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
 
 		// Se crea un drawPanel y se dibuja inicialmente.
 		drawPanel = new DrawPanel();
