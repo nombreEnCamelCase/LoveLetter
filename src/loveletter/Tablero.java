@@ -65,22 +65,26 @@ public class Tablero{
 
 	public void mostrarEfectoRecibirCarta(Carta carta) {
 		// this.pantalla.realizarTransicion(carta,1);
-		/// setear la carta en la zona
-		// this.pantalla
-
+		// Setear la carta en una de las dos posiciones clickeables de la pantalla.
 	}
 
 	public void mostrarEfecto(Carta carta) {
 
 	}
 
+	
+	
 	public Carta esperarSeleccionCarta() {
-
-		return this.pantalla.retornarCartaSeleccionada();
+		Carta carta = this.pantalla.retornarCartaSeleccionada();
+		this.pantalla.refrescarSeleccionDeCarta();
+		return carta;
 	}
 
 	public void mostrarCartaApoyadaEnTablero(Carta carta) {
-
+				// Mostrar transicion.
+				this.pantalla.quitarCartaDeMano(carta);
+				// Mostrar transicion
+				this.pantalla.setCartaEnTablero(carta);
 	}
 
 	public Jugador esperarSeleccionVictima(ArrayList<Jugador> jugadores) {
@@ -98,8 +102,30 @@ public class Tablero{
 		this.ventana.setVisible(false);
 		return respuesta;
 	}
+	
+	public Jugador esperarSeleccionVictima() {
+		return new Jugador("Fede",1);
+	}
 
 	public void agregarCartaAPantalla(Carta carta) {
 		this.pantalla.setCartasEnMano(carta);
+	}
+	
+	public void refrescaPantallaPorTurno() {
+		this.pantalla.limpiarMano();
+		this.pantalla.mostraPantallaCambioTurno();
+	}
+
+	public void remplazarCartaEnMano(Carta carta) {
+		this.pantalla.remplazarManoEnPantalla(carta);
+		
+	}
+	
+	public void limpiarPantalla() {
+		this.pantalla.limpiarContenido();
+	}
+	
+	public void cerrarPantalla() {
+		this.pantalla.cerrarPantalla();
 	}
 }

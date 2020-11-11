@@ -16,7 +16,8 @@ public class Partida {
 	private int puntajeGanadorDePartida;
 	private Ronda rondaActual;
 	private Jugador ganadorDePartida=null;
-
+	private Tablero tablero;
+	
 	public Partida() {
  
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
@@ -26,17 +27,19 @@ public class Partida {
 		Jugador jugador3 = new Jugador("Javi",3);
 		Jugador jugador4 = new Jugador("Nahu",4);
 		
-		jugadores.add(jugador1);
-		jugadores.add(jugador2);
-		jugadores.add(jugador3);
-		jugadores.add(jugador4);
+		this.jugadores.add(jugador1);
+		this.jugadores.add(jugador2);
+		this.jugadores.add(jugador3);
+		this.jugadores.add(jugador4);
 
 		// Creamos una "Tabla de puntajes"
-		tablaPuntaje.put(jugador1, 0);
-		tablaPuntaje.put(jugador2, 0);
-		tablaPuntaje.put(jugador3, 0);
-		tablaPuntaje.put(jugador4, 0);
-		puntajeGanadorDePartida = 40;
+		this.tablaPuntaje.put(jugador1, 0);
+		this.tablaPuntaje.put(jugador2, 0);
+		this.tablaPuntaje.put(jugador3, 0);
+		this.tablaPuntaje.put(jugador4, 0);
+		this.puntajeGanadorDePartida = 3;
+		this.tablero = new Tablero();
+
 	}
 	 
 
@@ -48,9 +51,10 @@ public class Partida {
 		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
 			
 			if (this.jugadores.size() > 1) {
-				this.rondaActual = new Ronda(this.jugadores); // Agrega los jugadores de la partida a ronda actual.
+				this.rondaActual = new Ronda(this.jugadores,this.tablero); // Agrega los jugadores de la partida a ronda actual.
 				ganadorRonda = this.rondaActual.comenzar();
 				sumarPuntaje(ganadorRonda);
+				System.out.println("Gano la ronda: "+ganadorRonda.getNombre());
 			}
 			else
 				System.out.println("No se puede iniciar");
@@ -95,6 +99,9 @@ public class Partida {
 			System.out.println("Jugador: "+jugador.getNombre()+" Puntaje: "+this.tablaPuntaje.get(jugador));
 		}
 		
+		this.tablero.cerrarPantalla();
+
+		System.out.println("Termino partida!");
 		
 	}
 	

@@ -13,14 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import loveletter.Carta;
 
 //public class Tablero extends JFrame implements Runnable  {
@@ -42,16 +37,13 @@ public class ComponenteGrafico extends JFrame {
 
 	private DrawPanel drawPanel;
 	private BufferedImage background;
-
+	private BufferedImage backgroundTurno;
 	// Estas serian las cartas CLIQUEABLES, es decir las de la mano.
 	private ArrayList<ClickeableCarta> cartasEnMano = new ArrayList<ClickeableCarta>();
 
 	// Estas son las cartas que estan en el tablero, solamente se van agregando al
 	// final en secuencia.
-	private List<LayoutCarta> cartasEnTablero = new LinkedList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador2 = new LinkedList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador3 = new LinkedList<LayoutCarta>();
-//	private List<LayoutCarta> cartasEnTableroJugador4 = new LinkedList<LayoutCarta>();
+	private ArrayList<LayoutCarta> cartasEnTablero = new ArrayList<LayoutCarta>();
 
 	private int loops = 0;
 	private int fps = 0;
@@ -61,7 +53,10 @@ public class ComponenteGrafico extends JFrame {
 
 	private int contadorTemporal = 0;
 
-	private boolean clickValido = false;
+	private boolean clickCartaMano = false;
+	private double clicksEnPantalla = 0;
+	private boolean mostrarPantallaNegra = false;
+	private boolean pantallaFinDeRonda = false;
 	private Carta cartaCliqueada = null;
 
 	public ComponenteGrafico() {
@@ -69,9 +64,9 @@ public class ComponenteGrafico extends JFrame {
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
 
-		cartasEnMano.add(new ClickeableCarta(1000, 550, 0.53, 0.69, 1.02, 1.84));
-		cartasEnMano.add(new ClickeableCarta(1350, 550, 0.70, 0.87, 1.02, 1.84));
-
+		// Carta izquierda 1, carta derecha 2
+		cartasEnMano.add(new ClickeableCarta(1));
+		cartasEnMano.add(new ClickeableCarta(2));
 	}
 
 	private class DrawPanel extends JPanel {
@@ -86,11 +81,14 @@ public class ComponenteGrafico extends JFrame {
 					Dimension currentDimension = getContentPane().getSize();
 					System.out.print("Click en: [" + (point.x * WIDTH / currentDimension.getWidth()) + ", ");
 					System.out.println(point.y * HEIGHT / currentDimension.getHeight() + "]");
+					clicksEnPantalla++;
 					for (ClickeableCarta carta : cartasEnMano) {
+						// Hay que tener en cuenta tambien que la carta ESTE CONTENIDA dentro del
+						// ClickeableCarta para realmente tomar el click
 						if (carta.fuiCliqueada(point.x * WIDTH / currentDimension.getWidth(),
-							point.y * HEIGHT / currentDimension.getHeight())) {
+								point.y * HEIGHT / currentDimension.getHeight())) {
 							cartaCliqueada = carta.getCartaContenida();
-							clickValido = true;
+							clickCartaMano = true;
 							break;
 						}
 					}
@@ -112,17 +110,34 @@ public class ComponenteGrafico extends JFrame {
 			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
 			g2.drawString("FPS: " + fps + "", 240, 25);
 
-			// g2.drawImage();
+			if (mostrarPantallaNegra) {
+				// Entre turno y turno.
+				try {
+					backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
+					g2.scale(getContentPane().getSize().getWidth() / RESOL_WIDTH * 1.5,
+							getContentPane().getSize().getHeight() / RESOL_HEIGHT * 1.5);
+					g2.drawImage(backgroundTurno, null, 0, 0);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+			} else {
+				for (int i = 0; i < cartasEnTablero.size(); i++) {
+					LayoutCarta carta = cartasEnTablero.get(i);
+					g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(),
+							null);
+				}
 
-			for (int i = 0; i < cartasEnMano.size(); i++) {
-				ClickeableCarta carta = cartasEnMano.get(i);
-				if (carta.getCartaContenida() != null) {
-					g2.drawImage(carta.getCartaContenida().getBufferedImage(), i==0?1000:1350, 550, 335, 460, null);
-					//g2.drawImage(carta.getCartaContenida().getBufferedImage(), 1350, 550, 335, 460, null);
+				for (int i = 0; i < cartasEnMano.size(); i++) {
+					ClickeableCarta carta = cartasEnMano.get(i);
+					if (carta.getCartaContenida() != null) {
+						g2.drawImage(carta.getCartaContenida().getBufferedImage(),
+								i == 0 ? carta.getCoordX_head_izq() : carta.getCoordX_head_der(),
+								carta.getCoordY_head(), carta.getScaleWidth(), carta.getScaleHeight(), null);
+					}
 				}
 			}
 
-			
 		}
 
 		// Me dice el tama�o que debo tener al redimensionar.
@@ -135,7 +150,7 @@ public class ComponenteGrafico extends JFrame {
 	public void init() {
 
 		try {
-			background = ImageIO.read(new File("assets/other/background-simp.jpg"));
+			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -150,7 +165,6 @@ public class ComponenteGrafico extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setFocusable(true);
-
 		requestFocusInWindow();
 	}
 
@@ -197,88 +211,52 @@ public class ComponenteGrafico extends JFrame {
 		return !haciendoAccion;
 	}
 
-//	public void run() {
-//		// System.nanoTime no es seguro entre distintos Threads
-//		// En caso de querer utilizarse igual para aumentar la precision en
-//		// valores altos de fps o de ticks se debe aumentar también el valor
-//		// de las constantes, para que esten en ns y no en ms
-//
-//		long next_game_tick = System.currentTimeMillis();
-//		long next_game_frame = System.currentTimeMillis();
-//		long next_frame_calc = System.currentTimeMillis();
-//		int frames = 0;
-//		boolean realizoAccion = false;
-//
-//		// Quiza deberia tener un diccionario de acciones o un patron chain of
-//		// responsability o un strategy para ver que transicion hago dependiendo de que
-//		// me pida.
-//		boolean haciendoAccion = false;
-//
-//		while (is_running) {
-//			System.out.println("Esperando accion...");
-//			if (realizoAccion) {
-//				System.out.println("Quiere hacer algo");
-//				do {
-//					System.out.println("Haciendo algo!");
-//					// Hacer transicion de elementos en pantalla.
-//					if (System.currentTimeMillis() > next_game_tick) {
-//						loops++;
-//						next_game_tick += SKIP_TICKS;
-//						// Calculo antes de mover ALGO.
-//						haciendoAccion = updateComponentData();
-//					}
-//					if (System.currentTimeMillis() > next_game_frame) {
-//						frames++;
-//						next_game_frame += SKIP_FRAMES;
-//						// Repaint para refrescar y mostrar en pantalla.
-//						refreshScreen();
-//					}
-//					if (System.currentTimeMillis() > next_frame_calc) {
-//						fps = frames;
-//						next_frame_calc += SECOND;
-//						frames = 0;
-//					}
-//				} while (haciendoAccion);
-//			}
-//		}
-//	}
-
 	public boolean updateComponentData() {
 		// Este update deberia VARIAR dependiendo de QUE quiero mover o actualizar.
 		// Una sola cosa que es esperar a llegar a 20000;
 		System.out.println("Want to updateComponentData");
 		this.contadorTemporal++;
 
-		try {
-			Thread.sleep(1000);
-		} catch (Exception ex) {
-			System.out.println("Se interrumpio la espera");
-		}
-
 		return contadorTemporal == 100;
 
-//		player.move(1.0 / TICKS_PER_SECOND);
-//		ball.move(1.0 / TICKS_PER_SECOND);
 	}
 
 	public void refreshScreen() {
-//		System.out.println("Muestra");
 		drawPanel.repaint();
 	}
 
 	public Carta retornarCartaSeleccionada() {
-		while (!this.clickValido) {
-			System.out.println("Estoy esperando el click del usuario.");
+		while (!this.clickCartaMano) {
+			// System.out.println("Estoy esperando el click del usuario.");
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Cliqueo carta!");
-
+		// System.out.println("Cliqueo carta!");
 		return this.cartaCliqueada;
+	}
+
+	public void refrescarSeleccionDeCarta() {
+		this.clickCartaMano = false;
+		this.cartaCliqueada = null;
+	}
+
+	public void setCartaEnTablero(Carta carta) {
+		LayoutCarta cartaNueva;
+		int indexUltimaCarta;
+		if (this.cartasEnTablero.size() == 0) {
+			cartaNueva = new LayoutCarta();
+		} else {
+			indexUltimaCarta = this.cartasEnTablero.size() - 1;
+			LayoutCarta ultima = this.cartasEnTablero.get(indexUltimaCarta);
+			cartaNueva = new LayoutCarta(ultima.getCoordX() + 100);
+		}
+		cartaNueva.setCartaContenida(carta);
+		this.cartasEnTablero.add(cartaNueva);
+		this.drawPanel.repaint();
 	}
 
 	public void setCartasEnMano(Carta carta) {
@@ -290,4 +268,62 @@ public class ComponenteGrafico extends JFrame {
 		this.drawPanel.repaint();
 	}
 
+	public void quitarCartaDeMano(Carta carta) {
+
+		if (this.cartasEnMano.get(0).getCartaContenida().equals(carta)) {
+			this.cartasEnMano.get(0).setCartaContenida(null);
+		} else {
+			this.cartasEnMano.get(1).setCartaContenida(null);
+		}
+	}
+
+	public void mostraPantallaCambioTurno() {
+		double clickPantalla = this.clicksEnPantalla;
+		this.mostrarPantallaNegra = true;
+		while (clickPantalla == this.clicksEnPantalla) {
+			// Hizo algun click?
+			// System.out.println("Estoy esperando el click del usuario.");
+
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		this.mostrarPantallaNegra = false;
+		this.pantallaFinDeRonda = false;
+
+	}
+
+	public void mostrarPantallaFinRonda() {
+
+	}
+
+	public void limpiarMano() {
+
+		this.cartasEnMano.get(0).setCartaContenida(null);
+		this.cartasEnMano.get(1).setCartaContenida(null);
+
+	}
+
+	public void remplazarManoEnPantalla(Carta carta) {
+		this.cartasEnMano.get(0).setCartaContenida(carta);
+	}
+
+	public void limpiarContenido() {
+		limpiarMano();
+		this.cartasEnTablero = new ArrayList<LayoutCarta>();
+
+	}
+
+	public void cerrarPantalla() {
+		System.out.println("Termino todo...");
+//		try {
+//			Thread.sleep(100000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
 }
