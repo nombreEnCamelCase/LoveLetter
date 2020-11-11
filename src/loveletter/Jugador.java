@@ -66,7 +66,7 @@ public class Jugador {
 		}
 
 		// Mostrar el listado de aux para que el usuario seleccione.
-		Jugador jugadorVictima = tablero.esperarSeleccionVictima();
+		Jugador jugadorVictima = tablero.esperarSeleccionVictima(aux);
 		// return seleccionarVictimaRandom(aux);
 		return jugadorVictima;
 	}
