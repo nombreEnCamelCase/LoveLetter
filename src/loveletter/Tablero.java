@@ -120,6 +120,10 @@ public class Tablero{
 		this.pantalla.remplazarManoEnPantalla(carta);
 		
 	}
+
+	public void agregarJugadoresAPantalla(ArrayList<Jugador> jugadores) {
+		this.pantalla.ponerJugadoresEnPantalla(jugadores);
+		
 	
 	public void limpiarPantalla() {
 		this.pantalla.limpiarContenido();
