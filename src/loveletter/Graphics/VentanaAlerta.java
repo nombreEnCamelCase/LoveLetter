@@ -74,13 +74,7 @@ public class VentanaAlerta extends JFrame {
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
 					nombreSeleccionado = arg0.getActionCommand();
-=======
-					nombreVictima = arg0.getActionCommand();
-					//setVisible(false);
-
->>>>>>> 7e9883b9f320f99b3767fad26f0de0d6ada5b2ed
 				}
 				
 			});
