@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import loveletter.Cartas.Baron;
 import loveletter.Graphics.ComponenteGrafico;
 import loveletter.Graphics.VentanaAlerta;
+import loveletter.Graphics.VentanaCartas;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class Tablero{
@@ -30,6 +31,7 @@ public class Tablero{
 	private Turno turnoEnCurso;
 	private ComponenteGrafico pantalla;
 	private VentanaAlerta ventana;
+	private VentanaCartas ventanaCarta;
 
 	public Tablero() {
 		this.pantalla = new ComponenteGrafico();
@@ -101,6 +103,22 @@ public class Tablero{
 		}
 		this.ventana.setVisible(false);
 		return respuesta;
+	}
+	public String esperarSeleccionCartaObjetivo() {
+		this.ventanaCarta = new VentanaCartas();
+		this.ventanaCarta.setVisible(true);
+		String cartaObjetivo = this.ventanaCarta.getCartaSeleccionada();
+		
+		while ((cartaObjetivo = this.ventanaCarta.getCartaSeleccionada()) == null) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.ventana.setVisible(false);
+		return cartaObjetivo;
 	}
 	
 	public Jugador esperarSeleccionVictima() {

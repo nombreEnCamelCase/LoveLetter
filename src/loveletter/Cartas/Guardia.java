@@ -27,12 +27,17 @@ public class Guardia extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
+		
+		//aca tiene que llamarse la ventana alerta de cartas, donde se elije la carta de la victima
+		//esta ventana devuelve la carta seleccionada y compara con la mano de la victima
+		
+		String cartaObjetivo = tablero.esperarSeleccionCartaObjetivo();
+		
 		if(objetivo != null) {
-			Carta carta = new Baron(); ///simulo q el accionador intenta adivinar q tiene baron en la mano
-			if(carta == objetivo.getMano().getCartaActual()) {
+			if( objetivo.getMano().getCartaActual().equals( cartaObjetivo) )
 				objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
-			}
 		}
+
 	}
 	
 	@Override
