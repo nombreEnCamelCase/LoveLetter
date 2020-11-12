@@ -17,6 +17,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import loveletter.Carta;
+import loveletter.Jugador;
+import loveletter.EstadosJugador.EnEspera;
+import loveletter.EstadosJugador.EnJuego;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class ComponenteGrafico extends JFrame {
@@ -44,6 +47,7 @@ public class ComponenteGrafico extends JFrame {
 	// Estas son las cartas que estan en el tablero, solamente se van agregando al
 	// final en secuencia.
 	private ArrayList<LayoutCarta> cartasEnTablero = new ArrayList<LayoutCarta>();
+	private ArrayList<JugadorGraphics> jugadoresEnTablero = new ArrayList<JugadorGraphics>();
 
 	private int loops = 0;
 	private int fps = 0;
@@ -103,25 +107,32 @@ public class ComponenteGrafico extends JFrame {
 
 			Dimension currentDimension = getContentPane().getSize();
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
-			g2.drawImage(background, null, 0, 0);
+			g2.drawImage(mostrarPantallaNegra ? backgroundTurno : background, null, 0, 0);
 
-			g2.setColor(Color.WHITE);
-			g2.setFont(new Font("Dialog", Font.BOLD, 24));
-			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
-			g2.drawString("FPS: " + fps + "", 240, 25);
+//			g2.setColor(Color.WHITE);
+//			g2.setFont(new Font("Dialog", Font.BOLD, 24));
+//			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
+//			g2.drawString("FPS: " + fps + "", 240, 25);
 
-			if (mostrarPantallaNegra) {
-				// Entre turno y turno.
-				try {
-					backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
-					g2.scale(getContentPane().getSize().getWidth() / RESOL_WIDTH * 1.5,
-							getContentPane().getSize().getHeight() / RESOL_HEIGHT * 1.5);
-					g2.drawImage(backgroundTurno, null, 0, 0);
-				} catch (IOException e1) {
-					e1.printStackTrace();
+			if (!mostrarPantallaNegra) {
+
+				int cont=1;
+				for (int i = 0; i < jugadoresEnTablero.size(); i++) {
+					String nombreJugador = jugadoresEnTablero.get(i).getNombre();
+					if (jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { /// faltara un equals?
+						g2.setColor(Color.BLACK);
+						g2.setFont(new Font("Dialog", Font.BOLD, 60));
+						g2.drawString(nombreJugador, 430, 880);
+					} else {
+						g2.setColor(Color.BLACK);
+						g2.setFont(new Font("Dialog", Font.BOLD, 30));
+						g2.drawString(nombreJugador, (cont==1)?360:((cont==2)?920:1485), 80); // deberia setear en el mismo lugar donde estan
+						cont++;
+						// los cuadrados
+					}
+					
 				}
-				
-			} else {
+
 				for (int i = 0; i < cartasEnTablero.size(); i++) {
 					LayoutCarta carta = cartasEnTablero.get(i);
 					g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(),
@@ -151,6 +162,7 @@ public class ComponenteGrafico extends JFrame {
 
 		try {
 			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
+			backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -309,6 +321,19 @@ public class ComponenteGrafico extends JFrame {
 
 	public void remplazarManoEnPantalla(Carta carta) {
 		this.cartasEnMano.get(0).setCartaContenida(carta);
+	}
+
+	public void ponerJugadoresEnPantalla(ArrayList<Jugador> jugadores) {
+		this.jugadoresEnTablero  = new ArrayList<JugadorGraphics>();
+		JugadorGraphics jugador1;
+		for (int i = 0; i < jugadores.size(); i++) {
+			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual());
+			this.jugadoresEnTablero.add(jugador1);
+		}
+
+		/// no me gusta crear tantos objetos, capaz se puede mejorar
+		// estoy agregando los jugadores actuales a mi atributo de jugadoresEn Tablero
+
 	}
 
 	public void limpiarContenido() {
