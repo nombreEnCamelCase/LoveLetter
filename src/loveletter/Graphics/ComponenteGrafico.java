@@ -62,12 +62,12 @@ public class ComponenteGrafico extends JFrame {
 	private boolean mostrarPantallaNegra = false;
 	private boolean pantallaFinDeRonda = false;
 	private Carta cartaCliqueada = null;
-	
+
 	public ComponenteGrafico() {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth = pantalla.width;
 		this.screenHeight = pantalla.height;
-		
+
 		// Carta izquierda 1, carta derecha 2
 		cartasEnMano.add(new ClickeableCarta(1));
 		cartasEnMano.add(new ClickeableCarta(2));
@@ -104,36 +104,34 @@ public class ComponenteGrafico extends JFrame {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
-			
-			
+
 			Dimension currentDimension = getContentPane().getSize();
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
-			g2.drawImage(mostrarPantallaNegra?backgroundTurno:background, null, 0, 0);
+			g2.drawImage(mostrarPantallaNegra ? backgroundTurno : background, null, 0, 0);
 
-			g2.setColor(Color.WHITE);
-			g2.setFont(new Font("Dialog", Font.BOLD, 24));
-			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
-			g2.drawString("FPS: " + fps + "", 240, 25);
+//			g2.setColor(Color.WHITE);
+//			g2.setFont(new Font("Dialog", Font.BOLD, 24));
+//			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
+//			g2.drawString("FPS: " + fps + "", 240, 25);
 
+			if (!mostrarPantallaNegra) {
 
-
-			if (!mostrarPantallaNegra){
-
-			for(int i=0;i<jugadoresEnTablero.size();i++) {
-				String nombreJugador = jugadoresEnTablero.get(i).getNombre();
-				if(jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { ///faltara un equals?
-					g2.setColor(Color.BLACK);
-					g2.setFont(new Font("Dialog", Font.BOLD,30));
-					/*g2.drawString(nombreJugador,1 * WIDTH / currentDimension.getWidth(),
-							1 * HEIGHT / currentDimension.getHeight());*/
-					//g2.drawString(nombreJugador, 100,600); //seteo abajo de todo porq es el actual;
-				}else {
-				g2.setColor(Color.BLACK);
-				g2.setFont(new Font("Dialog", Font.BOLD,30));
-				g2.drawString(nombreJugador, 100 * (i*3),80 ); //deberia setear en el mismo lugar donde estan 
-				//los cuadrados
+				int cont=1;
+				for (int i = 0; i < jugadoresEnTablero.size(); i++) {
+					String nombreJugador = jugadoresEnTablero.get(i).getNombre();
+					if (jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { /// faltara un equals?
+						g2.setColor(Color.BLACK);
+						g2.setFont(new Font("Dialog", Font.BOLD, 60));
+						g2.drawString(nombreJugador, 430, 880);
+					} else {
+						g2.setColor(Color.BLACK);
+						g2.setFont(new Font("Dialog", Font.BOLD, 30));
+						g2.drawString(nombreJugador, (cont==1)?360:((cont==2)?920:1485), 80); // deberia setear en el mismo lugar donde estan
+						cont++;
+						// los cuadrados
+					}
+					
 				}
-			}
 
 				for (int i = 0; i < cartasEnTablero.size(); i++) {
 					LayoutCarta carta = cartasEnTablero.get(i);
@@ -168,7 +166,6 @@ public class ComponenteGrafico extends JFrame {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
 
 		// Se crea un drawPanel y se dibuja inicialmente.
 		drawPanel = new DrawPanel();
@@ -327,24 +324,18 @@ public class ComponenteGrafico extends JFrame {
 	}
 
 	public void ponerJugadoresEnPantalla(ArrayList<Jugador> jugadores) {
+		this.jugadoresEnTablero  = new ArrayList<JugadorGraphics>();
 		JugadorGraphics jugador1;
-		
-		for(int i=0;i<jugadores.size();i++) {
-			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(),jugadores.get(i).getEstadoActual());
+		for (int i = 0; i < jugadores.size(); i++) {
+			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual());
 			this.jugadoresEnTablero.add(jugador1);
 		}
-		
+
 		/// no me gusta crear tantos objetos, capaz se puede mejorar
-			//estoy agregando los jugadores actuales a mi atributo de jugadoresEn Tablero
-		
-		
+		// estoy agregando los jugadores actuales a mi atributo de jugadoresEn Tablero
+
 	}
-		
-		
-		
-		
-		
-		
+
 	public void limpiarContenido() {
 		limpiarMano();
 		this.cartasEnTablero = new ArrayList<LayoutCarta>();
