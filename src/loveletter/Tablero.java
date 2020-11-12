@@ -72,6 +72,9 @@ public class Tablero{
 
 	}
 
+	public void mostrarPantallaFinRonda() {
+		this.pantalla.mostrarPantallaFinRonda();
+	}
 	
 	
 	public Carta esperarSeleccionCarta() {

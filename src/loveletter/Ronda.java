@@ -82,15 +82,17 @@ public class Ronda {
 
 
 					}
-
+					this.tableroActual.refrescaPantallaPorTurno();
 				} else {
 					existeGanador = true;
+					this.tableroActual.mostrarPantallaFinRonda();
 					break;
 				}
-				this.tableroActual.refrescaPantallaPorTurno();
+				
 			}
 
 		}
+		
 		return ganadorDeRonda;
 		
 	}

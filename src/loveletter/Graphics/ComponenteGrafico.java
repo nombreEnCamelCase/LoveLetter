@@ -41,6 +41,7 @@ public class ComponenteGrafico extends JFrame {
 	private DrawPanel drawPanel;
 	private BufferedImage background;
 	private BufferedImage backgroundTurno;
+	private BufferedImage backgroundFinRonda;
 	// Estas serian las cartas CLIQUEABLES, es decir las de la mano.
 	private ArrayList<ClickeableCarta> cartasEnMano = new ArrayList<ClickeableCarta>();
 
@@ -107,7 +108,7 @@ public class ComponenteGrafico extends JFrame {
 
 			Dimension currentDimension = getContentPane().getSize();
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
-			g2.drawImage(mostrarPantallaNegra ? backgroundTurno : background, null, 0, 0);
+			g2.drawImage(mostrarPantallaNegra ? (pantallaFinDeRonda? backgroundFinRonda:backgroundTurno) : background, null, 0, 0);
 
 //			g2.setColor(Color.WHITE);
 //			g2.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -163,6 +164,7 @@ public class ComponenteGrafico extends JFrame {
 		try {
 			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
 			backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
+			backgroundFinRonda = ImageIO.read(new File("assets/other/fin_ronda.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -304,12 +306,10 @@ public class ComponenteGrafico extends JFrame {
 			}
 		}
 		this.mostrarPantallaNegra = false;
-		this.pantallaFinDeRonda = false;
-
 	}
 
 	public void mostrarPantallaFinRonda() {
-
+		this.pantallaFinDeRonda = true;
 	}
 
 	public void limpiarMano() {
