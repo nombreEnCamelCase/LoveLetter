@@ -1,14 +1,13 @@
 package loveletter;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import loveletter.Cartas.Condesa;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Inmune;
+import loveletter.Graphics.VentanaAlerta;
+import loveletter.Graphics.VentanaGanadorRonda;
 
 public class Ronda {
 	// Esta clase se comportaria como un game manager.
@@ -23,6 +22,9 @@ public class Ronda {
 	private ArrayList<Jugador> jugadoresEnJuego = new ArrayList<Jugador>();
 	private Jugador ganadorDeRonda = null;
 
+	
+	
+	
 	public Ronda(ArrayList<Jugador> jugadores, Tablero tablero) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();
@@ -31,6 +33,7 @@ public class Ronda {
 		this.tableroActual.preparacionInicial();
 //		tableroActual.init();
 //		tableroActual.run();
+		
 	}
 
 	public Jugador comenzar() {
@@ -45,12 +48,15 @@ public class Ronda {
 			for (int i = 0; i < this.jugadoresEnJuego.size(); i++) {
 
 				Jugador jugadorActual = jugadoresEnJuego.get(i);
-
+				
 				if (quedanCartasEnMazo() && !quedaUnSoloJugador()) {
 					if (jugadorPuedeJugar(jugadorActual)) {
 
 						Turno turnoActual = new Turno(jugadorActual);
 						jugadorActual.prepararseParaJugar();
+						//aca esta en estado en juego
+						this.tableroActual.agregarJugadoresAPantalla(jugadoresEnJuego);
+						
 						this.tableroActual.agregarCartaAPantalla(jugadorActual.getMano().getCartaActual());
 
 						this.tableroActual.setTurnoEnCurso(turnoActual);
@@ -88,9 +94,15 @@ public class Ronda {
 			}
 
 		}
+		
+		this.tableroActual.ventanaRonda(ganadorDeRonda);
+		
 		return ganadorDeRonda;
 		
 	}
+
+	
+	
 
 	public void prepararJugadores() {
 		// A cada uno de los jugadores le doy una carta.

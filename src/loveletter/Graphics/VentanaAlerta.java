@@ -35,6 +35,7 @@ public class VentanaAlerta extends JFrame {
 	private ArrayList<Jugador> jugadoresVictima = new ArrayList<Jugador>();
 	
 	public VentanaAlerta(ArrayList<Jugador> jugadoresVictima) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		
 		this.jugadoresVictima = jugadoresVictima;
 
@@ -73,7 +74,13 @@ public class VentanaAlerta extends JFrame {
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+<<<<<<< HEAD
 					nombreSeleccionado = arg0.getActionCommand();
+=======
+					nombreVictima = arg0.getActionCommand();
+					//setVisible(false);
+
+>>>>>>> 7e9883b9f320f99b3767fad26f0de0d6ada5b2ed
 				}
 				
 			});
@@ -83,7 +90,6 @@ public class VentanaAlerta extends JFrame {
 		
 		setSize(400, 400);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	public Jugador getJugadorVictima() {

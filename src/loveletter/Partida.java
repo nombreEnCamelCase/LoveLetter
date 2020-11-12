@@ -1,11 +1,12 @@
 package loveletter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import loveletter.Graphics.VentanaGanadorPartida;
 
 public class Partida {
 
@@ -17,6 +18,8 @@ public class Partida {
 	private Ronda rondaActual;
 	private Jugador ganadorDePartida=null;
 	private Tablero tablero;
+	
+	private VentanaGanadorPartida hola;
 	
 	public Partida() {
  
@@ -37,7 +40,7 @@ public class Partida {
 		this.tablaPuntaje.put(jugador2, 0);
 		this.tablaPuntaje.put(jugador3, 0);
 		this.tablaPuntaje.put(jugador4, 0);
-		this.puntajeGanadorDePartida = 3;
+		this.puntajeGanadorDePartida = 2;// yo cambie
 		this.tablero = new Tablero();
 
 	}
@@ -61,6 +64,17 @@ public class Partida {
 		}
 		
 		mostrarPremio();
+		
+		
+		hola = new VentanaGanadorPartida(jugadores,ganadorDePartida);
+		this.hola.setVisible(true);
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return ganadorDePartida;
 	}

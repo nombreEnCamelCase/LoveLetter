@@ -1,37 +1,22 @@
 package loveletter;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import loveletter.Cartas.Baron;
 import loveletter.Graphics.ComponenteGrafico;
 import loveletter.Graphics.VentanaAlerta;
 import loveletter.Graphics.VentanaCartas;
+import loveletter.Graphics.VentanaGanadorRonda;
 
 //public class Tablero extends JFrame implements Runnable  {
-public class Tablero{
+public class Tablero {
 	private List<Turno> historialTurnosPasados = new LinkedList<Turno>();
 	private Turno turnoEnCurso;
 	private ComponenteGrafico pantalla;
 	private VentanaAlerta ventana;
 	private VentanaCartas ventanaCarta;
+	private VentanaGanadorRonda ventanaRonda;
 
 	public Tablero() {
 		this.pantalla = new ComponenteGrafico();
@@ -74,8 +59,6 @@ public class Tablero{
 
 	}
 
-	
-	
 	public Carta esperarSeleccionCarta() {
 		Carta carta = this.pantalla.retornarCartaSeleccionada();
 		this.pantalla.refrescarSeleccionDeCarta();
@@ -83,10 +66,10 @@ public class Tablero{
 	}
 
 	public void mostrarCartaApoyadaEnTablero(Carta carta) {
-				// Mostrar transicion.
-				this.pantalla.quitarCartaDeMano(carta);
-				// Mostrar transicion
-				this.pantalla.setCartaEnTablero(carta);
+		// Mostrar transicion.
+		this.pantalla.quitarCartaDeMano(carta);
+		// Mostrar transicion
+		this.pantalla.setCartaEnTablero(carta);
 	}
 
 	public Jugador esperarSeleccionVictima(ArrayList<Jugador> jugadores) {
@@ -116,19 +99,31 @@ public class Tablero{
 				e.printStackTrace();
 			}
 		}
-		
 		this.ventana.setVisible(false);
 		return cartaObjetivo;
 	}
-	
+	public void ventanaRonda(Jugador ganadorDeRonda) {
+		this.ventanaRonda = new VentanaGanadorRonda(ganadorDeRonda);
+		this.ventanaRonda.setVisible(true);
+
+		while (this.ventanaRonda.getComfirmacion()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventana.setVisible(false);
+	}
+
 	public Jugador esperarSeleccionVictima() {
-		return new Jugador("Fede",1);
+		return new Jugador("Fede", 1);
 	}
 
 	public void agregarCartaAPantalla(Carta carta) {
 		this.pantalla.setCartasEnMano(carta);
 	}
-	
+
 	public void refrescaPantallaPorTurno() {
 		this.pantalla.limpiarMano();
 		this.pantalla.mostraPantallaCambioTurno();
@@ -136,13 +131,18 @@ public class Tablero{
 
 	public void remplazarCartaEnMano(Carta carta) {
 		this.pantalla.remplazarManoEnPantalla(carta);
+
+	}
+
+	public void agregarJugadoresAPantalla(ArrayList<Jugador> jugadores) {
+		this.pantalla.ponerJugadoresEnPantalla(jugadores);
 		
 	}
 	
 	public void limpiarPantalla() {
 		this.pantalla.limpiarContenido();
 	}
-	
+
 	public void cerrarPantalla() {
 		this.pantalla.cerrarPantalla();
 	}
