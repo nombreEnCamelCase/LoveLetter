@@ -35,12 +35,13 @@ public class VentanaAlerta extends JFrame {
 	private ArrayList<Jugador> jugadoresVictima = new ArrayList<Jugador>();
 	
 	public VentanaAlerta(ArrayList<Jugador> jugadoresVictima) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		
 		this.jugadoresVictima = jugadoresVictima;
 
 		setResizable(false);
 		setTitle("Love Letter");
+		setDefaultCloseOperation(0); 
 
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -55,7 +56,8 @@ public class VentanaAlerta extends JFrame {
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					System.exit(0);
+					//System.exit(0);
+					dispose();
 				}
 			});
 			panel.add(boton);

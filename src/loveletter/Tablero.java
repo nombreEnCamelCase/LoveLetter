@@ -106,14 +106,14 @@ public class Tablero {
 		this.ventanaRonda = new VentanaGanadorRonda(ganadorDeRonda);
 		this.ventanaRonda.setVisible(true);
 
-		while (this.ventanaRonda.getComfirmacion()) {
+		while (this.ventanaRonda.getConfirmacion()) {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		this.ventana.setVisible(false);
+		this.ventanaRonda.setVisible(false);
 	}
 
 	public Jugador esperarSeleccionVictima() {

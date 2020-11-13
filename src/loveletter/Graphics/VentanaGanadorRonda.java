@@ -19,15 +19,21 @@ public class VentanaGanadorRonda extends JFrame {
 	private JLabel etiqueta;
 	private JButton botonContinuar;
 	private JLabel winner;
-	private boolean confirmacion=false;
+	private boolean confirmacion=true;
 
 	public VentanaGanadorRonda(Jugador Ganador) {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setResizable(false);
 		setTitle("Love Letter");
+		setDefaultCloseOperation(0); 
 		//setBounds(100, 100, 398, 68);
 		
 		setSize(380,221);
 		setLocationRelativeTo(null);
+		//setVisible(true);
+		
+		
+
 		
 		
 		panel = new JPanel();
@@ -35,19 +41,19 @@ public class VentanaGanadorRonda extends JFrame {
 		panel.setBackground(Color.WHITE);
 		setContentPane(panel);
 		panel.setLayout(null);
-		panel.setLayout(null);
+
 		
 		etiqueta = new JLabel();
-		etiqueta.setBounds(94, 11, 181, 49);
+		etiqueta.setBounds(41, 11, 291, 49);
 		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 20));
-		etiqueta.setText("El ganador es");
+		etiqueta.setText("El ganador de la ronda es");
 		panel.add(etiqueta);
 		
 		botonContinuar = new JButton("Continuar...");
 		botonContinuar.setBounds(119, 121, 118, 23);
 		botonContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				confirmacion=true;
+				confirmacion=false;
 				//dispose();
 			}
 		});
@@ -59,7 +65,7 @@ public class VentanaGanadorRonda extends JFrame {
 				
 		}
 	
-	public boolean getComfirmacion() {
+	public boolean getConfirmacion() {
 		return confirmacion;		
 	}
 	

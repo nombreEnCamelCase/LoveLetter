@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,21 +37,22 @@ public class VentanaGanadorPartida extends JFrame {
 	private JButton botonSalir;
 	private JLabel txtJugador;
 
-	private JLabel name;
 	
 	
 	private JLabel punt2;
 
 
-	public VentanaGanadorPartida(ArrayList<Jugador> jugadores, Jugador ganadorDePartida) {
+	public VentanaGanadorPartida(ArrayList<Jugador> jugadores, Jugador ganadorDePartida, Map<Jugador, Integer> tablaPuntaje) {
 		
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Love Letter");
 		
-		setSize(380,471);
+		setSize(441,559);
 		setLocationRelativeTo(null);
 		
 		setVisible(true);
+		
+		
 		
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,7 +63,7 @@ public class VentanaGanadorPartida extends JFrame {
 
 		
 		etiqueta = new JLabel();
-		etiqueta.setBounds(28, 12, 181, 49);
+		etiqueta.setBounds(127, 11, 181, 49);
 		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 20));
 		etiqueta.setText("FIN DE PARTIDA");
 		panel.add(etiqueta);
@@ -71,9 +74,9 @@ public class VentanaGanadorPartida extends JFrame {
 		panel.add(txtGanador);
 		
 		texTablaDePuntuciacion = new JLabel();
-		texTablaDePuntuciacion.setText("Tabla de Puntuaciacion");
+		texTablaDePuntuciacion.setText("TABLA DE PUNTUACION");
 		texTablaDePuntuciacion.setFont(new Font("Consolas", Font.PLAIN, 20));
-		texTablaDePuntuciacion.setBounds(28, 154, 249, 49);
+		texTablaDePuntuciacion.setBounds(101, 152, 249, 49);
 		panel.add(texTablaDePuntuciacion);
 		
 		nameGanador = new JLabel(ganadorDePartida.getNombre());
@@ -84,11 +87,10 @@ public class VentanaGanadorPartida extends JFrame {
 		botonOtraPartida = new JButton("Otra Partida");
 		botonOtraPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Partida partida = new Partida();
-				partida.comenzarJuego();
+			
 			}
 		});
-		botonOtraPartida.setBounds(28, 359, 122, 23);
+		botonOtraPartida.setBounds(87, 450, 122, 23);
 		panel.add(botonOtraPartida);
 		
 		botonSalir = new JButton("Salir del Juego");
@@ -97,7 +99,7 @@ public class VentanaGanadorPartida extends JFrame {
 				System.exit(0);
 			}
 		});
-		botonSalir.setBounds(193, 359, 122, 23);
+		botonSalir.setBounds(228, 450, 122, 23);
 		panel.add(botonSalir);
 		
 		
@@ -107,23 +109,23 @@ public class VentanaGanadorPartida extends JFrame {
 			txtJugador.setFont(new Font("Consolas", Font.PLAIN, 13));
 			txtJugador.setBounds(28, 214+43*i, 83, 14);
 			
-			for(int j=0; j<4;j++) {
+			for(int j=0; j<tablaPuntaje.get(jugadores.get(i));j++) {
 				
 				punt2 = new JLabel();
-				punt2.setBounds(148+25*j, 214+43*i, 15, 14);
+				punt2.setBounds(110+25*j, 210+43*i, 25, 24);
 				
 				ImageIcon fot = new ImageIcon("assets/other/dona.jpg");
 				ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(punt2.getWidth(), punt2.getHeight(), Image.SCALE_DEFAULT));
-				name.setIcon(icono);
+				punt2.setIcon(icono);
+				panel.add(punt2);
 				
 			}
-			
+		
 			panel.add(txtJugador);
-			panel.add(punt2);
 			
+			repaint();
 		}
 				
 		
 	}
-
 }
