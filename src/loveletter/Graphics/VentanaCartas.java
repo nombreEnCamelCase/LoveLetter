@@ -38,6 +38,8 @@ public class VentanaCartas extends JFrame {
 	public VentanaCartas() {
 		setResizable(false);
 		setTitle("Lista De Cartas");
+		setDefaultCloseOperation(0); 
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -69,7 +71,7 @@ public class VentanaCartas extends JFrame {
 
 		setSize(400, 400);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	public String getCartaSeleccionada() {

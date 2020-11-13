@@ -16,20 +16,20 @@ public class Partida {
 	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
 	private int puntajeGanadorDePartida;
 	private Ronda rondaActual;
-	private Jugador ganadorDePartida=null;
+	private Jugador ganadorDePartida = null;
 	private Tablero tablero;
-	
-	private VentanaGanadorPartida hola;
-	
+
+	private VentanaGanadorPartida ventana;
+
 	public Partida() {
- 
+
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
 		// harcodeamos aca.
-		Jugador jugador1 = new Jugador("Maty",1);
-		Jugador jugador2 = new Jugador("Fede",2);
-		Jugador jugador3 = new Jugador("Javi",3);
-		Jugador jugador4 = new Jugador("Nahu",4);
-		
+		Jugador jugador1 = new Jugador("Maty", 1);
+		Jugador jugador2 = new Jugador("Fede", 2);
+		Jugador jugador3 = new Jugador("Javi", 3);
+		Jugador jugador4 = new Jugador("Nahu", 4);
+
 		this.jugadores.add(jugador1);
 		this.jugadores.add(jugador2);
 		this.jugadores.add(jugador3);
@@ -40,43 +40,47 @@ public class Partida {
 		this.tablaPuntaje.put(jugador2, 0);
 		this.tablaPuntaje.put(jugador3, 0);
 		this.tablaPuntaje.put(jugador4, 0);
-		this.puntajeGanadorDePartida = 2;// yo cambie
+		this.puntajeGanadorDePartida = 1;
 		this.tablero = new Tablero();
 
 	}
-	 
 
 	public Jugador comenzarJuego() {
 		// Chequea que exista la cantidad minima de jugadores.
 		Jugador ganadorRonda;
-		
-		// TODO: Falta contemplar en el while que los jugadores sean los necesarios para jugar y no esten desconectados.
+
+		// TODO: Falta contemplar en el while que los jugadores sean los necesarios para
+		// jugar y no esten desconectados.
 		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
-			
+
 			if (this.jugadores.size() > 1) {
-				this.rondaActual = new Ronda(this.jugadores,this.tablero); // Agrega los jugadores de la partida a ronda actual.
+				this.rondaActual = new Ronda(this.jugadores, this.tablero); // Agrega los jugadores de la partida a
+																			// ronda actual.
 				ganadorRonda = this.rondaActual.comenzar();
 				sumarPuntaje(ganadorRonda);
-				System.out.println("Gano la ronda: "+ganadorRonda.getNombre());
-			}
-			else
+				// tablero.ventanaRonda(ganadorRonda);
+				System.out.println("Gano la ronda: " + ganadorRonda.getNombre());
+
+			} else
 				System.out.println("No se puede iniciar");
 		}
-		
+
 		mostrarPremio();
-		
-		
-		hola = new VentanaGanadorPartida(jugadores,ganadorDePartida);
-		this.hola.setVisible(true);
-		
+		ventanaGanador();
+
+		return ganadorDePartida;
+	}
+
+	private void ventanaGanador() {
+		ventana = new VentanaGanadorPartida(jugadores, ganadorDePartida, tablaPuntaje);
+		this.ventana.setVisible(true);
+
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return ganadorDePartida;
 	}
 
 	// De alguna manera, partida se deberia enterar cuando ronda termina, y asi
@@ -88,7 +92,7 @@ public class Partida {
 
 		Map.Entry<Jugador, Integer> maxEntry = null;
 
-		 // Trae el VALOR MAXIMO DE PUNTAJE de un jugador de la tabla.
+		// Trae el VALOR MAXIMO DE PUNTAJE de un jugador de la tabla.
 		for (Map.Entry<Jugador, Integer> entry : tablaPuntaje.entrySet()) {
 			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
 				maxEntry = entry;
@@ -104,45 +108,45 @@ public class Partida {
 		// Busco al ganador de ronda en la tabla y le incremento 1;
 		tablaPuntaje.computeIfPresent(ganadorDeRonda, (k, v) -> v + 1);
 	}
-	
+
 	private void mostrarPremio() {
-		System.out.println("El ganador es: "+ this.ganadorDePartida.getNombre());
-		
+		System.out.println("El ganador es: " + this.ganadorDePartida.getNombre());
+
 		System.out.println("Tabla de puntajes\n----------------\n");
 		for (Jugador jugador : this.jugadores) {
-			System.out.println("Jugador: "+jugador.getNombre()+" Puntaje: "+this.tablaPuntaje.get(jugador));
+			System.out.println("Jugador: " + jugador.getNombre() + " Puntaje: " + this.tablaPuntaje.get(jugador));
 		}
-		
+
 		this.tablero.cerrarPantalla();
 
 		System.out.println("Termino partida!");
-		
+
 	}
-	
-	public ArrayList<Jugador> getJugadores(){
+
+	public ArrayList<Jugador> getJugadores() {
 		return this.jugadores;
 	}
-	
+
 	public Ronda getRondaActual() {
 		return this.rondaActual;
 	}
-	
+
 	public Jugador getGanadorDePartida() {
 		return this.ganadorDePartida;
 	}
-	
+
 	public void setTablaPuntaje(Map<Jugador, Integer> tablaPuntaje) {
 		this.tablaPuntaje = tablaPuntaje;
 	}
 
-	public int  obtenerPuntajeDeJugador(Jugador jugador) {
+	public int obtenerPuntajeDeJugador(Jugador jugador) {
 		return this.tablaPuntaje.get(jugador);
 	}
-	
+
 	public void setPuntajeGanador(int valor) {
 		this.puntajeGanadorDePartida = valor;
 	}
-	
+
 	public int getPuntajeGanador() {
 		return this.puntajeGanadorDePartida;
 	}
