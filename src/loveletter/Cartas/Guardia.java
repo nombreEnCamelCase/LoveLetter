@@ -37,6 +37,7 @@ public class Guardia extends Carta {
 			//Carta carta = new Baron(); ///simulo q el accionador intenta adivinar q tiene baron en la mano
 			if(cartaObjetivo.compareTo(objetivo.getMano().getCartaActual().getNombre()) == 0)  {
 				objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
+			}
 		}
 
 	}
