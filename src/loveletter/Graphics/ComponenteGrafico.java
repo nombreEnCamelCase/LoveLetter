@@ -46,6 +46,8 @@ public class ComponenteGrafico extends JFrame {
 	private DrawPanel drawPanel;
 	private BufferedImage background;
 	private BufferedImage backgroundTurno;
+	private BufferedImage jugadorMuerto;
+	//private BufferedImage jugadorMuerto2;
 	// Estas serian las cartas CLIQUEABLES, es decir las de la mano.
 	private ArrayList<ClickeableCarta> cartasEnMano = new ArrayList<ClickeableCarta>();
 
@@ -144,10 +146,12 @@ public class ComponenteGrafico extends JFrame {
 						
 						if (jugadoresEnTablero.size() <= 3) {
 							g2.setColor(Color.MAGENTA);
-							g2.setFont(new Font("Tahoma", Font.BOLD, 40));
-							g2.drawString("Perdio! :D", 1435, 85);
+							g2.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+							g2.drawString("Perdio! :D", 1445, 85);
+							g2.drawImage(jugadorMuerto, 1470, 100, 130, 130, null);
 							if (jugadoresEnTablero.size() <= 2) {
-								g2.drawString("Perdio! :D", 860, 85);
+								g2.drawString("Perdio! :D", 870, 85);
+								g2.drawImage(jugadorMuerto, 900, 95, 130, 130, null);
 							}
 						}
 						
@@ -187,6 +191,9 @@ public class ComponenteGrafico extends JFrame {
 		try {
 			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
 			backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
+			//jugadorMuerto2 = ImageIO.read(new File("assets/other/die.png"));
+			jugadorMuerto = ImageIO.read(new File("assets/other/die_2.png"));
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
