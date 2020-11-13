@@ -29,7 +29,7 @@ public class Guardia extends Carta {
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
 		if(objetivo != null) {
 			Carta carta = new Baron(); ///simulo q el accionador intenta adivinar q tiene baron en la mano
-			if(carta == objetivo.getMano().getCartaActual()) {
+			if(carta.getNombre().compareTo(objetivo.getMano().getCartaActual().getNombre()) == 0)  {
 				objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
 			}
 		}
