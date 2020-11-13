@@ -3,6 +3,7 @@ package loveletter.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,10 +17,14 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.sun.prism.BasicStroke;
+
 import loveletter.Carta;
 import loveletter.Jugador;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.EnJuego;
+import loveletter.EstadosJugador.FueraDeRonda;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class ComponenteGrafico extends JFrame {
@@ -116,21 +121,40 @@ public class ComponenteGrafico extends JFrame {
 
 			if (!mostrarPantallaNegra) {
 
-				int cont=1;
+				int cont = 1;
 				for (int i = 0; i < jugadoresEnTablero.size(); i++) {
 					String nombreJugador = jugadoresEnTablero.get(i).getNombre();
+					String simbolos = Integer.toString(jugadoresEnTablero.get(i).getPuntaje());
 					if (jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { /// faltara un equals?
-						g2.setColor(Color.BLACK);
-						g2.setFont(new Font("Dialog", Font.BOLD, 60));
+						//g2.setColor(Color.YELLOW);
+						g2.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 60));
+
+						GradientPaint gp = new GradientPaint(400, 350, Color.RED, 900, 350, Color.YELLOW);
+						g2.setPaint(gp);
+						g2.drawRoundRect(320, 835, 350, 60, 10, 10);
+
 						g2.drawString(nombreJugador, 430, 880);
+						g2.drawString(simbolos, 480, 990);
 					} else {
 						g2.setColor(Color.BLACK);
 						g2.setFont(new Font("Dialog", Font.BOLD, 30));
-						g2.drawString(nombreJugador, (cont==1)?360:((cont==2)?920:1485), 80); // deberia setear en el mismo lugar donde estan
+						g2.drawString(nombreJugador, (cont == 1) ? 360 : ((cont == 2) ? 920 : 1485), 80); 
+						g2.drawString(simbolos, (cont == 1) ? 385 : ((cont == 2) ? 945 : 1505), 145);
+						
+						
+						if (jugadoresEnTablero.size() <= 3) {
+							g2.setColor(Color.MAGENTA);
+							g2.setFont(new Font("Tahoma", Font.BOLD, 40));
+							g2.drawString("Perdio! :D", 1435, 85);
+							if (jugadoresEnTablero.size() <= 2) {
+								g2.drawString("Perdio! :D", 860, 85);
+							}
+						}
+						
 						cont++;
 						// los cuadrados
 					}
-					
+
 				}
 
 				for (int i = 0; i < cartasEnTablero.size(); i++) {
@@ -324,10 +348,11 @@ public class ComponenteGrafico extends JFrame {
 	}
 
 	public void ponerJugadoresEnPantalla(ArrayList<Jugador> jugadores) {
-		this.jugadoresEnTablero  = new ArrayList<JugadorGraphics>();
+		this.jugadoresEnTablero = new ArrayList<JugadorGraphics>();
 		JugadorGraphics jugador1;
 		for (int i = 0; i < jugadores.size(); i++) {
-			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual());
+			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual(),
+					jugadores.get(i).getPuntaje());
 			this.jugadoresEnTablero.add(jugador1);
 		}
 
