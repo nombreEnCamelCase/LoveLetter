@@ -16,7 +16,7 @@ public class Jugador {
 	
 	private int numeroJugador;
 
-	private int puntaje; // simbolo de afecto
+	private int puntaje = 0; // simbolo de afecto
 
 	private Estado estadoActual;
 
@@ -100,6 +100,10 @@ public class Jugador {
 		return this.puntaje;
 	}
 	
+	public void setPuntaje(int simbolo) {
+		this.puntaje = simbolo;
+	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -117,7 +121,7 @@ public class Jugador {
 	}
 
 	public void preparacionInicial(Mazo mazo, Tablero tablero) {
-		this.puntaje = 0;
+		//this.puntaje = 0;
 		this.mano = new Mano();
 		this.estadoActual = new EnEspera(); // Esto en realidad es dejarlo en espera.
 		tablero.mostrarEfectoRecibirCarta(this.mano.agregarCarta(mazo));
@@ -140,5 +144,7 @@ public class Jugador {
 	public void intercambiarMano(Mano manoContrincante) {
 		this.mano = manoContrincante;
 	}
+	
+	
 
 }
