@@ -32,9 +32,10 @@ public class Guardia extends Carta {
 		//esta ventana devuelve la carta seleccionada y compara con la mano de la victima
 		
 		String cartaObjetivo = tablero.esperarSeleccionCartaObjetivo();
-		
+		// if( objetivo.getMano().getCartaActual().equals( cartaObjetivo) )
 		if(objetivo != null) {
-			if( objetivo.getMano().getCartaActual().equals( cartaObjetivo) )
+			//Carta carta = new Baron(); ///simulo q el accionador intenta adivinar q tiene baron en la mano
+			if(cartaObjetivo.compareTo(objetivo.getMano().getCartaActual().getNombre()) == 0)  {
 				objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
 		}
 
