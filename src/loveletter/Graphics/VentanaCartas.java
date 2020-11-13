@@ -45,18 +45,18 @@ public class VentanaCartas extends JFrame {
 		panel.setLayout(null);
 
 		etiqueta = new JLabel();
-		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 20));
-		etiqueta.setText("Seleccione carta");
-		etiqueta.setBounds(110, 11, 230, 28);
+		etiqueta.setFont(new Font("Consolas", Font.BOLD, 20));
+		etiqueta.setText("Su oponente tiene...");
+		etiqueta.setBounds(50, 11, 230, 28);
 
 		panel.add(etiqueta);
 		getContentPane().add(panel);
 		
 		for (int i = 0; i < cartas.length; i++) {
 			boton = new JButton(cartas[i]);
-			boton.setBounds(151, desplazmientoY + 15* i, 100, 23);
+			boton.setBounds(100, desplazmientoY + 15* i, 100, 23);
 			cantidad = new JLabel(cartas[++i]);
-			cantidad.setBounds(255, desplazmientoY + 15 * ((i)-1) , 100, 23);
+			cantidad.setBounds(220, desplazmientoY + 15 * ((i)-1) , 100, 23);
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -69,7 +69,7 @@ public class VentanaCartas extends JFrame {
 			panel.add(boton);
 		}
 
-		setSize(400, 400);
+		setSize(300, 350);
 		setLocationRelativeTo(null);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}

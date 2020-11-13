@@ -31,66 +31,67 @@ public class VentanaAlerta extends JFrame {
 	private int desplazmientoY = 50;
 	private String nombreSeleccionado;
 	private Estado EstadoActual;
-	
+
 	private ArrayList<Jugador> jugadoresVictima = new ArrayList<Jugador>();
-	
+
 	public VentanaAlerta(ArrayList<Jugador> jugadoresVictima) {
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		this.jugadoresVictima = jugadoresVictima;
 
 		setResizable(false);
 		setTitle("Love Letter");
-		setDefaultCloseOperation(0); 
+		setDefaultCloseOperation(0);
 
 		panel = new JPanel();
 		panel.setLayout(null);
 
 		etiqueta = new JLabel();
-		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 20));
-		if( jugadoresVictima.size() == 0 ) {
+		etiqueta.setFont(new Font("Consolas", Font.BOLD, 20));
+		if (jugadoresVictima.size() == 0) {
 			etiqueta.setText("No hay jugadores disponibles");
-			etiqueta.setBounds(10, 11, 350, 28);
-			boton = new JButton("�OK!");
-			boton.setBounds(151, 200, 90, 25);
+			etiqueta.setBounds(5, 11, 310, 28);
+			boton = new JButton("Continuar");
+			boton.setBounds(150, 60, 90, 25);
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					//System.exit(0);
+					// System.exit(0);
 					dispose();
 				}
 			});
 			panel.add(boton);
+			setSize(380, 150);
+		} else {
+			etiqueta.setText("Aplicar efecto a...");
+			setSize(300, 250);
 		}
-		else
-			etiqueta.setText("Seleccione Jugador Objetivo");
+			
+		
 		etiqueta.setBounds(40, 11, 374, 28);
 
 		panel.add(etiqueta);
 		getContentPane().add(panel);
-		
+
 		for (int i = 0; i < jugadoresVictima.size(); i++) {
 			boton = new JButton(jugadoresVictima.get(i).getNombre());
-			boton.setBounds(151, desplazmientoY + 30 * i, 100, 23);
-			
+			boton.setBounds(100, desplazmientoY + 30 * i, 100, 23);
+
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					nombreSeleccionado = arg0.getActionCommand();
 				}
-				
+
 			});
 			panel.add(boton);
-			
+
 		}
-		
-		setSize(400, 400);
 		setLocationRelativeTo(null);
 	}
 
 	public Jugador getJugadorVictima() {
 		for (int i = 0; i < jugadoresVictima.size(); i++) {
-			if(jugadoresVictima.get(i).getNombre().equals(nombreSeleccionado)) {
+			if (jugadoresVictima.get(i).getNombre().equals(nombreSeleccionado)) {
 				return jugadoresVictima.get(i);
 			}
 		}

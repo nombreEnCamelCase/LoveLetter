@@ -84,14 +84,14 @@ public class VentanaGanadorPartida extends JFrame {
 		nameGanador.setFont(new Font("Consolas", Font.PLAIN, 13));
 		panel.add(nameGanador);
 		
-		botonOtraPartida = new JButton("Otra Partida");
-		botonOtraPartida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		botonOtraPartida.setBounds(87, 450, 122, 23);
-		panel.add(botonOtraPartida);
+//		botonOtraPartida = new JButton("Otra Partida");
+//		botonOtraPartida.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			
+//			}
+//		});
+//		botonOtraPartida.setBounds(87, 450, 122, 23);
+//		panel.add(botonOtraPartida);
 		
 		botonSalir = new JButton("Salir del Juego");
 		botonSalir.addActionListener(new ActionListener() {
@@ -99,7 +99,7 @@ public class VentanaGanadorPartida extends JFrame {
 				System.exit(0);
 			}
 		});
-		botonSalir.setBounds(228, 450, 122, 23);
+		botonSalir.setBounds(150, 450, 122, 23);
 		panel.add(botonSalir);
 		
 		
@@ -114,7 +114,7 @@ public class VentanaGanadorPartida extends JFrame {
 				punt2 = new JLabel();
 				punt2.setBounds(110+25*j, 210+43*i, 25, 24);
 				
-				ImageIcon fot = new ImageIcon("assets/other/dona.jpg");
+				ImageIcon fot = new ImageIcon("assets/other/dona.png");
 				ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(punt2.getWidth(), punt2.getHeight(), Image.SCALE_DEFAULT));
 				punt2.setIcon(icono);
 				panel.add(punt2);

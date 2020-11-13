@@ -121,11 +121,11 @@ public class ComponenteGrafico extends JFrame {
 					String nombreJugador = jugadoresEnTablero.get(i).getNombre();
 					if (jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { /// faltara un equals?
 						g2.setColor(Color.BLACK);
-						g2.setFont(new Font("Dialog", Font.BOLD, 60));
+						g2.setFont(new Font("Arial", Font.BOLD, 60));
 						g2.drawString(nombreJugador, 430, 880);
 					} else {
 						g2.setColor(Color.BLACK);
-						g2.setFont(new Font("Dialog", Font.BOLD, 30));
+						g2.setFont(new Font("Arial", Font.BOLD, 30));
 						g2.drawString(nombreJugador, (cont==1)?360:((cont==2)?920:1485), 80); // deberia setear en el mismo lugar donde estan
 						cont++;
 						// los cuadrados
