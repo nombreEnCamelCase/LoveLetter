@@ -8,6 +8,7 @@ import loveletter.Graphics.ComponenteGrafico;
 import loveletter.Graphics.VentanaAlerta;
 import loveletter.Graphics.VentanaCartas;
 import loveletter.Graphics.VentanaGanadorRonda;
+import loveletter.Graphics.VentanaMostrarManoContraria;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class Tablero {
@@ -17,6 +18,7 @@ public class Tablero {
 	private VentanaAlerta ventana;
 	private VentanaCartas ventanaCarta;
 	private VentanaGanadorRonda ventanaRonda;
+	private VentanaMostrarManoContraria ventanaSacerdote;
 
 	public Tablero() {
 		this.pantalla = new ComponenteGrafico();
@@ -146,4 +148,19 @@ public class Tablero {
 	public void cerrarPantalla() {
 		this.pantalla.cerrarPantalla();
 	}
+
+	
+	public void VentanaMostrarManoContraria(Jugador objetivo) {
+		this.ventanaSacerdote = new VentanaMostrarManoContraria(objetivo);
+		this.ventanaSacerdote.setVisible(true);
+
+		while (this.ventanaSacerdote.getConfirmacion()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventanaSacerdote.setVisible(false);	
+}
 }
