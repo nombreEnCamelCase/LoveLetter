@@ -27,17 +27,17 @@ public class Guardia extends Carta {
 	
 	@Override
 	public void aplicarEfectoAJugador(Jugador accionador, Jugador objetivo, Mazo mazo, Tablero tablero) {
-		
-		//aca tiene que llamarse la ventana alerta de cartas, donde se elije la carta de la victima
-		//esta ventana devuelve la carta seleccionada y compara con la mano de la victima
-		
 		String cartaObjetivo = tablero.esperarSeleccionCartaObjetivo();
-		
+		//System.out.println(cartaObjetivo + " => estoy aplicando efecto");
 		if(objetivo != null) {
-			if( objetivo.getMano().getCartaActual().equals( cartaObjetivo) )
+			if(  objetivo.getMano().getCartaActual().getNombre().equals(cartaObjetivo) ) {
+				tablero.resultadoEfectoGuardia(accionador, objetivo, "Correcto", cartaObjetivo);
+				//ver si enviar cartaObjetivo como parametro a la ventana 
 				objetivo.setEstadoActual(objetivo.getEstadoActual().perderRonda());
+			}
+			else 
+				tablero.resultadoEfectoGuardia(accionador, objetivo, "Incorrecto", cartaObjetivo);
 		}
-
 	}
 	
 	@Override

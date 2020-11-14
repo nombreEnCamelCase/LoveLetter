@@ -2,32 +2,25 @@ package loveletter.Graphics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import loveletter.Carta;
 import loveletter.Jugador;
-import loveletter.Partida;
-
 import java.awt.Font;
-import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 
 public class VentanaCartas extends JFrame {
 
 	private static final long serialVersionUID = 1779064557725749287L;
 	private JPanel panel;
-	private JLabel etiqueta, cantidad;
+	private JLabel etiqueta, etiqueta1, cantidad;
 	private JButton boton;
 	private int desplazmientoY = 50;
 	private String cartaSeleccionada;
+	private boolean confirmacion = false;
 	private static String []cartas = {	"Sacerdote","2",
 										"Baron","2",
 										"Mucama","2",
@@ -58,7 +51,7 @@ public class VentanaCartas extends JFrame {
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					cartaSeleccionada = arg0.getActionCommand();
+					setCartaSeleccionada(arg0.getActionCommand());
 					dispose();
 				}
 
@@ -72,6 +65,53 @@ public class VentanaCartas extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
+	public VentanaCartas(Jugador accionador, Jugador objetivo, String resultado, String cartaObjetivo) {
+		setResizable(false);
+		setTitle("¡Resultado de efecto Guardia!");
+
+		panel = new JPanel();
+		panel.setLayout(null);
+
+		getContentPane().add(panel);
+		
+		etiqueta = new JLabel("El jugador " + accionador.getNombre() + " selecciono la carta " + cartaObjetivo + " y");
+		etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 14));
+		etiqueta.setBounds(10, 31, 416, 39);
+		panel.add(etiqueta);
+		
+		boton = new JButton("Continuar");
+		boton.setBounds(180, 165, 89, 23);
+		boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				confirmacion=true;
+				dispose();
+			}
+		});
+		panel.add(boton);
+		
+		etiqueta1 = new JLabel("fue " + resultado);
+		etiqueta1.setFont(new Font("Consolas", Font.PLAIN, 14));
+		etiqueta1.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqueta1.setBounds(10, 92, 416, 39);
+		panel.add(etiqueta1);
+	
+		
+		
+		setSize(450, 250);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+
+	public boolean getConfirmacion() {
+		return confirmacion;
+	}
+	
+	public void setCartaSeleccionada( String Seleccionada ) {
+		cartaSeleccionada = Seleccionada;
+	}
+	
 	public String getCartaSeleccionada() {
 		return cartaSeleccionada;
 	}

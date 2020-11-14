@@ -29,7 +29,6 @@ public class VentanaGanadorRonda extends JFrame {
 		setSize(380,221);
 		setLocationRelativeTo(null);
 		
-		
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setBackground(Color.WHITE);
