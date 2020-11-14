@@ -17,14 +17,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import com.sun.prism.BasicStroke;
-
 import loveletter.Carta;
 import loveletter.Jugador;
-import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.EnJuego;
-import loveletter.EstadosJugador.FueraDeRonda;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class ComponenteGrafico extends JFrame {
