@@ -35,12 +35,13 @@ public class VentanaAlerta extends JFrame {
 	private ArrayList<Jugador> jugadoresVictima = new ArrayList<Jugador>();
 	
 	public VentanaAlerta(ArrayList<Jugador> jugadoresVictima) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		
 		this.jugadoresVictima = jugadoresVictima;
 
 		setResizable(false);
 		setTitle("Love Letter");
+		setDefaultCloseOperation(0); 
 
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -50,7 +51,7 @@ public class VentanaAlerta extends JFrame {
 		if( jugadoresVictima.size() == 0 ) {
 			etiqueta.setText("No hay jugadores disponibles");
 			etiqueta.setBounds(10, 11, 350, 28);
-			boton = new JButton("¡OK!");
+			boton = new JButton("ï¿½OK!");
 			boton.setBounds(151, 200, 90, 25);
 			boton.addActionListener(new ActionListener() {
 				@Override
