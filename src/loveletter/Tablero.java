@@ -104,6 +104,23 @@ public class Tablero {
 		this.ventana.setVisible(false);
 		return cartaObjetivo;
 	}
+	public void resultadoEfectoGuardia(Jugador accionador, Jugador objetivo, String resultado, String cartaObjetivo) {
+		this.ventanaCarta = new VentanaCartas(accionador, objetivo, resultado, cartaObjetivo);
+		this.ventanaCarta.setVisible(true);
+		
+		while ( ventanaCarta.getConfirmacion() == false ) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventana.setVisible(false);
+	}
+	
+	
+	
+	
 	public void ventanaRonda(Jugador ganadorDeRonda) {
 		this.ventanaRonda = new VentanaGanadorRonda(ganadorDeRonda);
 		this.ventanaRonda.setVisible(true);
@@ -118,6 +135,21 @@ public class Tablero {
 		this.ventanaRonda.setVisible(false);
 	}
 
+	public void verManoJugadorVictima() {
+		this.ventanaCarta = new VentanaCartas();
+		this.ventanaCarta.setVisible(true);
+		String cartaObjetivo = this.ventanaCarta.getCartaSeleccionada();
+		
+		while ((cartaObjetivo = this.ventanaCarta.getCartaSeleccionada()) == null) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventana.setVisible(false);
+	}
+	
 	public Jugador esperarSeleccionVictima() {
 		return new Jugador("Fede", 1);
 	}
