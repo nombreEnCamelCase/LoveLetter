@@ -70,6 +70,7 @@ public class VentanaCartas extends JFrame {
 	public VentanaCartas(Jugador accionador, Jugador objetivo, String resultado, String cartaObjetivo) {
 		setResizable(false);
 		setTitle("¡Resultado de efecto Guardia!");
+		setDefaultCloseOperation(0); 
 
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -102,7 +103,7 @@ public class VentanaCartas extends JFrame {
 		
 		setSize(450, 250);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 

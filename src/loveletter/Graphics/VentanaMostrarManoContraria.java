@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import loveletter.Jugador;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class VentanaMostrarManoContraria extends JFrame {
 
@@ -46,7 +47,8 @@ public class VentanaMostrarManoContraria extends JFrame {
 		panel.setLayout(null);
 		
 		etiqueta = new JLabel();
-		etiqueta.setBounds(115, 11, 291, 49);
+		etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqueta.setBounds(10, 11, 396, 49);
 		etiqueta.setFont(new Font("Consolas", Font.PLAIN, 20));
 		etiqueta.setText("Mano de "+objetivo.getNombre());
 		panel.add(etiqueta);
@@ -62,7 +64,8 @@ public class VentanaMostrarManoContraria extends JFrame {
 		panel.add(botonContinuar);
 		
 		punt2 = new JLabel();
-		punt2.setBounds(107, 71, 216, 301);
+		punt2.setHorizontalAlignment(SwingConstants.CENTER);
+		punt2.setBounds(95, 53, 216, 301);
 		
 		ImageIcon fot = new ImageIcon(objetivo.getMano().getCartaActual().getImgUri());
 		ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(punt2.getWidth(), punt2.getHeight(), Image.SCALE_DEFAULT));
