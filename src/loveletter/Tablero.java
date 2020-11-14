@@ -8,6 +8,7 @@ import loveletter.Graphics.ComponenteGrafico;
 import loveletter.Graphics.VentanaAlerta;
 import loveletter.Graphics.VentanaCartas;
 import loveletter.Graphics.VentanaGanadorRonda;
+import loveletter.Graphics.VentanaMostrarManoContraria;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class Tablero {
@@ -17,6 +18,7 @@ public class Tablero {
 	private VentanaAlerta ventana;
 	private VentanaCartas ventanaCarta;
 	private VentanaGanadorRonda ventanaRonda;
+	private VentanaMostrarManoContraria ventanaSacerdote;
 
 	public Tablero() {
 		this.pantalla = new ComponenteGrafico();
@@ -102,6 +104,23 @@ public class Tablero {
 		this.ventana.setVisible(false);
 		return cartaObjetivo;
 	}
+	public void resultadoEfectoGuardia(Jugador accionador, Jugador objetivo, String resultado, String cartaObjetivo) {
+		this.ventanaCarta = new VentanaCartas(accionador, objetivo, resultado, cartaObjetivo);
+		this.ventanaCarta.setVisible(true);
+		
+		while ( ventanaCarta.getConfirmacion() == false ) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventana.setVisible(false);
+	}
+	
+	
+	
+	
 	public void ventanaRonda(Jugador ganadorDeRonda) {
 		this.ventanaRonda = new VentanaGanadorRonda(ganadorDeRonda);
 		this.ventanaRonda.setVisible(true);
@@ -116,6 +135,21 @@ public class Tablero {
 		this.ventanaRonda.setVisible(false);
 	}
 
+	public void verManoJugadorVictima() {
+		this.ventanaCarta = new VentanaCartas();
+		this.ventanaCarta.setVisible(true);
+		String cartaObjetivo = this.ventanaCarta.getCartaSeleccionada();
+		
+		while ((cartaObjetivo = this.ventanaCarta.getCartaSeleccionada()) == null) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventana.setVisible(false);
+	}
+	
 	public Jugador esperarSeleccionVictima() {
 		return new Jugador("Fede", 1);
 	}
@@ -146,4 +180,19 @@ public class Tablero {
 	public void cerrarPantalla() {
 		this.pantalla.cerrarPantalla();
 	}
+
+	
+	public void VentanaMostrarManoContraria(Jugador objetivo) {
+		this.ventanaSacerdote = new VentanaMostrarManoContraria(objetivo);
+		this.ventanaSacerdote.setVisible(true);
+
+		while (this.ventanaSacerdote.getConfirmacion()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.ventanaSacerdote.setVisible(false);	
+}
 }

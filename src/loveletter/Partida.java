@@ -40,7 +40,7 @@ public class Partida {
 		this.tablaPuntaje.put(jugador2, 0);
 		this.tablaPuntaje.put(jugador3, 0);
 		this.tablaPuntaje.put(jugador4, 0);
-		this.puntajeGanadorDePartida = 1;
+		this.puntajeGanadorDePartida = 2;
 		this.tablero = new Tablero();
 
 	}

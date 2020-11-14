@@ -138,6 +138,7 @@ public class Jugador {
 	}
 
 	public Mano verCartasDeMano(Mano manoContrincante) {
+		
 		return manoContrincante;
 	}
 
