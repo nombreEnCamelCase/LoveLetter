@@ -30,6 +30,8 @@ public class Sacerdote extends Carta {
 			accionador.verCartasDeMano(objetivo.getMano());
 			//tablero.mostrarManoContraria (alerta)
 			//objetivo.verCartasDeMano(accionador.getMano());
+			//////objetivo.getMano().getCartaActual().getImgUri(); mio
+			tablero.VentanaMostrarManoContraria(objetivo);
 		}
 	}
 	

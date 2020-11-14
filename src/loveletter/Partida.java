@@ -58,10 +58,11 @@ public class Partida {
 																			// ronda actual.
 				ganadorRonda = this.rondaActual.comenzar();
 				sumarPuntaje(ganadorRonda);
-				// tablero.ventanaRonda(ganadorRonda);
-				System.out.println("Gano la ronda: " + ganadorRonda.getNombre());
-
-			} else
+				sumarSimbolosDeAfecto(ganadorRonda);
+			
+				System.out.println("Gano la ronda: "+ganadorRonda.getNombre());
+			}
+			else
 				System.out.println("No se puede iniciar");
 		}
 
@@ -102,6 +103,15 @@ public class Partida {
 		if (this.puntajeGanadorDePartida == maxEntry.getValue())
 			return maxEntry.getKey();
 		return null;
+	}
+	
+	public void sumarSimbolosDeAfecto(Jugador ganador) {
+		int total = ganador.getPuntaje() + 1;
+		for(Jugador j : this.jugadores) {
+			if(j.getNombre() == ganador.getNombre()) {
+				j.setPuntaje(total);
+			}
+		}
 	}
 
 	public void sumarPuntaje(Jugador ganadorDeRonda) {

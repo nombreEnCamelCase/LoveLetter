@@ -3,6 +3,7 @@ package loveletter.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -18,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import loveletter.Carta;
 import loveletter.Jugador;
-import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.EnJuego;
 
 //public class Tablero extends JFrame implements Runnable  {
@@ -41,6 +41,8 @@ public class ComponenteGrafico extends JFrame {
 	private DrawPanel drawPanel;
 	private BufferedImage background;
 	private BufferedImage backgroundTurno;
+	private BufferedImage jugadorMuerto;
+	//private BufferedImage jugadorMuerto2;
 	// Estas serian las cartas CLIQUEABLES, es decir las de la mano.
 	private ArrayList<ClickeableCarta> cartasEnMano = new ArrayList<ClickeableCarta>();
 
@@ -116,26 +118,47 @@ public class ComponenteGrafico extends JFrame {
 
 			if (!mostrarPantallaNegra) {
 
-				int cont=1;
+				int cont = 1;
 				for (int i = 0; i < jugadoresEnTablero.size(); i++) {
 					String nombreJugador = jugadoresEnTablero.get(i).getNombre();
+					String simbolos = Integer.toString(jugadoresEnTablero.get(i).getPuntaje());
 					if (jugadoresEnTablero.get(i).getEstado().equals(new EnJuego())) { /// faltara un equals?
-						g2.setColor(Color.BLACK);
-						g2.setFont(new Font("Arial", Font.BOLD, 60));
+						//g2.setColor(Color.YELLOW);
+						g2.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 60));
+
+						GradientPaint gp = new GradientPaint(400, 350, Color.RED, 900, 350, Color.YELLOW);
+						g2.setPaint(gp);
+						g2.drawRoundRect(320, 835, 350, 60, 10, 10);
+
 						g2.drawString(nombreJugador, 430, 880);
+						g2.drawString(simbolos, 480, 990);
 					} else {
 						g2.setColor(Color.BLACK);
-						g2.setFont(new Font("Arial", Font.BOLD, 30));
-						g2.drawString(nombreJugador, (cont==1)?360:((cont==2)?920:1485), 80); // deberia setear en el mismo lugar donde estan
+						g2.setFont(new Font("Dialog", Font.BOLD, 30));
+						g2.drawString(nombreJugador, (cont == 1) ? 360 : ((cont == 2) ? 920 : 1485), 80); 
+						g2.drawString(simbolos, (cont == 1) ? 385 : ((cont == 2) ? 945 : 1505), 145);
+						
+						
+						if (jugadoresEnTablero.size() <= 3) {
+							g2.setColor(Color.MAGENTA);
+							g2.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+							g2.drawString("Perdio", 1445, 85);
+							g2.drawImage(jugadorMuerto, 1470, 100, 130, 130, null);
+							if (jugadoresEnTablero.size() <= 2) {
+								g2.drawString("Perdio", 870, 85);
+								g2.drawImage(jugadorMuerto, 900, 95, 130, 130, null);
+							}
+						}
+						
 						cont++;
 						// los cuadrados
 					}
-					
+
 				}
 
 				for (int i = 0; i < cartasEnTablero.size(); i++) {
 					LayoutCarta carta = cartasEnTablero.get(i);
-					g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(),
+					g2.drawImage(carta.getCartaContenida().getBufferedImage(), carta.getCoordX(), carta.getCoordY(), 300, 420,
 							null);
 				}
 
@@ -159,10 +182,13 @@ public class ComponenteGrafico extends JFrame {
 	}
 
 	public void init() {
-
+		
 		try {
-			background = ImageIO.read(new File("assets/other/background_v3.jpg"));
+			background = ImageIO.read(new File("assets/other/background_v3_1.jpg"));
 			backgroundTurno = ImageIO.read(new File("assets/other/siguiente_turno2.jpg"));
+			//jugadorMuerto2 = ImageIO.read(new File("assets/other/die.png"));
+			jugadorMuerto = ImageIO.read(new File("assets/other/die_2.png"));
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -178,6 +204,7 @@ public class ComponenteGrafico extends JFrame {
 		setVisible(true);
 		setFocusable(true);
 		requestFocusInWindow();
+		setTitle("LoveLetter - The Simpsons");
 	}
 
 //	@Override
@@ -295,7 +322,6 @@ public class ComponenteGrafico extends JFrame {
 		while (clickPantalla == this.clicksEnPantalla) {
 			// Hizo algun click?
 			// System.out.println("Estoy esperando el click del usuario.");
-
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -324,10 +350,11 @@ public class ComponenteGrafico extends JFrame {
 	}
 
 	public void ponerJugadoresEnPantalla(ArrayList<Jugador> jugadores) {
-		this.jugadoresEnTablero  = new ArrayList<JugadorGraphics>();
+		this.jugadoresEnTablero = new ArrayList<JugadorGraphics>();
 		JugadorGraphics jugador1;
 		for (int i = 0; i < jugadores.size(); i++) {
-			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual());
+			jugador1 = new JugadorGraphics(jugadores.get(i).getNombre(), jugadores.get(i).getEstadoActual(),
+					jugadores.get(i).getPuntaje());
 			this.jugadoresEnTablero.add(jugador1);
 		}
 

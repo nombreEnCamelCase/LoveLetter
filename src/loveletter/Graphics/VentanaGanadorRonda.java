@@ -41,7 +41,7 @@ public class VentanaGanadorRonda extends JFrame {
 		
 		etiqueta = new JLabel();
 		etiqueta.setBounds(41, 11, 291, 49);
-		etiqueta.setFont(new Font("Consolas", Font.BOLD, 30));
+		etiqueta.setFont(new Font("Consolas", Font.BOLD, 20));
 		etiqueta.setText("El ganador de la ronda es");
 		panel.add(etiqueta);
 		
@@ -56,7 +56,7 @@ public class VentanaGanadorRonda extends JFrame {
 		panel.add(botonContinuar);
 		
 		winner = new JLabel(Ganador.getNombre());
-		winner.setFont(new Font("Consolas", Font.BOLD, 40));
+		winner.setFont(new Font("Consolas", Font.BOLD, 20));
 		winner.setBounds(155, 71, 46, 23);
 		panel.add(winner);
 				

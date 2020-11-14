@@ -3,24 +3,12 @@ package loveletter.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import loveletter.Carta;
 import loveletter.Jugador;
-import loveletter.Partida;
-import loveletter.EstadosJugador.Estado;
-import loveletter.EstadosJugador.Inmune;
-
 import java.awt.Font;
-import javax.swing.JRadioButton;
 
 public class VentanaAlerta extends JFrame {
 
@@ -30,8 +18,8 @@ public class VentanaAlerta extends JFrame {
 	private JButton boton;
 	private int desplazmientoY = 50;
 	private String nombreSeleccionado;
-	private Estado EstadoActual;
-
+	//private Estado EstadoActual;
+	
 	private ArrayList<Jugador> jugadoresVictima = new ArrayList<Jugador>();
 
 	public VentanaAlerta(ArrayList<Jugador> jugadoresVictima) {
@@ -55,7 +43,7 @@ public class VentanaAlerta extends JFrame {
 			boton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// System.exit(0);
+					nombreSeleccionado = null;
 					dispose();
 				}
 			});
