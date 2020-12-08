@@ -111,11 +111,6 @@ public class ComponenteGrafico extends JFrame {
 			g2.scale(currentDimension.getWidth() / RESOL_WIDTH, currentDimension.getHeight() / RESOL_HEIGHT);
 			g2.drawImage(mostrarPantallaNegra ? backgroundTurno : background, null, 0, 0);
 
-//			g2.setColor(Color.WHITE);
-//			g2.setFont(new Font("Dialog", Font.BOLD, 24));
-//			g2.drawString("Time: " + String.format("%6s", loops * SKIP_TICKS) + "ms", 20, 25);
-//			g2.drawString("FPS: " + fps + "", 240, 25);
-
 			if (!mostrarPantallaNegra) {
 
 				int cont = 1;

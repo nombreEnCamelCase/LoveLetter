@@ -1,4 +1,4 @@
-package loveletter.Graphics;
+package loveletter.Screens;
 
 import java.awt.Color;
 import java.awt.Font;

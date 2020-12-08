@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import loveletter.Cartas.Condesa;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Inmune;
-import loveletter.Graphics.VentanaAlerta;
-import loveletter.Graphics.VentanaGanadorRonda;
+import loveletter.Screens.VentanaAlerta;
+import loveletter.Screens.VentanaGanadorRonda;
 
 public class Ronda {
 	// Esta clase se comportaria como un game manager.

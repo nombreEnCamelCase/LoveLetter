@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import loveletter.Graphics.ComponenteGrafico;
-import loveletter.Graphics.VentanaAlerta;
-import loveletter.Graphics.VentanaCartas;
-import loveletter.Graphics.VentanaGanadorRonda;
-import loveletter.Graphics.VentanaMostrarManoContraria;
+import loveletter.Screens.VentanaAlerta;
+import loveletter.Screens.VentanaCartas;
+import loveletter.Screens.VentanaGanadorRonda;
+import loveletter.Screens.VentanaMostrarManoContraria;
 
 //public class Tablero extends JFrame implements Runnable  {
 public class Tablero {

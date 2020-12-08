@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import loveletter.Graphics.VentanaGanadorPartida;
+import loveletter.Screens.VentanaGanadorPartida;
 
 public class Partida {
 
@@ -21,34 +21,37 @@ public class Partida {
 
 	private VentanaGanadorPartida ventana;
 
-	public Partida() {
+	public Partida(int puntajeGanador) {
 
 		// Se crea una nueva partida, deberian pasarle los jugadores, pero lo
 		// harcodeamos aca.
-		Jugador jugador1 = new Jugador("Maty", 1);
-		Jugador jugador2 = new Jugador("Fede", 2);
-		Jugador jugador3 = new Jugador("Javi", 3);
-		Jugador jugador4 = new Jugador("Nahu", 4);
-
-		this.jugadores.add(jugador1);
-		this.jugadores.add(jugador2);
-		this.jugadores.add(jugador3);
-		this.jugadores.add(jugador4);
+//		Jugador jugador1 = new Jugador("Maty", 1);
+//		Jugador jugador2 = new Jugador("Fede", 2);
+//		Jugador jugador3 = new Jugador("Javi", 3);
+//		Jugador jugador4 = new Jugador("Nahu", 4);
+//		this.jugadores.add(jugador1);
+//		this.jugadores.add(jugador2);
+//		this.jugadores.add(jugador3);
+//		this.jugadores.add(jugador4);
 
 		// Creamos una "Tabla de puntajes"
-		this.tablaPuntaje.put(jugador1, 0);
-		this.tablaPuntaje.put(jugador2, 0);
-		this.tablaPuntaje.put(jugador3, 0);
-		this.tablaPuntaje.put(jugador4, 0);
-		this.puntajeGanadorDePartida = 2;
+		
+//		this.tablaPuntaje.put(jugador1, 0);
+//		this.tablaPuntaje.put(jugador2, 0);
+//		this.tablaPuntaje.put(jugador3, 0);
+//		this.tablaPuntaje.put(jugador4, 0);
+//		this.puntajeGanadorDePartida = 2;
+		this.puntajeGanadorDePartida = puntajeGanador;
+		
 		this.tablero = new Tablero();
 
 	}
 
 	public Jugador comenzarJuego() {
-		// Chequea que exista la cantidad minima de jugadores.
+		// El chequeo de la cantidad minima deberia hacerse antes de esto, no deberia comenzar el juego si no hay al menos dos.
 		Jugador ganadorRonda;
-
+		inicializarTablaPuntaje();
+		
 		// TODO: Falta contemplar en el while que los jugadores sean los necesarios para
 		// jugar y no esten desconectados.
 		while ((ganadorDePartida = buscarganadorDePartidaDePartida()) == null) {
@@ -159,5 +162,15 @@ public class Partida {
 
 	public int getPuntajeGanador() {
 		return this.puntajeGanadorDePartida;
+	}
+	
+	public void addNewPlayer(Jugador jugador) {
+		this.jugadores.add(jugador);
+	}
+	
+	private void inicializarTablaPuntaje() {
+		for(Jugador jugador : this.jugadores) {
+			this.tablaPuntaje.put(jugador, 0);
+		}
 	}
 }
