@@ -12,8 +12,8 @@ public class Partida {
 
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 	private Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();
+	public static Map<String, Jugador> connectionsList = new HashMap<String, Jugador>();
 	// Es necesario rondas pasadas? Verificar.
-	private List<Ronda> rondasPasadas = new LinkedList<Ronda>();
 	private int puntajeGanadorDePartida;
 	private Ronda rondaActual;
 	private Jugador ganadorDePartida = null;
@@ -165,6 +165,7 @@ public class Partida {
 	}
 	
 	public void addNewPlayer(Jugador jugador) {
+		Partida.connectionsList.put(jugador.getNombre(), jugador);
 		this.jugadores.add(jugador);
 	}
 	
@@ -173,4 +174,7 @@ public class Partida {
 			this.tablaPuntaje.put(jugador, 0);
 		}
 	}
+	
 }
+
+

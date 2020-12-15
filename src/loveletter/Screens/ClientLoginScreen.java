@@ -42,9 +42,11 @@ public class ClientLoginScreen extends JDialog {
 	private JTextField textUsuario;
 	private JTextField text_IP_Servidor;
 	private JTextField text_PORT;
+	private int connectionPort;
 	// private JPasswordField passContrasenia;
 
-	public ClientLoginScreen() {
+	public ClientLoginScreen(int port) {
+		this.connectionPort = port;
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setTitle("Ingresar a sala de juego");
@@ -110,7 +112,7 @@ public class ClientLoginScreen extends JDialog {
 		text_IP_Servidor.setColumns(10);
 
 		text_PORT = new JTextField();
-		text_PORT.setText("20000");
+		text_PORT.setText(Integer.toString(connectionPort));
 		text_PORT.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -129,7 +131,6 @@ public class ClientLoginScreen extends JDialog {
 		contentPanel.add(text_PORT);
 		text_PORT.setColumns(10);
 		{
-
 			{
 				JButton okButton = new JButton("Ingresar");
 				okButton.setBounds(75, 160, 150, 50);
@@ -138,7 +139,7 @@ public class ClientLoginScreen extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						PlayerClient client = new PlayerClient(text_IP_Servidor.getText(),
-								Integer.parseInt(text_PORT.getText()),textUsuario.getText());
+								Integer.parseInt(text_PORT.getText()), textUsuario.getText());
 						client.execute();
 						dispose();
 

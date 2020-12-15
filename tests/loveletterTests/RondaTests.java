@@ -21,7 +21,7 @@ public class RondaTests {
 	
 	@Before
 	public void setUp() {
-		partida = new Partida();
+		partida = new Partida(1);
 		ronda = new Ronda(partida.getJugadores(),new Tablero());
 	}
 	

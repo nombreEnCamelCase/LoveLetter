@@ -1,10 +1,13 @@
 package loveletter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import loveletter.Graphics.ComponenteGrafico;
+import loveletter.Graphics.GraphicHandler;
 import loveletter.Screens.VentanaAlerta;
 import loveletter.Screens.VentanaCartas;
 import loveletter.Screens.VentanaGanadorRonda;
@@ -14,14 +17,19 @@ import loveletter.Screens.VentanaMostrarManoContraria;
 public class Tablero {
 	private List<Turno> historialTurnosPasados = new LinkedList<Turno>();
 	private Turno turnoEnCurso;
-	private ComponenteGrafico pantalla;
-	private VentanaAlerta ventana;
-	private VentanaCartas ventanaCarta;
-	private VentanaGanadorRonda ventanaRonda;
-	private VentanaMostrarManoContraria ventanaSacerdote;
+	private Map<String,GraphicHandler> screenList = new HashMap<String,GraphicHandler>();
+	
+//	private ComponenteGrafico pantalla;
+//	private VentanaAlerta ventana;
+//	private VentanaCartas ventanaCarta;
+//	private VentanaGanadorRonda ventanaRonda;
+//	private VentanaMostrarManoContraria ventanaSacerdote;
 
-	public Tablero() {
-		this.pantalla = new ComponenteGrafico();
+	public Tablero(ArrayList<Jugador> jugadores) {
+		for(Jugador jugador : jugadores) {
+			screenList.put(jugador.userConnection.getNombre(), new GraphicHandler(jugador));
+		}
+		//this.pantalla = new ComponenteGrafico();
 		// this.ventana = new VentanaAlerta();
 	}
 
@@ -89,6 +97,7 @@ public class Tablero {
 		this.ventana.setVisible(false);
 		return respuesta;
 	}
+	
 	public String esperarSeleccionCartaObjetivo() {
 		this.ventanaCarta = new VentanaCartas();
 		this.ventanaCarta.setVisible(true);
@@ -118,9 +127,6 @@ public class Tablero {
 		this.ventana.setVisible(false);
 	}
 	
-	
-	
-	
 	public void ventanaRonda(Jugador ganadorDeRonda) {
 		this.ventanaRonda = new VentanaGanadorRonda(ganadorDeRonda);
 		this.ventanaRonda.setVisible(true);
@@ -148,10 +154,6 @@ public class Tablero {
 			}
 		}
 		this.ventana.setVisible(false);
-	}
-	
-	public Jugador esperarSeleccionVictima() {
-		return new Jugador("Fede", 1);
 	}
 
 	public void agregarCartaAPantalla(Carta carta) {

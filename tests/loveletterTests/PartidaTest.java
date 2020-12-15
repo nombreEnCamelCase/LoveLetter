@@ -17,7 +17,7 @@ public class PartidaTest {
 		// Arrange
 		Jugador ganadorResponse;
 		Jugador dummyJugador = new Jugador("Fede",1);
-		partida = new Partida();
+		partida = new Partida(1);
 		
 		// Act
 		ganadorResponse = partida.comenzarJuego();
@@ -29,7 +29,7 @@ public class PartidaTest {
 	@Test
 	public void tablaPuntajeConGanador_encuentraGanadorPorPuntaje() {
 		// Arrange
-		partida = new Partida();
+		partida = new Partida(1);
 		Jugador jugador1 = new Jugador("Maty",1);
 		Jugador jugador2 = new Jugador("Fede",2);
 		Jugador ganadorPartida;
@@ -49,7 +49,7 @@ public class PartidaTest {
 	@Test
 	public void tablaPuntajeConJugadores_sumaPuntajeAUno() {
 		// Arrange
-		partida = new Partida();
+		partida = new Partida(4);
 		Jugador jugador1 = new Jugador("Maty",1);
 		Jugador jugador2 = new Jugador("Fede",2);
 		Map<Jugador, Integer> tablaPuntaje = new HashMap<Jugador, Integer>();

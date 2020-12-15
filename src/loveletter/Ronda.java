@@ -23,8 +23,6 @@ public class Ronda {
 	private Jugador ganadorDeRonda = null;
 
 	
-	
-	
 	public Ronda(ArrayList<Jugador> jugadores, Tablero tablero) {
 		this.jugadoresEnJuego = jugadores;
 		this.mazo = new Mazo();

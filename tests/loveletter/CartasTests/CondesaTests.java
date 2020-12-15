@@ -2,6 +2,10 @@ package loveletter.CartasTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
+import java.io.IOException;
+import java.net.Socket;
+
 import loveletter.Jugador;
 import loveletter.Cartas.*;
 import loveletter.Mazo;
@@ -15,15 +19,16 @@ public class CondesaTests {
 	private Rey rey;
 	private Jugador jugador, contrincante;
 	private Mazo mazo;
-	private Tablero tablero=null;
-	
-	
+	private Tablero tablero = null;
+
 	@Before
 	public void setUp() {
 		condesa = new Condesa();
 		rey = new Rey();
-		jugador = new Jugador("condesa",1);
-		contrincante = new Jugador("contrincante",2);
+
+		jugador = new Jugador("condesa", 1);
+		contrincante = new Jugador("contrincante", 2);
+
 	}
 
 	@Test

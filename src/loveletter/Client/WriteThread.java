@@ -5,9 +5,9 @@ import java.net.*;
 import java.util.Scanner;
 
 // Este thread tiene la responsabilidad de leer desde el input que realice el usuario y enviarlo al servidor.
-// Esto corre infitamente en un demonio, hasta que el usuario ingrese '-quit' para desconectarse de la sala de chat y eliminar el thread.
+// Esto corre infitamente en un demonio, hasta que el usuario seleccione '-quit' para desconectarse y eliminar el thread.
 
-public class WriteThread extends Thread {
+public class WriteThread extends Thread implements AccionesCliente {
 	private PrintWriter writer;
 	private Socket socket;
 	private PlayerClient client;
@@ -29,12 +29,7 @@ public class WriteThread extends Thread {
 
 	public void run() {
 
-//		String userName = getLineFromUserByInput("Ingrese nickname");
-//
-//		client.setUserName(userName);
-//		writer.println(userName);
-
-		System.out.println(this.client.getUserName()+" - Ha entrado al chat, puede comenzar a hablar.");
+		System.out.println(this.client.getUserName()+" - Ha entrado a la sala de juego");
 
 		String text, msje;
 		

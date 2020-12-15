@@ -4,7 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import loveletter.Utilities.Sonido;
+
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
@@ -28,12 +32,14 @@ public class ClientStartScreen extends JFrame {
 	private JPanel contentPane;
 	private final int RESOL_HEIGHT = 1080;
 	private final int RESOL_WIDTH = 1920;
-
-	public void cargarInterfaz() throws ClassNotFoundException, LineUnavailableException, IOException {
+	private int connectionPort;
+	public void cargarInterfaz(int port) throws ClassNotFoundException, LineUnavailableException, IOException {
+		this.connectionPort = port;
 		EventQueue.invokeLater(new Runnable() {
+		
 			public void run() {
 				try {
-					ClientStartScreen frame = new ClientStartScreen();
+					ClientStartScreen frame = new ClientStartScreen(connectionPort);
 					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 					frame.setSize(800, 600);
 					frame.setLocation(dim.width / 2 - frame.getWidth() / 2, dim.height / 2 - frame.getHeight() / 2);
@@ -46,8 +52,9 @@ public class ClientStartScreen extends JFrame {
 		});
 	}
 
-	public ClientStartScreen()
+	public ClientStartScreen(int port)
 			throws ClassNotFoundException, LineUnavailableException, IOException, UnsupportedAudioFileException {
+		this.connectionPort= port;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
@@ -56,13 +63,16 @@ public class ClientStartScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
+//		Sonido musica = new Sonido("utilidades/simpsons.wav");
+//		musica.comenzar();
+		
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setBackground(Color.YELLOW);
 		btnJugar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ClientLoginScreen menuJugar = new ClientLoginScreen();
+				ClientLoginScreen menuJugar = new ClientLoginScreen(connectionPort);
 				menuJugar.setVisible(true);
 				dispose();
 			}

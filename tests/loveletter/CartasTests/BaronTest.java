@@ -2,6 +2,8 @@ package loveletter.CartasTests;
 
 import static org.junit.Assert.*;
 
+import java.net.Socket;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +28,7 @@ public class BaronTest {
 	public void setUp() {
 		baron = new Baron();
 		jugadorBaron = new Jugador("JugadorBaron",1);
-		JugadorObjetivo = new Jugador("JugadorObjetivo",2);
+		JugadorObjetivo = new Jugador("JugadorObjetivo", 2);
 	}
 
 	@Test

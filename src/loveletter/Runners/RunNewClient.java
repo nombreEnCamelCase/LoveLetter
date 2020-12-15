@@ -9,12 +9,12 @@ import loveletter.Screens.ClientStartScreen;
 
 public class RunNewClient {
 	
-
+	private final static int PORT = 20000;
 	public static void main(String[] args) {
 		
 		try {
-			ClientStartScreen menu = new ClientStartScreen();
-			menu.cargarInterfaz();
+			ClientStartScreen menu = new ClientStartScreen(PORT);
+			menu.cargarInterfaz(PORT);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,14 +28,5 @@ public class RunNewClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		String hostname = "localhost";
-//		int port = 20000;
-//		
-//		try {
-//			PlayerClient client = new PlayerClient(hostname, port);
-//			client.execute();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 	}
 }

@@ -10,7 +10,7 @@ import java.io.*;
 // Escribir '-quit' para cerrar atencion de cliente.
 public class PlayerClient {
 	private String hostname;
-	private int port = 20000;
+	private int port;
 	private String userName;
 
 	
@@ -24,7 +24,7 @@ public class PlayerClient {
 		try {
 			Socket socket = new Socket(hostname, port);
 
-			System.out.println("Se ha conectado a la sala de chat.");
+			System.out.println("Se ha conectado al juego");
 
 			(new ReadThread(socket, this)).start();
 			(new WriteThread(socket, this)).start();

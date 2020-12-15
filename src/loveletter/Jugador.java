@@ -2,15 +2,13 @@ package loveletter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
+import loveletter.Client.UserThread;
 import loveletter.EstadosJugador.EnEspera;
 import loveletter.EstadosJugador.Estado;
 import loveletter.EstadosJugador.FueraDeRonda;
 import loveletter.EstadosJugador.Inmune;
 
-public class Jugador {
+public class Jugador implements Comparable<Jugador>{
 
 	private String nombre;
 	
@@ -22,10 +20,19 @@ public class Jugador {
 
 	Mano mano;
 
+	UserThread userConnection = null;
+	
 	public Jugador(String nombre,int nro) {
 		this.nombre = nombre;
 		this.numeroJugador = nro;
 	}
+	
+	public Jugador(String nombre,int nro, UserThread connection) {
+		this.nombre = nombre;
+		this.numeroJugador = nro;
+		this.userConnection = connection;
+	}
+	
 
 	// todos los efectos de la carta tienen que traer el mazo this.mazo
 	// a todas las cartas
@@ -146,6 +153,36 @@ public class Jugador {
 		this.mano = manoContrincante;
 	}
 	
-	
+	public void setUserConnection(UserThread connection) {
+		this.userConnection = connection;
+	}
 
+	public UserThread getUserConnection() {
+		return this.userConnection;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Jugador otro = (Jugador) obj;
+		if (nombre == null) {
+			if (otro.nombre != null)
+				return false;
+		} else if (!nombre.equals(otro.nombre))
+			return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo(Jugador o) {
+		int compararPuntaje = o.puntaje;
+		int tmp = compararPuntaje - this.puntaje;
+		if(tmp == 0) return 1;
+		return tmp;
+	}
+	
 }
